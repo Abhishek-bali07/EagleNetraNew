@@ -10,11 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initAppModule();
-
-
-
   runApp(const MyApp());
 }
+
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -34,7 +33,6 @@ class _MyappState extends State<MyApp> {
             color: Colors.red,
             debugShowCheckedModeBanner: false,
             navigatorKey:instance<NavigationService>().navigatorKey,
-            title: "Title",
             //initialRoute: Routes.splash,
             initialRoute: Routes.mobileinput,
             onGenerateRoute: RouteGenerator.getRoute);

@@ -41,6 +41,22 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     });
   }
 
+  late final _$isShowAtom =
+      Atom(name: '_MobileInputViewModel.isShow', context: context);
+
+  @override
+  bool get isShow {
+    _$isShowAtom.reportRead();
+    return super.isShow;
+  }
+
+  @override
+  set isShow(bool value) {
+    _$isShowAtom.reportWrite(value, super.isShow, () {
+      super.isShow = value;
+    });
+  }
+
   late final _$mobileNumberAtom =
       Atom(name: '_MobileInputViewModel.mobileNumber', context: context);
 
@@ -119,6 +135,7 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     return '''
 gettingDataLoader: ${gettingDataLoader},
 sendingLoader: ${sendingLoader},
+isShow: ${isShow},
 mobileNumber: ${mobileNumber},
 enableBtn: ${enableBtn}
     ''';

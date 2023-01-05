@@ -51,16 +51,26 @@ class _MobileInputState extends State<MobileInput> {
               close: vm.dialogManager.closeErrorDialog);
         }
       }),
-
-      reaction((p0) => vm.dialogManager.currentState, (p0) {
-        if(p0 == DialogState.displaying){
-          dialogController.showWithCustomData(
-              vm.dialogManager.data!,
-              p0,
-              close: vm.dialogManager.closeDialog,
-              VerifyOtpPage(argument: vm.dialogManager.data!, number: vm.mobileNumber,));
-        }
-      })
+      reaction((p0) => vm.sendingLoader, (p0) {
+            vm.settingBottomSheet(context);
+          })
+      // reaction((p0) => vm.dialogManager.currentState, (p0) {
+      //   if(p0 is DialogState && p0 == DialogState.displaying){
+      //     showBottomSheet(context: context,
+      //         builder: (BuildContext context){
+      //
+      //           VerifyOtpPage(argument: vm.dialogManager.data!, number: vm.mobileNumber,);
+      //     });
+      //
+      //     // dialogController.showWithCustomData(
+      //     //     vm.dialogManager.data!,
+      //     //     p0,
+      //     //     close: vm.dialogManager.closeDialog,
+      //     //     VerifyOtpPage(
+      //     //       argument: vm.dialogManager.data!,
+      //     //       number: vm.mobileNumber,));
+      //   }
+      // })
     ];
   }
 
@@ -86,32 +96,34 @@ class _MobileInputState extends State<MobileInput> {
   }
 
   Widget _upperSideContent() {
-    return Align(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
-        child: fitBox(
-         child: Column(
-          children: [
-            fitBox(
-              child: _appLogo(),
-              ),
-            SizedBox(height: 0.01.sw),
-            fitBox(
-              child: Text(
-                  "Register or Sign In",
-                  style: TextStyle(fontSize: 180.sp),
+    return SafeArea(
+      child: Align(
+        alignment: Alignment.center,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
+          child: fitBox(
+           child: Column(
+            children: [
+              fitBox(
+                child: _appLogo(),
+                ),
+              SizedBox(height: 0.01.sw),
+              fitBox(
+                child: Text(
+                    "Register or Sign In",
+                    style: TextStyle(fontSize: 180.sp),
+                  ),
+                ),
+              fitBox(
+                child: Text(
+                  "Sign in or register with Otp verifications.",
+                  style: TextStyle(fontSize: 120.sp),
                 ),
               ),
-            fitBox(
-              child: Text(
-                "Sign in or register with Otp verifications.",
-                style: TextStyle(fontSize: 120.sp),
-              ),
-            ),
 
-          ],
-        )),
+            ],
+          )),
+        ),
       ),
     );
   }
@@ -126,7 +138,7 @@ class _MobileInputState extends State<MobileInput> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             expand(
-              flex: 7,
+              flex: 2,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: fitBox(
@@ -148,19 +160,19 @@ class _MobileInputState extends State<MobileInput> {
                         gettingLoader: vm.gettingDataLoader,
                       );
                     },
-                  )).padding(insets: EdgeInsets.only(top: 0.05.sh)),
+                  )).padding(insets: EdgeInsets.only(top: 0.06.sh)),
                 )),
             expand(
-                flex: 3,
+                flex: 5,
                 child: Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topCenter,
                   child: Observer(
                     builder: (BuildContext context) {
                       return ElevatedButton(
                           style: vm.enableBtn
                               ? AppButtonThemes.defaultStyle
                               : AppButtonThemes.cancelBtnStyle,
-                          onPressed: vm.enableBtn ? vm.onNext : null,
+                          onPressed: vm.enableBtn  ? vm.onNext  : null,
                           child: vm.sendingLoader
                               ? const CircularProgressIndicator(
                             color: AppColors.White,

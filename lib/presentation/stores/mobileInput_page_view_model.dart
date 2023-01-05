@@ -9,7 +9,10 @@ import 'package:eagle_netra/core/repository/mobile_input_repository.dart';
 import 'package:eagle_netra/presentation/app_navigator/di.dart';
 import 'package:eagle_netra/presentation/screens/mobileInput_page.dart';
 import 'package:eagle_netra/utils/dialog_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
+import '../screens/verify_otp_page.dart';
 
 part 'mobileInput_page_view_model.g.dart';
 
@@ -29,6 +32,10 @@ abstract class _MobileInputViewModel  with Store {
   bool sendingLoader = false;
 
 
+  @observable
+  bool isShow = false;
+
+
 
   @observable
   String mobileNumber = "";
@@ -39,6 +46,7 @@ abstract class _MobileInputViewModel  with Store {
   bool enableBtn = false;
 
   _MobileInputViewModel(){
+    onNext();
     validateInput();
   }
 
@@ -88,16 +96,7 @@ abstract class _MobileInputViewModel  with Store {
       switch (data != null && data.status) {
         case true:
           if (data!.isSend) {
-          dialogManager.initData(AlertData(
-              StringProvider.otpText,
-              null,
-              StringProvider.appId,
-              StringProvider.done,
-              null,
-              null,
-              null,
-              data));
-
+            settingBottomSheet(context);
           }
       }
     }
@@ -119,5 +118,15 @@ abstract class _MobileInputViewModel  with Store {
         enableBtn = false;
       }
     }
+  }
+
+
+
+  void settingBottomSheet(context) async{
+    showBottomSheet(
+        context: context,
+        builder: (BuildContext context){
+         return VerifyOtpPage(argument: vm.dialogManager.data!, number: vm.mobileNumber);
+    });
   }
 }
