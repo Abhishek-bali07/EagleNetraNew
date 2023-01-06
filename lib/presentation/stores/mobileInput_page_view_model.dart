@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:eagle_netra/core/common/alert_action.dart';
 import 'package:eagle_netra/core/common/alert_data.dart';
 import 'package:eagle_netra/core/common/app_settings.dart';
@@ -7,6 +9,7 @@ import 'package:eagle_netra/core/helpers/navigation_service.dart';
 import 'package:eagle_netra/core/helpers/string_provider.dart';
 import 'package:eagle_netra/core/repository/mobile_input_repository.dart';
 import 'package:eagle_netra/presentation/app_navigator/di.dart';
+import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/presentation/screens/mobileInput_page.dart';
 import 'package:eagle_netra/utils/dialog_manager.dart';
 import 'package:flutter/material.dart';
@@ -38,52 +41,64 @@ abstract class _MobileInputViewModel  with Store {
 
 
   @observable
+  bool verifyLoader = false;
+
+
+  @observable
+  bool reSendingOtpLoader = false;
+
+
+
+  @observable
   String mobileNumber = "";
+
+
+  @observable
+  String onOtp = "";
 
   String selectedCodeId = "";
 
   @observable
   bool enableBtn = false;
 
+
+  @observable
+  String showSnackbarMsg = "";
+
   _MobileInputViewModel(){
     onNext();
     validateInput();
   }
-
-
-
-
-  // @action
-  // getNumberCodes() async {
-  //   gettingDataLoader = true;
-  //   var response = await _mobinputrepo.getCountryCodes();
-  //   if(response is Success){
-  //     var data = response.data;
-  //     gettingDataLoader = false;
-  //     switch(data != null && data.status){
-  //       case true:
-  //         codes = data!.codes;
-  //         selectedCodeId = data.codes.first.id;
-  //         break;
-  //       default:
-  //     }
-  //   }
-  // }
-
 
   @action
   onNumberClear() {
     mobileNumber = "";
   }
 
-  // onCodeSelected(MobileNumberCode? code) {
-  //   selectedCodeId = code!.id;
-  // }
 
   @action
   onNumberChange(String number) {
     mobileNumber = number;
   }
+
+
+  @action
+  resendOtp() async{
+    reSendingOtpLoader = true;
+    var number = mobileNumber.trim();
+    var response = await _mobinputrepo.sendOtp(number);
+    if(response is Success){
+      var data = response.data;
+      reSendingOtpLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          if (data!.status) {
+            showSnackbarMsg = data.message;
+          }
+      }
+    }
+  }
+
 
   @action
   onNext() async {
@@ -95,10 +110,40 @@ abstract class _MobileInputViewModel  with Store {
       sendingLoader = false;
       switch (data != null && data.status) {
         case true:
-          if (data!.isSend) {
-            settingBottomSheet(context);
+          isShow = data!.isSend;
+      }
+    }
+  }
+
+
+
+  @action
+  verifyOtp() async{
+    verifyLoader = true;
+    var number = mobileNumber.trim();
+    var otp = onOtp;
+    var response = await _mobinputrepo.verifyOtp(number, otp);
+    if(response is Success){
+      var data = response.data;
+      switch (data != null && data.status) {
+        case true:
+          if(data!.isVerified){
+            _appSettings.saveUserId(data.userId);
+            // _navigator.navigateTo(routeName);
           }
       }
+    }
+
+  }
+
+  bool _isValid = false;
+
+  @action
+  otpEntered(String enteredOtp) {
+    onOtp = enteredOtp;
+    if (_isValid) {
+      _navigator.navigateTo(Routes.splash );
+     // enableBtn = true;
     }
   }
 
@@ -121,12 +166,13 @@ abstract class _MobileInputViewModel  with Store {
   }
 
 
-
-  void settingBottomSheet(context) async{
-    showBottomSheet(
-        context: context,
-        builder: (BuildContext context){
-         return VerifyOtpPage(argument: vm.dialogManager.data!, number: vm.mobileNumber);
-    });
+  @action
+  String? validateOtp(String? otp) {
+    if (otp != null) {
+      var regEp = RegExp(r"[0-9]{4}");
+      enableBtn = regEp.hasMatch(otp);
+    }
+    return null;
   }
+
 }

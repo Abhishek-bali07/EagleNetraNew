@@ -38,6 +38,11 @@ class AppSettingsImpl extends AppSettings {
     sharedPreferences.setString(Constants.countrycode, code);
   }
 
+  @override
+  saveUserId(String id) {
+   sharedPreferences.setString(Constants.userId, id);
+  }
+
   // @override
   // String get code =>  sharedPreferences.getString(Constants.countrycode) ?? "";
 

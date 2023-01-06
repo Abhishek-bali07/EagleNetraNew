@@ -73,6 +73,22 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     });
   }
 
+  late final _$onOtpAtom =
+      Atom(name: '_MobileInputViewModel.onOtp', context: context);
+
+  @override
+  String get onOtp {
+    _$onOtpAtom.reportRead();
+    return super.onOtp;
+  }
+
+  @override
+  set onOtp(String value) {
+    _$onOtpAtom.reportWrite(value, super.onOtp, () {
+      super.onOtp = value;
+    });
+  }
+
   late final _$enableBtnAtom =
       Atom(name: '_MobileInputViewModel.enableBtn', context: context);
 
@@ -137,6 +153,7 @@ gettingDataLoader: ${gettingDataLoader},
 sendingLoader: ${sendingLoader},
 isShow: ${isShow},
 mobileNumber: ${mobileNumber},
+onOtp: ${onOtp},
 enableBtn: ${enableBtn}
     ''';
   }

@@ -51,8 +51,12 @@ class _MobileInputState extends State<MobileInput> {
               close: vm.dialogManager.closeErrorDialog);
         }
       }),
-      reaction((p0) => vm.sendingLoader, (p0) {
-            vm.settingBottomSheet(context);
+      reaction((p0) => vm.isShow, (p0) {
+        showBottomSheet(
+            context: context,
+            builder: (BuildContext context){
+              return VerifyOtpPage(onOtp: vm.onOtp, number: vm.mobileNumber);
+            });
           })
       // reaction((p0) => vm.dialogManager.currentState, (p0) {
       //   if(p0 is DialogState && p0 == DialogState.displaying){
@@ -98,7 +102,7 @@ class _MobileInputState extends State<MobileInput> {
   Widget _upperSideContent() {
     return SafeArea(
       child: Align(
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
           child: fitBox(
@@ -145,7 +149,7 @@ class _MobileInputState extends State<MobileInput> {
                     child: Observer(
                     builder: (BuildContext context) {
                       return MobileNumberWithCodesTextField(
-                        key: ObjectKey(vm.gettingDataLoader),
+                        key: ObjectKey(vm.sendingLoader),
                         node: inputManager,
                         controller: _mobileNumberInputController,
                         onTextChange: (number) {
@@ -163,7 +167,7 @@ class _MobileInputState extends State<MobileInput> {
                   )).padding(insets: EdgeInsets.only(top: 0.06.sh)),
                 )),
             expand(
-                flex: 5,
+                flex: 4,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Observer(
