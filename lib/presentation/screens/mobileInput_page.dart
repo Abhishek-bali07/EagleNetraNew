@@ -19,9 +19,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:mobx/mobx.dart';
 
-
-MobileInputViewModel vm = MobileInputViewModel();
-
 class MobileInput extends StatefulWidget {
   MobileInput({Key? key}) : super(key: key);
 
@@ -34,12 +31,12 @@ class _MobileInputState extends State<MobileInput> {
   late final TextEditingController _mobileNumberInputController;
   late final List<ReactionDisposer> _disposers;
   late final DialogController dialogController;
-
+  late final MobileInputViewModel vm;
 
   @override
   void initState() {
-    dialogController =
-        DialogController(dialog: MyDialogImpl(buildContext: context));
+    dialogController = DialogController(dialog: MyDialogImpl(buildContext: context));
+    vm = MobileInputViewModel();
     _mobileNumberInputController = TextEditingController(text: vm.mobileNumber);
     super.initState();
 
@@ -47,17 +44,23 @@ class _MobileInputState extends State<MobileInput> {
       reaction((p0) => vm.dialogManager.currentErrorState, (p0) async {
         if (p0 is DialogState && p0 == DialogState.displaying) {
           await dialogController.show(vm.dialogManager.errorData!, p0,
-              positive: vm.onRetry,
-              close: vm.dialogManager.closeErrorDialog);
+              positive: vm.onRetry, close: vm.dialogManager.closeErrorDialog);
         }
       }),
       reaction((p0) => vm.isShow, (p0) {
         showBottomSheet(
             context: context,
-            builder: (BuildContext context){
-              return VerifyOtpPage(onOtp: vm.onOtp, number: vm.mobileNumber);
+            builder: (BuildContext context) {
+              return VerifyOtpPage(
+                  onOtp: (value) {
+                    vm.onUserOtp(value);
+                  },
+                  number: vm.mobileNumber, reSendingOtpLoader: vm.reSendingOtpLoader, reSendOtp: vm.reSendOtp, 
+                  
+                  
+              );
             });
-          })
+      })
       // reaction((p0) => vm.dialogManager.currentState, (p0) {
       //   if(p0 is DialogState && p0 == DialogState.displaying){
       //     showBottomSheet(context: context,
@@ -78,7 +81,6 @@ class _MobileInputState extends State<MobileInput> {
     ];
   }
 
-
   @override
   void dispose() {
     for (var element in _disposers) {
@@ -90,43 +92,44 @@ class _MobileInputState extends State<MobileInput> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-        children: [
-          Expanded(flex: 4, child: _upperSideContent()),
-          Expanded(flex: 8, child: _lowerSideContent())
-        ],
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(flex: 3, child: _upperSideContent()),
+            Expanded(flex: 7, child: _lowerSideContent())
+          ],
+        ),
       ),
     );
   }
 
   Widget _upperSideContent() {
-    return SafeArea(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
-          child: fitBox(
-           child: Column(
-            children: [
-              fitBox(
-                child: _appLogo(),
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            expand(flex: 7, child: Image.asset(ImageAssets.logo)),
+            expand(flex: 3, child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Register or Sign In",
+                  style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
                 ),
-              SizedBox(height: 0.01.sw),
-              fitBox(
-                child: Text(
-                    "Register or Sign In",
-                    style: TextStyle(fontSize: 180.sp),
-                  ),
-                ),
-              fitBox(
-                child: Text(
+                Text(
                   "Sign in or register with Otp verifications.",
-                  style: TextStyle(fontSize: 120.sp),
+                  style: TextStyle(fontSize: 18.sp),
                 ),
-              ),
-
-            ],
-          )),
+              ],
+            ))
+          ],
         ),
       ),
     );
@@ -140,13 +143,13 @@ class _MobileInputState extends State<MobileInput> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             expand(
-              flex: 2,
+                flex: 3,
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: fitBox(
-                    child: Observer(
+                  child: fitBox(child: Observer(
                     builder: (BuildContext context) {
                       return MobileNumberWithCodesTextField(
                         key: ObjectKey(vm.sendingLoader),
@@ -167,7 +170,7 @@ class _MobileInputState extends State<MobileInput> {
                   )).padding(insets: EdgeInsets.only(top: 0.06.sh)),
                 )),
             expand(
-                flex: 4,
+                flex: 7,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Observer(
@@ -176,15 +179,15 @@ class _MobileInputState extends State<MobileInput> {
                           style: vm.enableBtn
                               ? AppButtonThemes.defaultStyle
                               : AppButtonThemes.cancelBtnStyle,
-                          onPressed: vm.enableBtn  ? vm.onNext  : null,
+                          onPressed: vm.enableBtn ? vm.onNext : null,
                           child: vm.sendingLoader
                               ? const CircularProgressIndicator(
-                            color: AppColors.White,
-                          )
+                                  color: Colors.red,
+                                )
                               : Text(
-                            Constants.mobileinputsubmit,
-                            style: AppTextStyle.btnTextStyleWhite,
-                          ));
+                                  Constants.mobileinputsubmit,
+                                  style: AppTextStyle.btnTextStyleWhite,
+                                ));
                     },
                   ),
                 ))
@@ -193,14 +196,4 @@ class _MobileInputState extends State<MobileInput> {
       ),
     );
   }
-}
-Widget _appLogo() {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Padding(
-          padding: EdgeInsets.only(bottom: 0.01.sw),
-          child: Image.asset(ImageAssets.logo)),
-    ],
-  );
 }

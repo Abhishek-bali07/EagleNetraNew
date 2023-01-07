@@ -5,6 +5,8 @@ import 'package:eagle_netra/presentation/screens/slider_page.dart';
 import 'package:eagle_netra/presentation/screens/splash_page.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../presentation/screens/registration_page.dart';
+
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     Widget page;
@@ -17,6 +19,9 @@ class RouteGenerator {
 
       case Routes.mobileinput:
         return ScreenTransitions.rightToLeftTransition(MobileInput());
+
+      case Routes.registration:
+        return ScreenTransitions.rightToLeftTransition(const RegistrationPage());
 
 
 

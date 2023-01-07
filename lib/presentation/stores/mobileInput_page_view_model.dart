@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:eagle_netra/core/common/alert_action.dart';
 import 'package:eagle_netra/core/common/alert_data.dart';
@@ -81,23 +81,13 @@ abstract class _MobileInputViewModel  with Store {
     mobileNumber = number;
   }
 
-
   @action
-  resendOtp() async{
-    reSendingOtpLoader = true;
-    var number = mobileNumber.trim();
-    var response = await _mobinputrepo.sendOtp(number);
-    if(response is Success){
-      var data = response.data;
-      reSendingOtpLoader = false;
-      switch (data != null && data.status) {
-        case true:
-          if (data!.status) {
-            showSnackbarMsg = data.message;
-          }
-      }
-    }
+  onUserOtp(String value){
+    onOtp = value;
+
   }
+
+
 
 
   @action
@@ -111,10 +101,34 @@ abstract class _MobileInputViewModel  with Store {
       switch (data != null && data.status) {
         case true:
           isShow = data!.isSend;
+
+        break;
+        default:
       }
     }
   }
 
+
+  @action
+  reSendOtp() async {
+    reSendingOtpLoader = true;
+    var number = mobileNumber.trim();
+    var response = await _mobinputrepo.sendOtp(number);
+    if(response is Success){
+      var data = response.data;
+      reSendingOtpLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          if (data!.status) {
+            showSnackbarMsg = data.message;
+          }else{
+
+          }
+          break;
+        default:
+      }
+    }
+  }
 
 
   @action
@@ -129,7 +143,10 @@ abstract class _MobileInputViewModel  with Store {
         case true:
           if(data!.isVerified){
             _appSettings.saveUserId(data.userId);
-            // _navigator.navigateTo(routeName);
+            _navigator.navigateTo(Routes.registration);
+          }else{
+            verifyLoader = false;
+            otpEntered;
           }
       }
     }
@@ -141,15 +158,19 @@ abstract class _MobileInputViewModel  with Store {
   @action
   otpEntered(String enteredOtp) {
     onOtp = enteredOtp;
-    if (_isValid) {
-      _navigator.navigateTo(Routes.splash );
-     // enableBtn = true;
-    }
+    verifyOtp();
+    // if (_isValid) {
+    //   _navigator.navigateTo(Routes.splash );
+    // }else{
+    //   verifyOtp();
+    // }
   }
 
 
   onRetry(AlertAction? action) {
-    onNext();
+   // onNext();
+    verifyOtp();
+
   }
 
 

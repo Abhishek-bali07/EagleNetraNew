@@ -57,6 +57,38 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     });
   }
 
+  late final _$verifyLoaderAtom =
+      Atom(name: '_MobileInputViewModel.verifyLoader', context: context);
+
+  @override
+  bool get verifyLoader {
+    _$verifyLoaderAtom.reportRead();
+    return super.verifyLoader;
+  }
+
+  @override
+  set verifyLoader(bool value) {
+    _$verifyLoaderAtom.reportWrite(value, super.verifyLoader, () {
+      super.verifyLoader = value;
+    });
+  }
+
+  late final _$reSendingOtpLoaderAtom =
+      Atom(name: '_MobileInputViewModel.reSendingOtpLoader', context: context);
+
+  @override
+  bool get reSendingOtpLoader {
+    _$reSendingOtpLoaderAtom.reportRead();
+    return super.reSendingOtpLoader;
+  }
+
+  @override
+  set reSendingOtpLoader(bool value) {
+    _$reSendingOtpLoaderAtom.reportWrite(value, super.reSendingOtpLoader, () {
+      super.reSendingOtpLoader = value;
+    });
+  }
+
   late final _$mobileNumberAtom =
       Atom(name: '_MobileInputViewModel.mobileNumber', context: context);
 
@@ -105,12 +137,44 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     });
   }
 
+  late final _$showSnackbarMsgAtom =
+      Atom(name: '_MobileInputViewModel.showSnackbarMsg', context: context);
+
+  @override
+  String get showSnackbarMsg {
+    _$showSnackbarMsgAtom.reportRead();
+    return super.showSnackbarMsg;
+  }
+
+  @override
+  set showSnackbarMsg(String value) {
+    _$showSnackbarMsgAtom.reportWrite(value, super.showSnackbarMsg, () {
+      super.showSnackbarMsg = value;
+    });
+  }
+
   late final _$onNextAsyncAction =
       AsyncAction('_MobileInputViewModel.onNext', context: context);
 
   @override
   Future onNext() {
     return _$onNextAsyncAction.run(() => super.onNext());
+  }
+
+  late final _$reSendOtpAsyncAction =
+      AsyncAction('_MobileInputViewModel.reSendOtp', context: context);
+
+  @override
+  Future reSendOtp() {
+    return _$reSendOtpAsyncAction.run(() => super.reSendOtp());
+  }
+
+  late final _$verifyOtpAsyncAction =
+      AsyncAction('_MobileInputViewModel.verifyOtp', context: context);
+
+  @override
+  Future verifyOtp() {
+    return _$verifyOtpAsyncAction.run(() => super.verifyOtp());
   }
 
   late final _$validateInputAsyncAction =
@@ -147,14 +211,50 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
   }
 
   @override
+  dynamic onUserOtp(String value) {
+    final _$actionInfo = _$_MobileInputViewModelActionController.startAction(
+        name: '_MobileInputViewModel.onUserOtp');
+    try {
+      return super.onUserOtp(value);
+    } finally {
+      _$_MobileInputViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic otpEntered(String enteredOtp) {
+    final _$actionInfo = _$_MobileInputViewModelActionController.startAction(
+        name: '_MobileInputViewModel.otpEntered');
+    try {
+      return super.otpEntered(enteredOtp);
+    } finally {
+      _$_MobileInputViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String? validateOtp(String? otp) {
+    final _$actionInfo = _$_MobileInputViewModelActionController.startAction(
+        name: '_MobileInputViewModel.validateOtp');
+    try {
+      return super.validateOtp(otp);
+    } finally {
+      _$_MobileInputViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 gettingDataLoader: ${gettingDataLoader},
 sendingLoader: ${sendingLoader},
 isShow: ${isShow},
+verifyLoader: ${verifyLoader},
+reSendingOtpLoader: ${reSendingOtpLoader},
 mobileNumber: ${mobileNumber},
 onOtp: ${onOtp},
-enableBtn: ${enableBtn}
+enableBtn: ${enableBtn},
+showSnackbarMsg: ${showSnackbarMsg}
     ''';
   }
 }
