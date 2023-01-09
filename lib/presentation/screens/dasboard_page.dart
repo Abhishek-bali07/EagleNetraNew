@@ -13,7 +13,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
-        child: Text("welcome"),
+        child: Center(child: Text("DashBoard Page")),
 
       ),
     );

@@ -222,28 +222,6 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
   }
 
   @override
-  dynamic otpEntered(String enteredOtp) {
-    final _$actionInfo = _$_MobileInputViewModelActionController.startAction(
-        name: '_MobileInputViewModel.otpEntered');
-    try {
-      return super.otpEntered(enteredOtp);
-    } finally {
-      _$_MobileInputViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  String? validateOtp(String? otp) {
-    final _$actionInfo = _$_MobileInputViewModelActionController.startAction(
-        name: '_MobileInputViewModel.validateOtp');
-    try {
-      return super.validateOtp(otp);
-    } finally {
-      _$_MobileInputViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 gettingDataLoader: ${gettingDataLoader},

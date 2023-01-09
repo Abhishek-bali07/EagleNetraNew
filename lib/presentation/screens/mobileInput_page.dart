@@ -44,22 +44,24 @@ class _MobileInputState extends State<MobileInput> {
       reaction((p0) => vm.dialogManager.currentErrorState, (p0) async {
         if (p0 is DialogState && p0 == DialogState.displaying) {
           await dialogController.show(vm.dialogManager.errorData!, p0,
-              positive: vm.onRetry, close: vm.dialogManager.closeErrorDialog);
+              positive: vm.onRetry,
+              close: vm.dialogManager.closeErrorDialog);
         }
       }),
-      reaction((p0) => vm.isShow, (p0) {
-        showBottomSheet(
+      reaction((p0) => vm.isShow, (p0) async {
+      if(p0 != null && p0 == true){
+        await showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
               return VerifyOtpPage(
-                  onOtp: (value) {
-                    vm.onUserOtp(value);
-                  },
-                  number: vm.mobileNumber, reSendingOtpLoader: vm.reSendingOtpLoader, reSendOtp: vm.reSendOtp, 
-                  
-                  
+                onOtp: (value) {
+                  vm.onUserOtp(value);
+                },
+                number: vm.mobileNumber, reSendingOtpLoader: vm.reSendingOtpLoader, reSendOtp: vm.reSendOtp
               );
             });
+      }
+
       })
       // reaction((p0) => vm.dialogManager.currentState, (p0) {
       //   if(p0 is DialogState && p0 == DialogState.displaying){

@@ -1,5 +1,5 @@
-import 'package:eagle_netra/core/common/alert_data.dart';
-import 'package:eagle_netra/presentation/screens/mobileInput_page.dart';
+
+import 'package:eagle_netra/core/helpers/string_provider.dart';
 import 'package:eagle_netra/presentation/ui/app_text_style.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/extensions.dart';
@@ -15,7 +15,8 @@ class VerifyOtpPage extends StatefulWidget {
   Function(String) onOtp;
   Function() reSendOtp;
 
-  VerifyOtpPage({Key? key, required this.number, required this.onOtp, required this.reSendOtp, required this.reSendingOtpLoader})
+
+  VerifyOtpPage({Key? key, required this.number, required this.onOtp, required this.reSendingOtpLoader,required this.reSendOtp})
       : super(key: key);
 
   @override
@@ -34,6 +35,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
           borderRadius: BorderRadius.circular(18.r),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("OTP has been sent to your mobile number"),
             widget.number.text(AppTextStyle.enterNumberStyle),
@@ -72,16 +74,15 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                     widget.onOtp(value);
                   },
                   keyboardType: TextInputType.number,
-                  // validator: (value) {
-                  //   return value == '2222' ? null : 'Pin is incorrect';
-                  // },
                 )),
             FittedBox(
-              child: Observer(builder: (BuildContext context) {
+              child: Observer(
+                  builder: (BuildContext context) {
                 return TextButton(
                     onPressed: widget.reSendingOtpLoader ? null : widget.reSendOtp,
-                    child:
-                        widget.reSendingOtpLoader ? Text("data") : Text("data1"));
+                    child: widget.reSendingOtpLoader
+                        ? Text(StringProvider.Recieving)
+                        : Text(StringProvider.resendotp));
               }),
             )
           ],

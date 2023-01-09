@@ -9,7 +9,6 @@ class MobileInputRepositoryImpl implements MobileInputRepository{
   @override
   Future<Resource<SendOtpResponse>> sendOtp(String number) async {
     await Future.delayed(const Duration(seconds: 2));
-
     return Success(
         SendOtpResponse(status: true, message: "Success", isSend: true));
   }
@@ -21,8 +20,8 @@ class MobileInputRepositoryImpl implements MobileInputRepository{
         status: true,
         message: "Success",
         isVerified: true,
-        userId: "asdasdqasdqw",
-        userStatus:""));
+        userId: "1",
+        userStatus:"NOT REGISTERED"));
   }
 
 }

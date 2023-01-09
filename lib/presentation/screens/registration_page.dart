@@ -12,7 +12,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child:Text("RegistrationPage"),
+        child:Center(child: Text("RegistrationPage")),
       ),
     );
   }

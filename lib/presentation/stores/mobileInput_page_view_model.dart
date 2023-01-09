@@ -1,7 +1,9 @@
 
 
 import 'package:eagle_netra/core/common/alert_action.dart';
+import 'package:eagle_netra/core/common/alert_behaviour.dart';
 import 'package:eagle_netra/core/common/alert_data.dart';
+import 'package:eagle_netra/core/common/alert_option.dart';
 import 'package:eagle_netra/core/common/app_settings.dart';
 import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/mobile_number_code.dart';
@@ -15,6 +17,7 @@ import 'package:eagle_netra/utils/dialog_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/common/user_status.dart';
 import '../screens/verify_otp_page.dart';
 
 part 'mobileInput_page_view_model.g.dart';
@@ -56,7 +59,6 @@ abstract class _MobileInputViewModel  with Store {
   @observable
   String onOtp = "";
 
-  String selectedCodeId = "";
 
   @observable
   bool enableBtn = false;
@@ -64,6 +66,8 @@ abstract class _MobileInputViewModel  with Store {
 
   @observable
   String showSnackbarMsg = "";
+
+
 
   _MobileInputViewModel(){
     onNext();
@@ -84,7 +88,9 @@ abstract class _MobileInputViewModel  with Store {
   @action
   onUserOtp(String value){
     onOtp = value;
-
+    if(onOtp.length == 4){
+      verifyOtp();
+    }
   }
 
 
@@ -92,18 +98,20 @@ abstract class _MobileInputViewModel  with Store {
 
   @action
   onNext() async {
+    isShow = false;
     sendingLoader = true;
     var number = mobileNumber.trim();
     var response = await _mobinputrepo.sendOtp(number);
     if (response is Success) {
       var data = response.data;
       sendingLoader = false;
+
       switch (data != null && data.status) {
         case true:
           isShow = data!.isSend;
 
-        break;
-        default:
+
+
       }
     }
   }
@@ -121,6 +129,7 @@ abstract class _MobileInputViewModel  with Store {
         case true:
           if (data!.status) {
             showSnackbarMsg = data.message;
+
           }else{
 
           }
@@ -143,28 +152,41 @@ abstract class _MobileInputViewModel  with Store {
         case true:
           if(data!.isVerified){
             _appSettings.saveUserId(data.userId);
-            _navigator.navigateTo(Routes.registration);
+            if(data.userStatus == UserStatus.registered.value){
+              _navigator.navigateTo(Routes.dashboard);
+            }else{
+              verifyLoader = false;
+              _navigator.navigateTo(Routes.registration);
+            }
+            //  otpEntered;
           }else{
             verifyLoader = false;
-            otpEntered;
+            dialogManager.initErrorData(AlertData(  
+              StringProvider.error,
+              null,
+              StringProvider.appId,
+              data.message,
+              StringProvider.retry,
+              null,
+              null,AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
           }
       }
     }
 
   }
 
-  bool _isValid = false;
+//  bool _isValid = false;
 
-  @action
-  otpEntered(String enteredOtp) {
-    onOtp = enteredOtp;
-    verifyOtp();
-    // if (_isValid) {
-    //   _navigator.navigateTo(Routes.splash );
-    // }else{
-    //   verifyOtp();
-    // }
-  }
+  // @action
+  // otpEntered(String enteredOtp) {
+  //   onOtp = enteredOtp;
+  //   verifyOtp();
+  //   // if (_isValid) {
+  //   //   _navigator.navigateTo(Routes.dashboard);
+  //   // }else{
+  //   //   verifyOtp();
+  //   // }
+  // }
 
 
   onRetry(AlertAction? action) {
@@ -187,13 +209,13 @@ abstract class _MobileInputViewModel  with Store {
   }
 
 
-  @action
-  String? validateOtp(String? otp) {
-    if (otp != null) {
-      var regEp = RegExp(r"[0-9]{4}");
-      enableBtn = regEp.hasMatch(otp);
-    }
-    return null;
-  }
+  // @action
+  // String? validateOtp(String? otp) {
+  //   if (otp != null) {
+  //     var regEp = RegExp(r"[0-9]{4}");
+  //     enableBtn = regEp.hasMatch(otp);
+  //   }
+  //   return null;
+  // }
 
 }

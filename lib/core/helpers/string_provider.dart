@@ -7,6 +7,8 @@ class StringProvider{
 
   static const error = "Error";
 
+  static const retry = "Retry";
+
   static const thisFieldIsMandatory = "*This field is mandatory.";
 
 
@@ -20,4 +22,9 @@ class StringProvider{
 
 
   static var done = "Done";
+
+
+  static var Recieving = "Receiving...";
+
+  static const resendotp = "Resend OTP";
 }
