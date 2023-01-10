@@ -6,4 +6,7 @@ class ImageAssets{
   static const screenthree = "assets/images/sthree.png";
 
   static const clearText = "assets/images/clear_text.svg";
+
+
+  static const UserImage = "assets/images/userimg.png";
 }

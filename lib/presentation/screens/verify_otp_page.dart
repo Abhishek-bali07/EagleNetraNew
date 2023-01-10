@@ -73,17 +73,19 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                   onChanged: (value) {
                     widget.onOtp(value);
                   },
+                 // validator: vm.validateOtp,
+                  // validator: (value) {
+                  //   return value == '2222' ? null : 'Pin is incorrect';
+                  // },
                   keyboardType: TextInputType.number,
                 )),
             FittedBox(
-              child: Observer(
-                  builder: (BuildContext context) {
-                return TextButton(
+              child:  TextButton(
                     onPressed: widget.reSendingOtpLoader ? null : widget.reSendOtp,
                     child: widget.reSendingOtpLoader
                         ? Text(StringProvider.Recieving)
-                        : Text(StringProvider.resendotp));
-              }),
+                        : Text(StringProvider.resendotp))
+
             )
           ],
         ));

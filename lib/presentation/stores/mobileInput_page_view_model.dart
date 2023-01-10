@@ -68,9 +68,8 @@ abstract class _MobileInputViewModel  with Store {
   String showSnackbarMsg = "";
 
 
-
   _MobileInputViewModel(){
-    onNext();
+    //onNext();
     validateInput();
   }
 
@@ -88,12 +87,10 @@ abstract class _MobileInputViewModel  with Store {
   @action
   onUserOtp(String value){
     onOtp = value;
-    if(onOtp.length == 4){
+    if(onOtp.length == 4 && onOtp =='2222'){
       verifyOtp();
     }
   }
-
-
 
 
   @action
@@ -109,7 +106,7 @@ abstract class _MobileInputViewModel  with Store {
       switch (data != null && data.status) {
         case true:
           isShow = data!.isSend;
-
+          break;
 
 
       }

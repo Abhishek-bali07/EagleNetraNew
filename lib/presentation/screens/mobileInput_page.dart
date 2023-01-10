@@ -49,7 +49,7 @@ class _MobileInputState extends State<MobileInput> {
         }
       }),
       reaction((p0) => vm.isShow, (p0) async {
-      if(p0 != null && p0 == true){
+      if(p0 == true){
         await showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
@@ -62,24 +62,8 @@ class _MobileInputState extends State<MobileInput> {
             });
       }
 
-      })
-      // reaction((p0) => vm.dialogManager.currentState, (p0) {
-      //   if(p0 is DialogState && p0 == DialogState.displaying){
-      //     showBottomSheet(context: context,
-      //         builder: (BuildContext context){
-      //
-      //           VerifyOtpPage(argument: vm.dialogManager.data!, number: vm.mobileNumber,);
-      //     });
-      //
-      //     // dialogController.showWithCustomData(
-      //     //     vm.dialogManager.data!,
-      //     //     p0,
-      //     //     close: vm.dialogManager.closeDialog,
-      //     //     VerifyOtpPage(
-      //     //       argument: vm.dialogManager.data!,
-      //     //       number: vm.mobileNumber,));
-      //   }
-      // })
+      }),
+
     ];
   }
 
