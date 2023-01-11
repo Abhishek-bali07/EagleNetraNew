@@ -1,19 +1,23 @@
 import 'dart:io';
 
+import 'package:eagle_netra/core/common/wrapper.dart';
 import 'package:eagle_netra/presentation/stores/registration_page_view_model.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../core/common/constants.dart';
 import '../../core/common/track_radio_button.dart';
 import '../../core/helpers/image_assets.dart';
+import '../../core/helpers/widgets.dart';
 import '../../utils/dialog_controller.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
+  //final String mobile;
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -23,6 +27,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   late final TextEditingController textEditingController;
   late final DialogController dialogController;
   late final RegistrationViewModel _vm;
+  late final List<ReactionDisposer> _disposers;
 
 
 
@@ -31,6 +36,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
     _vm = RegistrationViewModel();
     textEditingController = TextEditingController();
     super.initState();
+    // _vm.onInit(widget.mobile);
+    _disposers = [
+       reaction((_) => _vm.showPickSourceDialog,
+               (value){
+                  if(value is DialogTrigger && value != null){
+                    showMyDialog(value, context,
+                            (BuildContext context) => ImageSourceDialog(context),
+                            barrierDismissible: true);
+                  }
+               }),
+       reaction((_) => _vm.snackbarMessage, //to observe
+              (value) {
+            var v = value as Wrapper<String>;
+            if (v.core != "") {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(v.core),
+                duration: Duration(seconds: 2),
+              ));
+            }
+          }),
+    ];
   }
 
 
@@ -110,14 +136,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   decoration: InputDecoration(
                                     hintText: Constants.enterYourName,
                                     prefixIcon: Icon(Icons.person),
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder:OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: AppColors.SilverChalice),
+                                      BorderSide(color: AppColors.Black,),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color:
-                                          Theme.of(context).colorScheme.primary),
+                                        color: AppColors.Black,),
                                     ),
                                     border: UnderlineInputBorder(
                                       borderSide:
@@ -125,9 +150,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     ),
                                   ),
                                 ),
+
                                 SizedBox(
                                   height: 32,
                                 ),
+
+
                                 TextField(
                                   keyboardType: TextInputType.emailAddress,
                                   onChanged: (value) {
@@ -136,21 +164,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   decoration: InputDecoration(
                                     hintText: Constants.enterYourEmail,
                                     prefixIcon: Icon(Icons.email),
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder:OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: AppColors.SilverChalice),
+                                      BorderSide(color: AppColors.Black,),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color:
-                                          Theme.of(context).colorScheme.primary),
+                                        color: AppColors.Black,),
                                     ),
                                     border: UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: AppColors.SilverChalice),
                                     ),
                                   ),
+
                                 ),
+
 
                                 SizedBox(
                                   height: 20,
@@ -279,7 +308,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         padding: const EdgeInsets.all(16.0),
                                         child: InkWell(
                                           onTap: () {
-                                            //vm.pickFile();
+                                            _vm.pickFile();
                                           },
                                           child: CircleAvatar(
                                             backgroundColor:
@@ -311,132 +340,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  // Widget _lowerSideContent(){
-  //   return  Align(
-  //     alignment: Alignment.bottomCenter,
-  //     child: Column(
-  //           children: [
-  //
-  //
-  //             TextField(
-  //               keyboardType: TextInputType.name,
-  //               onChanged: (value) {
-  //                 _vm.onNameChanged(value);
-  //               },
-  //               decoration: InputDecoration(
-  //                 hintText: Constants.enterYourName,
-  //                 prefixIcon: Icon(Icons.person),
-  //                 enabledBorder: UnderlineInputBorder(
-  //                   borderSide:
-  //                   BorderSide(color: AppColors.SilverChalice),
-  //                 ),
-  //                 focusedBorder: UnderlineInputBorder(
-  //                   borderSide: BorderSide(
-  //                       color:
-  //                       Theme.of(context).colorScheme.primary),
-  //                 ),
-  //                 border: UnderlineInputBorder(
-  //                   borderSide:
-  //                   BorderSide(color: AppColors.SilverChalice),
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(
-  //               height: 32,
-  //             ),
-  //             TextField(
-  //               keyboardType: TextInputType.emailAddress,
-  //               onChanged: (value) {
-  //                 _vm.onEmailChanged(value);
-  //               },
-  //               decoration: InputDecoration(
-  //                 hintText: Constants.enterYourEmail,
-  //                 prefixIcon: Icon(Icons.email),
-  //                 enabledBorder: UnderlineInputBorder(
-  //                   borderSide:
-  //                   BorderSide(color: AppColors.SilverChalice),
-  //                 ),
-  //                 focusedBorder: UnderlineInputBorder(
-  //                   borderSide: BorderSide(
-  //                       color:
-  //                       Theme.of(context).colorScheme.primary),
-  //                 ),
-  //                 border: UnderlineInputBorder(
-  //                   borderSide:
-  //                   BorderSide(color: AppColors.SilverChalice),
-  //                 ),
-  //               ),
-  //             ),
-  //             Row(
-  //               children: [
-  //                 Padding(
-  //                   padding: EdgeInsets.only(left: 0.01.sw),
-  //                   child: const Text("Track For: "),
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     Observer(
-  //                       builder: (BuildContext context) {
-  //                         return Expanded(
-  //                           flex: 1,
-  //                           child: Row(
-  //                             mainAxisAlignment: MainAxisAlignment.start,
-  //                             children: [
-  //                               Radio(
-  //                                 value: TrackRadio.kids,
-  //                                 groupValue: _vm.selected,
-  //                                 onChanged: _vm.onRadioSelected,
-  //                                 activeColor: Colors.black,
-  //                               ),
-  //                               const Text(
-  //                                 "Kids",
-  //                                 style: TextStyle(
-  //                                     fontWeight: FontWeight.w500,
-  //                                     fontSize: 18,
-  //                                     color: Colors.black),
-  //                               )
-  //                             ],
-  //                           ),
-  //                         );
-  //                       },
-  //                     ),
-  //                     Observer(
-  //                       builder: (BuildContext context) {
-  //                         return Expanded(
-  //                           flex: 1,
-  //                           child: Row(
-  //                             mainAxisAlignment: MainAxisAlignment.start,
-  //                             children: [
-  //                               Radio(
-  //                                 value: TrackRadio.employee,
-  //                                 groupValue: _vm.selected,
-  //                                 onChanged: _vm.onRadioSelected,
-  //                                 activeColor: Colors.black,
-  //                               ),
-  //                               const Text("Employee",
-  //                                   style: TextStyle(
-  //                                       fontWeight: FontWeight.w500,
-  //                                       fontSize: 18,
-  //                                       color: Colors.black))
-  //                             ],
-  //                           ),
-  //                         );
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             )
-  //
-  //
-  //
-  //
-  //           ],
-  //         ),
-  //   );
-  //
-  //
-  // }
+
 
 
   Widget getImage() {

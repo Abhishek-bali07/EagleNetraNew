@@ -15,6 +15,11 @@ import 'package:eagle_netra/utils/environment.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/common/validator.dart';
+import '../../core/repository/userRegister_repository.dart';
+import '../../helpers_impl/validator_impl.dart';
+import '../../repository_impl/userRegister_repository_impl.dart';
+
 final instance = GetIt.instance;
 
 final alice = Alice(
@@ -52,6 +57,11 @@ Future<void> initAppModule() async{
 
  // instance.registerLazySingleton<>(() => ());
 
+  instance.registerLazySingleton<Validator>(() => ValidatorImpl());
+
   instance.registerLazySingleton<MobileInputRepository>(() => MobileInputRepositoryImpl());
+
+
+  instance.registerLazySingleton<RegisterUserRepository>(() => RegisterUserUseCaseImpl());
 
 }

@@ -58,6 +58,8 @@ dependencies:
   flutter_multi_formatter: ^2.5.7
   easy_localization: ^3.0.1
   pinput: ^2.2.12
+  file_picker: ^4.6.1
+  image_picker: ^0.8.5+3
 
 
 

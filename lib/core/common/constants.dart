@@ -10,6 +10,8 @@ class Constants {
 
   static const mobileinputsubmit = "Proceed with Sign in / Registration";
 
-
+  static const camera = "Camera";
+  static const gallery = "Gallery";
   static const done = "Done";
+  static const tryAgain = "Try Again";
 }

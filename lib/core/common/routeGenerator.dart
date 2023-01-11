@@ -22,7 +22,7 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(MobileInput());
 
       case Routes.registration:
-        return ScreenTransitions.rightToLeftTransition(const RegistrationPage());
+        return ScreenTransitions.rightToLeftTransition(RegistrationPage());
       
       case Routes.dashboard: 
         return ScreenTransitions.rightToLeftTransition(const DashboardPage());

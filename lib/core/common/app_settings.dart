@@ -1,5 +1,5 @@
 abstract class AppSettings{
-  saveUserId(String id);
+  saveUserId(String userId);
   get userId;
 
   String get baseUrl;
@@ -9,7 +9,7 @@ abstract class AppSettings{
   introComplete(bool value);
   bool isIntroComplete();
 
-
+  //void setUserId(String userId);
 
   //String userId();
 }
