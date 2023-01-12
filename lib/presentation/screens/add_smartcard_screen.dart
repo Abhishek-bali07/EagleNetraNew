@@ -1,24 +1,21 @@
-import 'package:eagle_netra/presentation/ui/theme.dart';
-import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../core/helpers/image_assets.dart';
-import '../../core/helpers/navigation_service.dart';
-import '../app_navigator/di.dart';
+import '../ui/theme.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+
+class AddCardScreen extends StatefulWidget {
+  const AddCardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<AddCardScreen> createState() => _AddCardScreenState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
       resizeToAvoidBottomInset: false,
       drawerEnableOpenDragGesture: false,
       appBar: AppBar(
@@ -38,7 +35,7 @@ class _DashboardPageState extends State<DashboardPage> {
           width: 50,
           child: Image.asset(ImageAssets.logo),
         ),
-        
+
         actions: [
 
           IconButton(
@@ -149,6 +146,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
     );
 
+
+
+
   }
 
 
@@ -163,23 +163,23 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget _lowerSideContent() {
     return SafeArea(
-        child: Center(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(ImageAssets.kidsImage),
-              ),
-              Text("Add your childs smart card.", style: TextStyle(
-                fontSize: 25.sp,
+      child: Center(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(ImageAssets.kidsImage),
+            ),
+            Text("Add your childs smart card.", style: TextStyle(
+              fontSize: 25.sp,
 
-              ),)
-            ],
-      ),
+            ),)
+          ],
         ),
-      );
+      ),
+    );
 
 
   }

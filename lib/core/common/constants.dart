@@ -14,4 +14,5 @@ class Constants {
   static const gallery = "Gallery";
   static const done = "Done";
   static const tryAgain = "Try Again";
+  static const rgisbtn = "Complete your registration";
 }

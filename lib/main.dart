@@ -35,8 +35,8 @@ class _MyappState extends State<MyApp> {
             color: Colors.red,
             debugShowCheckedModeBanner: false,
             navigatorKey:instance<NavigationService>().navigatorKey,
-            initialRoute: Routes.registration,
-            //initialRoute: Routes.mobileinput,
+            //initialRoute: Routes.registration,
+            initialRoute: Routes.dashboard,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

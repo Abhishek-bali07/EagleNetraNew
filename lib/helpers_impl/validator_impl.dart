@@ -20,4 +20,6 @@ class ValidatorImpl extends Validator{
   bool isValidEmail(String input) {
     return isValid(input,emailRegex);
   }
+
+
 }

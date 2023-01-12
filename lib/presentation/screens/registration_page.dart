@@ -253,8 +253,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         foregroundColor: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
-                                        backgroundColor:
-                                        Theme.of(context).colorScheme.primary,
+                                        backgroundColor:AppColors.Black,
                                         disabledForegroundColor:
                                         AppColors.Black.withOpacity(0.38),
                                         disabledBackgroundColor:
@@ -269,9 +268,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                           : null,
                                       child: !(_vm.submitting == true)
                                           ? Text(
-                                        Constants.done,
+                                        Constants.rgisbtn,
                                         style: TextStyle(
-                                            color: AppColors.Black,
+                                            color: AppColors.White,
                                             fontSize: 20,
                                             fontWeight: FontWeight.w500),
                                       )
@@ -315,8 +314,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                             Theme.of(context).colorScheme.surface,
                                             radius: 18,
                                             child: CircleAvatar(
-                                              backgroundColor:
-                                              Theme.of(context).colorScheme.primary,
+                                              backgroundColor:AppColors.Black,
                                               radius: 16,
                                               child: const Icon(Icons.edit),
                                             ),

@@ -8,7 +8,9 @@ import 'package:mobx/mobx.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/constants.dart';
 import '../../core/common/package.dart';
+import '../../core/common/response.dart';
 import '../../core/common/track_radio_button.dart';
+import '../../core/common/user_status.dart';
 import '../../core/common/validator.dart';
 import '../../core/common/wrapper.dart';
 import '../../core/helpers/navigation_service.dart';
@@ -49,6 +51,13 @@ abstract class _RegistrationViewModel with Store{
   File? file;
 
 
+  @observable
+  String selectedGender = "";
+
+  @observable
+  TrackRadio selected = TrackRadio.none;
+
+
   @action
   onNameChanged(String value) {
     _name = value;
@@ -74,15 +83,10 @@ abstract class _RegistrationViewModel with Store{
 
   @action
   onSubmit() {
-    submitUserDetails;
+    submitUserDetails();
   }
 
 
-  @observable
-  String selectedGender = "";
-
-  @observable
-  TrackRadio selected = TrackRadio.none;
 
 
 
@@ -96,21 +100,33 @@ abstract class _RegistrationViewModel with Store{
 
 
 
-  submitUserDetails(Package? selected) async{
-    if(file == null){
-      return;
-    }
+  submitUserDetails() async{
+    // if(file == null){
+    //   return;
+    // }
     submitting = true;
     var response = await  _register_user_use_case.registerUser(
-        _mobile, _name, _email, file!, selected?.id ?? "");
-    if(response == null){
-      snackbarMessage = Wrapper(Constants.tryAgain);
+        _mobile, _name, _email, file!,  selected.value);
+    if(response is Success) {
+      var data = response.data;
+      switch (data != null && data.status) {
+        case true:
+          if(data!.isVerified){
+            var userId = response.data!.userId;
+            _appSettings.saveUserId(userId ?? "");
+            if(data.userStatus == UserStatus.registered.value){
+              _navigator.navigatorKey.currentState
+                  ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
+            }else{
+              submitting = false;
+              _navigator.navigateTo(Routes.registration);
+            }
+          }
+      }
     }
-    var userId = response!.userId;
-    _appSettings.saveUserId(userId ?? "");
-    _navigator.navigatorKey.currentState
-          ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
-    submitting = false;
+
+
+
   }
 
 
@@ -142,7 +158,7 @@ abstract class _RegistrationViewModel with Store{
 
 
   validate() {
-    valid = file != null && isNameValid() && isEmailValid() && isRadioValid();
+    valid = file != null && isNameValid() &&  isEmailValid();
   }
 
   isNameValid() {
@@ -152,10 +168,20 @@ abstract class _RegistrationViewModel with Store{
   isEmailValid() {
     return _validator.isValidEmail(_email);
   }
-  isRadioValid(){
-    return selected.value;
-  }
+
+
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+

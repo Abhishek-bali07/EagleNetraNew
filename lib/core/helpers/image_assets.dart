@@ -9,4 +9,12 @@ class ImageAssets{
 
 
   static const UserImage = "assets/images/userimg.png";
+
+
+  static const kidsImage = "assets/images/Kids.png";
+
+
+  static const bell = "assets/images/bellicon.svg";
+
+  static const eagle = "assets/images/navicon.svg";
 }

@@ -57,6 +57,38 @@ mixin _$RegistrationViewModel on _RegistrationViewModel, Store {
     });
   }
 
+  late final _$selectedGenderAtom =
+      Atom(name: '_RegistrationViewModel.selectedGender', context: context);
+
+  @override
+  String get selectedGender {
+    _$selectedGenderAtom.reportRead();
+    return super.selectedGender;
+  }
+
+  @override
+  set selectedGender(String value) {
+    _$selectedGenderAtom.reportWrite(value, super.selectedGender, () {
+      super.selectedGender = value;
+    });
+  }
+
+  late final _$selectedAtom =
+      Atom(name: '_RegistrationViewModel.selected', context: context);
+
+  @override
+  TrackRadio get selected {
+    _$selectedAtom.reportRead();
+    return super.selected;
+  }
+
+  @override
+  set selected(TrackRadio value) {
+    _$selectedAtom.reportWrite(value, super.selected, () {
+      super.selected = value;
+    });
+  }
+
   late final _$snackbarMessageAtom =
       Atom(name: '_RegistrationViewModel.snackbarMessage', context: context);
 
@@ -87,38 +119,6 @@ mixin _$RegistrationViewModel on _RegistrationViewModel, Store {
     _$showPickSourceDialogAtom.reportWrite(value, super.showPickSourceDialog,
         () {
       super.showPickSourceDialog = value;
-    });
-  }
-
-  late final _$selectedGenderAtom =
-      Atom(name: '_RegistrationViewModel.selectedGender', context: context);
-
-  @override
-  String get selectedGender {
-    _$selectedGenderAtom.reportRead();
-    return super.selectedGender;
-  }
-
-  @override
-  set selectedGender(String value) {
-    _$selectedGenderAtom.reportWrite(value, super.selectedGender, () {
-      super.selectedGender = value;
-    });
-  }
-
-  late final _$selectedAtom =
-      Atom(name: '_RegistrationViewModel.selected', context: context);
-
-  @override
-  TrackRadio get selected {
-    _$selectedAtom.reportRead();
-    return super.selected;
-  }
-
-  @override
-  set selected(TrackRadio value) {
-    _$selectedAtom.reportWrite(value, super.selected, () {
-      super.selected = value;
     });
   }
 
@@ -186,10 +186,10 @@ mixin _$RegistrationViewModel on _RegistrationViewModel, Store {
 valid: ${valid},
 submitting: ${submitting},
 file: ${file},
-snackbarMessage: ${snackbarMessage},
-showPickSourceDialog: ${showPickSourceDialog},
 selectedGender: ${selectedGender},
-selected: ${selected}
+selected: ${selected},
+snackbarMessage: ${snackbarMessage},
+showPickSourceDialog: ${showPickSourceDialog}
     ''';
   }
 }

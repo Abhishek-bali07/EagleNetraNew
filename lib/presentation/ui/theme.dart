@@ -14,4 +14,8 @@ class AppColors{
   static Color SilverChalice = Color(0xFFACACAC);
   static const primary = Color(0xFFfdba12);
   static const appBlack = Color(0xFF0F0F0F);
+  static const appPrimary = Color(0xFFFAAAAD);
+  static const drawerPrimary = Color(0xFFE68273);
+
+
 }
