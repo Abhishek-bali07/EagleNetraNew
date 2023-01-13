@@ -16,6 +16,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
           width: 50,
           child: Image.asset(ImageAssets.logo),
         ),
-        
+
         actions: [
 
           IconButton(
@@ -57,15 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.SilverChalice,
-        foregroundColor: AppColors.Black,
-        onPressed: (){
 
-
-        },
-        child: Icon(Icons.add),
-      ),
       drawer: Drawer(
 
         child: ListView(
@@ -164,20 +157,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _lowerSideContent() {
     return SafeArea(
         child: Center(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(ImageAssets.kidsImage),
-              ),
-              Text("Add your childs smart card.", style: TextStyle(
-                fontSize: 25.sp,
-
-              ),)
-            ],
-      ),
+          child: Text("DashboardPage")
         ),
       );
 

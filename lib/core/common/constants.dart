@@ -15,4 +15,15 @@ class Constants {
   static const done = "Done";
   static const tryAgain = "Try Again";
   static const rgisbtn = "Complete your registration";
+  static const addbtn = "Add Now";
+
+
+
+
+  static const kidname = "Your Kid name";
+  static const cardnumber = "Smart Card Number";
+  static const deviceId = "Device Id";
+  static const classname = "Class";
+  static const age = "Age";
+  static const mobilenumber = "Mobile Number";
 }

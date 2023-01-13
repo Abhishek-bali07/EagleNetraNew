@@ -1,25 +1,25 @@
-import 'dart:io';
+ import 'dart:io';
 
-import 'package:eagle_netra/presentation/app_navigator/routes.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mobx/mobx.dart';
+ import 'package:eagle_netra/presentation/app_navigator/routes.dart';
+ import 'package:flutter/cupertino.dart';
+ import 'package:image_picker/image_picker.dart';
+ import 'package:mobx/mobx.dart';
 
-import '../../core/common/app_settings.dart';
-import '../../core/common/constants.dart';
-import '../../core/common/package.dart';
-import '../../core/common/response.dart';
-import '../../core/common/track_radio_button.dart';
-import '../../core/common/user_status.dart';
-import '../../core/common/validator.dart';
-import '../../core/common/wrapper.dart';
-import '../../core/helpers/navigation_service.dart';
-import '../../core/repository/userRegister_repository.dart';
-import '../../utils/dialog_manager.dart';
-import '../../utils/extensions.dart';
-import '../app_navigator/di.dart';
+  import '../../core/common/app_settings.dart';
+  import '../../core/common/constants.dart';
+  import '../../core/common/package.dart';
+  import '../../core/common/response.dart';
+  import '../../core/common/track_radio_button.dart';
+  import '../../core/common/user_status.dart';
+  import '../../core/common/validator.dart';
+  import '../../core/common/wrapper.dart';
+  import '../../core/helpers/navigation_service.dart';
+  import '../../core/repository/userRegister_repository.dart';
+  import '../../utils/dialog_manager.dart';
+  import '../../utils/extensions.dart';
+  import '../app_navigator/di.dart';
 
-part 'registration_page_view_model.g.dart';
+  part 'registration_page_view_model.g.dart';
 
 class RegistrationViewModel = _RegistrationViewModel  with _$RegistrationViewModel;
 
@@ -119,7 +119,7 @@ abstract class _RegistrationViewModel with Store{
                   ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
             }else{
               submitting = false;
-              _navigator.navigateTo(Routes.registration);
+              _navigator.navigateTo(Routes.mykids);
             }
           }
       }

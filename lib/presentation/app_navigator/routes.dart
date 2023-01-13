@@ -4,4 +4,6 @@ class Routes{
   static const mobileinput = "mobileinput";
   static const registration = "registration";
   static const dashboard = "dashboard";
+  static const mykids = "mykids";
+  static const addkid = "addkid";
 }

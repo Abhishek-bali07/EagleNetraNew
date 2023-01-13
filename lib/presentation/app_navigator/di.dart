@@ -16,8 +16,10 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/common/validator.dart';
+import '../../core/repository/addKids_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
 import '../../helpers_impl/validator_impl.dart';
+import '../../repository_impl/addKids_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
 
 final instance = GetIt.instance;
@@ -63,5 +65,8 @@ Future<void> initAppModule() async{
 
 
   instance.registerLazySingleton<RegisterUserRepository>(() => RegisterUserUseCaseImpl());
+
+
+  instance.registerLazySingleton<AddCardRepository>(() => AddKidsUseCaseImpl());
 
 }

@@ -27,4 +27,6 @@ class StringProvider{
   static var Recieving = "Receiving...";
 
   static const resendotp = "Resend OTP";
+
+  static const addcard = "Add a Smart Id Card";
 }

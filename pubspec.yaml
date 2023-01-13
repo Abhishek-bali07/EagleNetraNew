@@ -60,6 +60,8 @@ dependencies:
   pinput: ^2.2.12
   file_picker: ^4.6.1
   image_picker: ^0.8.5+3
+  another_flushbar: ^1.10.29
+  fluttertoast: ^8.0.9
 
 
 
