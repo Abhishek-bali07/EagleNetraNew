@@ -17,9 +17,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/common/validator.dart';
 import '../../core/repository/addKids_repository.dart';
+import '../../core/repository/kid_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
 import '../../helpers_impl/validator_impl.dart';
 import '../../repository_impl/addKids_repository_impl.dart';
+import '../../repository_impl/kid_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
 
 final instance = GetIt.instance;
@@ -49,9 +51,7 @@ Future<void> initAppModule() async{
 
   dio.interceptors.add(alice.getDioInterceptor());
 
-  instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
-
-  instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(instance()));
+  instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(sharedPrefs));
 
   instance.registerLazySingleton<SplashRepository>(() => SplashRepositoryImpl());
 
@@ -69,4 +69,5 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<AddCardRepository>(() => AddKidsUseCaseImpl());
 
+  instance.registerLazySingleton<KidAccountRepository>(() => KidRepositoryImpl());
 }

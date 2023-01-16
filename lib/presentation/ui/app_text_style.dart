@@ -40,6 +40,13 @@ class AppTextStyle {
       color: AppColors.Acadia);
 
 
+  static TextStyle userNameStyle = TextStyle(
+      fontFamily: AppFonts.fontFamilyPoppins,
+      fontWeight: FontWeight.w400,
+      fontSize: 20.sp,
+      color: AppColors.appBlack);
+
+
   static var introSubHeadingStyle = TextStyle(
       fontFamily: AppFonts.poppins,
       fontWeight: FontWeight.w300,

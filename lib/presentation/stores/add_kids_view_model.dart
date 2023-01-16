@@ -10,6 +10,7 @@ import 'package:mobx/mobx.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/constants.dart';
 import '../../core/common/response.dart';
+import '../../core/common/validator.dart';
 import '../../core/common/wrapper.dart';
 import '../../utils/dialog_manager.dart';
 import '../../utils/extensions.dart';
@@ -25,6 +26,7 @@ class AddKidViewModel = _AddKidViewModel  with _$AddKidViewModel;
 abstract class _AddKidViewModel with Store{
   final _navigator = instance<NavigationService>();
   final _appSettings = instance<AppSettings>();
+  final Validator _validator = instance<Validator>();
   final add_card_use_case = instance<AddCardRepository>();
   final dialogManager = DialogManager();
   final ImagePicker _picker = ImagePicker();
@@ -73,13 +75,13 @@ abstract class _AddKidViewModel with Store{
   @action
   onNameChanged(String value) {
     _kidname = value;
-    //validate();
+    validate();
   }
 
   @action
   onCardNumberChanged(String value) {
     _cardnumber = value;
-    //validate();
+    validate();
   }
 
 
@@ -100,14 +102,14 @@ abstract class _AddKidViewModel with Store{
   @action
   onAgeChanged(String value) {
     _addage = value;
-    //validate();
+    validate();
   }
 
 
   @action
   onMobileChanged(String value) {
     _addmobile2 = value;
-    //validate();
+    validate();
   }
 
   @action
@@ -148,7 +150,7 @@ abstract class _AddKidViewModel with Store{
 
   submitKidsDetails() async{
     submitting = true;
-    var userId = _appSettings.userId();
+    var userId = _appSettings.userId;
     var response = await add_card_use_case.addKids(
         userId,
         _kidname,
@@ -167,7 +169,7 @@ abstract class _AddKidViewModel with Store{
         case true:
           if(data!.isAdded){
 
-            // _navigator.navigateTo(Routes.dashboard);
+            //_navigator.navigateTo(Routes.mykids);
             MyUtils.toastMessage("Data submitted...");
           }else{
             MyUtils.toastMessage("Error");
@@ -203,9 +205,30 @@ abstract class _AddKidViewModel with Store{
         file = File(photo.path);
       }
     }
-   // validate();
+    validate();
   }
 
+  validate() {
+    valid = file != null && isNameValid() &&  isCardValid() && isDeviceValid() && isNumberValid();
+  }
 
+  isNameValid() {
+    return _kidname.length > 2;
+  }
 
+  isCardValid(){
+    return  _validator.isValidCard(_cardnumber);
+  }
+
+  isDeviceValid(){
+    return _device.length>= 5;
+    }
+
+  isValidage(){
+    return _addage.length <= 3;
+
+  }
+  isNumberValid(){
+    return _validator.isValidNumber(_addmobile2);
+  }
 }

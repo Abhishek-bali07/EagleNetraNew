@@ -119,7 +119,7 @@ abstract class _RegistrationViewModel with Store{
                   ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
             }else{
               submitting = false;
-              _navigator.navigateTo(Routes.mykids);
+             _navigator.navigateTo(Routes.mykids);
             }
           }
       }

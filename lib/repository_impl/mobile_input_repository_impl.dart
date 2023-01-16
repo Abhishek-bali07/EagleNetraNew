@@ -21,7 +21,7 @@ class MobileInputRepositoryImpl implements MobileInputRepository{
         message: "OTP Not Matched",
         isVerified: true,
         userId: "1",
-        userStatus:"NOT REGISTERED"));
+        userStatus:"REGISTERED"));
   }
 
 }

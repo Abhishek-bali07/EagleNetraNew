@@ -10,6 +10,10 @@ class ValidatorImpl extends Validator{
   static const domainRegex = r"^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,7}$";
   static const endpointRegex = r'^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$';
   static const mobileRegex = r'^[0-9]{10}$';
+  static const cardnumberRegex = r"^[A-Z]{3}[0-9]{7}$";
+
+
+
 
   bool isValid(String input, String pattern){
     RegExp regex = RegExp(pattern);
@@ -19,6 +23,14 @@ class ValidatorImpl extends Validator{
   @override
   bool isValidEmail(String input) {
     return isValid(input,emailRegex);
+  }
+
+  bool isValidCard(String input){
+    return isValid(input, cardnumberRegex);
+  }
+
+  bool isValidNumber(String input){
+    return isValid(input, mobileRegex);
   }
 
 

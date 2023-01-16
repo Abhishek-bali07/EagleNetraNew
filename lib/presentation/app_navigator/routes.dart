@@ -6,4 +6,5 @@ class Routes{
   static const dashboard = "dashboard";
   static const mykids = "mykids";
   static const addkid = "addkid";
+  static const kidPage = "kidPage";
 }

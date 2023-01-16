@@ -1,4 +1,5 @@
 enum AlertAction {
+  kidShortInfo,
   none,
 
 }

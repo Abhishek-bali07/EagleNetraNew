@@ -6,6 +6,7 @@ import 'package:eagle_netra/presentation/screens/splash_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../presentation/screens/add_kids.dart';
+import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
@@ -24,7 +25,7 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(MobileInput());
 
       case Routes.registration:
-        return ScreenTransitions.rightToLeftTransition(RegistrationPage());
+        return ScreenTransitions.rightToLeftTransition(const RegistrationPage());
       
       case Routes.dashboard: 
         return ScreenTransitions.rightToLeftTransition(const DashboardPage());
@@ -36,6 +37,9 @@ class RouteGenerator {
 
       case Routes.addkid:
         return ScreenTransitions.rightToLeftTransition(const AddKidScreen());
+
+      case Routes.kidPage:
+        return ScreenTransitions.rightToLeftTransition(const KidsPage());
 
       default:
         page = const Text("Undefined route");

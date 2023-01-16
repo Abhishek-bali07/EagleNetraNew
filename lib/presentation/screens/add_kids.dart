@@ -105,7 +105,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
                   child: Container(
                     width: 140,
                     height: 140,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.red, shape: BoxShape.circle),
                     child: Stack(
                       children: [
@@ -193,7 +193,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
                                     height: 20,
                                   ),
                                   TextField(
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.name,
                                     onChanged: (value) {
                                       _vm.onCardNumberChanged(value);
                                     },
@@ -448,7 +448,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
                                     fontWeight:
                                     FontWeight.w500),
                               )
-                                  : CircularProgressIndicator(),
+                                  : CircularProgressIndicator(color: Colors.white),
                             )),
                       ),
 

@@ -9,6 +9,8 @@ class StringProvider{
 
   static const retry = "Retry";
 
+  static var userName = "User Name";
+  
   static const thisFieldIsMandatory = "*This field is mandatory.";
 
 
