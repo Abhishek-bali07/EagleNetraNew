@@ -73,6 +73,22 @@ mixin _$KidsPageViewModel on _KidsPageViewModel, Store {
     });
   }
 
+  late final _$RmessageAtom =
+      Atom(name: '_KidsPageViewModel.Rmessage', context: context);
+
+  @override
+  String get Rmessage {
+    _$RmessageAtom.reportRead();
+    return super.Rmessage;
+  }
+
+  @override
+  set Rmessage(String value) {
+    _$RmessageAtom.reportWrite(value, super.Rmessage, () {
+      super.Rmessage = value;
+    });
+  }
+
   late final _$imageAtom =
       Atom(name: '_KidsPageViewModel.image', context: context);
 
@@ -112,6 +128,7 @@ kidHistory: ${kidHistory},
 isLoading: ${isLoading},
 kidName: ${kidName},
 kidClass: ${kidClass},
+Rmessage: ${Rmessage},
 image: ${image},
 loading: ${loading}
     ''';

@@ -10,6 +10,7 @@ import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
+import '../../presentation/screens/safeAreaPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
@@ -40,6 +41,9 @@ class RouteGenerator {
 
       case Routes.kidPage:
         return ScreenTransitions.rightToLeftTransition(const KidsPage());
+
+      case Routes.safearea:
+        return ScreenTransitions.rightToLeftTransition(const SafeAreaPage());
 
       default:
         page = const Text("Undefined route");

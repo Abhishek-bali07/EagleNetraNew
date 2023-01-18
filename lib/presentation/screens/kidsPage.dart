@@ -40,7 +40,6 @@ class _KidsPageState extends State<KidsPage> {
     ];
   }
 
-
   @override
   void dispose() {
     for (var element in _disposers) {
@@ -48,7 +47,6 @@ class _KidsPageState extends State<KidsPage> {
     }
     super.dispose();
   }
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +64,13 @@ class _KidsPageState extends State<KidsPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.SilverChalice,
         foregroundColor: AppColors.Black,
-        onPressed:(){},
+        onPressed: () {},
         child: Icon(Icons.add),
       ),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [Expanded(flex: 8, child: _lowerSideContent())],
+          children: [Expanded(flex: 10, child: _lowerSideContent())],
         ),
       ),
     );
@@ -83,37 +81,34 @@ class _KidsPageState extends State<KidsPage> {
       children: [
         Expanded(
           flex: 10,
-            child: Container(
-              color: Colors.white,
-              child: Observer(
-                builder: (BuildContext context) {
-                  if(_viewModel.isLoading){
-                    return  Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                          height: 0.10.sh,
-                          width: 0.10.sh,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 0.05.sw,
-                                  horizontal: 0.05.sw),
-                              child:
-                              const CircularProgressIndicator())),
-                    );
-                  }else{
-                    return _viewModel.kidHistory.isEmpty ?
-                        Center(
-                          child: Text("Does not have anyone"),
-                        )
-                        : ListView.separated(
+          child: Container(
+            color: Colors.white,
+            child: Observer(builder: (BuildContext context) {
+              if (_viewModel.isLoading) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                      height: 0.10.sh,
+                      width: 0.10.sh,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0.05.sw, horizontal: 0.05.sw),
+                          child: const CircularProgressIndicator())),
+                );
+              } else {
+                return _viewModel.kidHistory.isEmpty
+                    ? Center(
+                        child: Text("Does not have anyone"),
+                      )
+                    : ListView.separated(
                         itemBuilder: (context, index) => listItem(index),
-                        separatorBuilder:
-                            (BuildContext context, int index) => separatedBox(),
-                        itemCount: _viewModel.kidHistory.length
-                    );
-                  }
-                }),
-            ),),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            separatedBox(),
+                        itemCount: _viewModel.kidHistory.length);
+              }
+            }),
+          ),
+        ),
       ],
     );
   }
@@ -133,102 +128,111 @@ class _KidsPageState extends State<KidsPage> {
                 spreadRadius: 0,
                 offset: Offset(0, 10))
           ]),
-      child:  Padding(
-        padding:  EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
-        child:Column(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
+        child: Column(
           children: [
-            Expanded(
-              flex:2,
-              child: Observer(
-                builder: (BuildContext context) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
+            Observer(
+              builder: (BuildContext context) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Observer(
                               builder: (BuildContext context) {
                                 return _viewModel.image.isNotEmpty
                                     ? CircleAvatar(
-                                  radius: 0.08.sw,
-                                  backgroundColor: AppColors.lightGray,
-                                  foregroundImage:
-                                  NetworkImage(_viewModel.image),
-                                )
+                                        radius: 0.08.sw,
+                                        backgroundColor: AppColors.lightGray,
+                                        foregroundImage:
+                                            NetworkImage(_viewModel.image),
+                                      )
                                     : CircleAvatar(
-                                  radius: 0.08.sw,
-                                  backgroundColor: AppColors.drawerPrimary,
-                                );
+                                        radius: 0.08.sw,
+                                        // backgroundColor:
+                                        //     AppColors.drawerPrimary,
+                                        child: SvgPicture.asset("assets/images/boy.svg"),
+                             
+                             
+                                      );
                               },
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                                child: _viewModel.kidHistory[index].name
-                                    .text(AppTextStyle.userNameStyle),
-                              ),
-                              SizedBox(height: 0.01.sw),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                                    child: Text(_viewModel.kidHistory[index].clsname),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                                    child: Text(_viewModel.kidHistory[index].clsname),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 150.0),
-                            child: SvgPicture.asset(
-                                ImageAssets.home
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, left: 8.0),
+                              child: _viewModel.kidHistory[index].name
+                                  .text(AppTextStyle.userNameStyle),
                             ),
-                          ),
-
-                        ],
-                      ),
-
-                      Container(
-                        decoration:const BoxDecoration(
-                            color: Colors.grey
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            SizedBox(height: 0.01.sw),
+                            Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              
                               children: [
-                                Text("ID Active form : 1st Jan 2022", style: TextStyle(fontSize: 12)),
-
-                                Text("ID Expiree on : 1st Jan 2022", style: TextStyle(fontSize: 12)),
-                              ]
-                          ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5.0, left: 8.0),
+                                  child: Text(
+                                      _viewModel.kidHistory[index].clsname),
+                                ),
+                                 SizedBox(width: 0.01.sw),
+                                const SizedBox(
+                                  height: 15,
+                                  child: VerticalDivider(
+                                    width: 5,
+                                    thickness: 2,
+                                    indent: 2,
+                                    endIndent: 0,
+                                    color: Colors.black38,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5.0, left: 8.0),
+                                  child: Text(_viewModel.kidHistory[index].age),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 150.0),
+                          child: SvgPicture.asset(ImageAssets.home),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      decoration:
+                          const BoxDecoration(color: AppColors.lightGray),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text("ID Active form : 1st Jan 2022",
+                                  style: TextStyle(fontSize: 12)),
+                              Text("ID Expire on : 1st Jan 2022",
+                                  style: TextStyle(fontSize: 12)),
+                            ]),
                       ),
-
-
-
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
-            SizedBox(height: 0.02.sw),
-            Divider()
           ],
         ),
-
-
       ),
     );
   }
@@ -238,7 +242,6 @@ class _KidsPageState extends State<KidsPage> {
       height: 0.03.sw,
     );
   }
-
 
   // Widget _lowerSideContent() {
   //   return Column(
