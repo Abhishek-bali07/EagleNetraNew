@@ -7,7 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobx/mobx.dart';
-
+import 'package:switch_button/switch_button.dart';
 import '../../core/common/dialog_state.dart';
 import '../../core/helpers/image_assets.dart';
 import '../stores/safearea_page_view_model.dart';
@@ -219,13 +219,47 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                       ],
                     ),
                     Divider(),
-                    Row(
-                      children:[
-                        Text("Rehana School"),
-                        SwitchButton(),
-                      ],
 
+
+
+                    SwitchButton(
+                      value: state,
+                      onToggle: (val) {
+                        setState(() {
+                          state = val;
+                        });
+                      },
+                      child: Text("Rehana School"),),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex:1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SafeArea(
+                             child: Text("243, Grand Trunk Rd, N, Liluah, Howrah,\n West Bengal 711204",style: TextStyle(
+                                color: AppColors.lightGray,
+                                fontSize: 12.sp,
+                              ),),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Alert on:"),
+                          Text("Radious:100m"),
+                        ],
+                      ),
+                    ),
+
+
+
+                    Divider(),
                   ],
                 );
               },
@@ -235,6 +269,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       ),
     );
   }
+
 
   Widget separatedBox() {
     return SizedBox(

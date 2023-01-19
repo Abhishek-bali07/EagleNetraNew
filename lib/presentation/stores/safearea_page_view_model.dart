@@ -28,6 +28,10 @@ abstract class _SafeAreaPageViewModel with Store{
 
 
   @observable
+  bool dataLoader = false;
+
+
+  @observable
   List<ShortDetails> safeAreaList = [];
 
 
@@ -74,6 +78,23 @@ abstract class _SafeAreaPageViewModel with Store{
     }
   }
 
+
+  getSafeareaData() async {
+    dataLoader = true;
+    var userId = _appSettings.userId();
+    //var userId = "1";
+    var deviceId = "CFG444442";
+    var currentState = " ";
+    var response = await _safeareaUseCase.AddSafearea(userId, deviceId, currentState);
+    if (response is Success) {
+      var data = response.data;
+      dataLoader = false;
+      switch (data != null && data.status) {
+
+      }
+
+    }
+  }
 
   onError(AlertAction? action) {
     if (action == AlertAction.kidShortInfo) {
