@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eagle_netra/core/common/app_settings.dart';
 import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/intro_data.dart';
@@ -9,7 +11,15 @@ import 'package:eagle_netra/core/repository/main_repository.dart';
 import 'package:eagle_netra/presentation/app_navigator/di.dart';
 import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/utils/dialog_manager.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../core/common/alert_data.dart';
+import '../../core/common/gps_status.dart';
+import '../../core/common/location_permission_status.dart';
+import '../../core/helpers/string_provider.dart';
+import '../../helpers_impl/app_location_service.dart';
 
 
 part 'main_view_model.g.dart';
@@ -22,6 +32,7 @@ abstract class _IMainViewModel with Store {
   final _repository = instance<MainRepository>();
   final dialogManager = DialogManager();
   final _navigator = instance<NavigationService>();
+  final locationService = AppLocationService();
 
 
   @observable
@@ -50,6 +61,26 @@ abstract class _IMainViewModel with Store {
     // }
   }
 
+  @observable
+  Position? currentLocation;
 
+  StreamSubscription? locationStreamDisposer;
+
+  @action
+  getCurrentLocation() async {
+    locationStreamDisposer =
+        locationService.checkPermission().listen((event) async {
+          debugPrint("locationService $event");
+          if (event == GpsStatus.disabled) {
+
+          } else if (event == LocationPermissionStatus.showRationale) {
+
+          } else if (event == LocationPermissionStatus.openSetting) {
+
+          } else {
+            currentLocation = await locationService.getCurrentLocation();
+          }
+        });
+  }
 
 }

@@ -11,6 +11,7 @@ import '../../core/helpers/string_provider.dart';
 import '../../core/repository/kid_repository.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
+import '../app_navigator/routes.dart';
 
 part 'kids_page_view_model.g.dart';
 
@@ -69,6 +70,7 @@ abstract class _KidsPageViewModel with Store{
             kidHistory = [];
           } else {
             kidHistory = data.shortDetails;
+            //_navigator.navigateTo(Routes.safearea);
           }
       }
     }else if (response is Error) {
@@ -81,6 +83,11 @@ abstract class _KidsPageViewModel with Store{
     if (action == AlertAction.kidShortInfo) {
       getInitialData();
     }
+  }
+
+
+  onSafeareaSection(ShortDetails arg){
+    _navigator.navigateTo(Routes.safearea, arguments: arg);
   }
 
 

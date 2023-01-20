@@ -12,6 +12,7 @@ class KidShortInfoResponse  {
 
 class ShortDetails {
   ShortDetails({
+    required this.kidId,
     required this.name,
     required this.image,
     required this.age,
@@ -19,7 +20,7 @@ class ShortDetails {
     required this.expiredOn,
     required this.activateFrom,
   });
-
+  final String kidId;
   final String name;
   final String image;
   final String age;

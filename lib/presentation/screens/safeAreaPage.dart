@@ -1,4 +1,3 @@
-
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/dialog_controller.dart';
 import 'package:eagle_netra/utils/extensions.dart';
@@ -9,12 +8,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobx/mobx.dart';
 import 'package:switch_button/switch_button.dart';
 import '../../core/common/dialog_state.dart';
+import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/image_assets.dart';
 import '../stores/safearea_page_view_model.dart';
 import '../ui/app_text_style.dart';
 
 class SafeAreaPage extends StatefulWidget {
-  const SafeAreaPage({Key? key}) : super(key: key);
+  ShortDetails arguments;
+  SafeAreaPage({Key? key,required this.arguments}) : super(key: key);
 
   @override
   State<SafeAreaPage> createState() => _SafeAreaPageState();
@@ -24,20 +25,18 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
   late final SafeAreaPageViewModel _vm;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
-  bool state = false;
-
+ // bool state = false;
 
   @override
   void initState() {
-    _vm = SafeAreaPageViewModel ();
+    _vm = SafeAreaPageViewModel(widget.arguments);
 
     super.initState();
     _disposers = [
       reaction((p0) => _vm.dialogManager.currentErrorState, (p0) {
         if (p0 is DialogState && p0 == DialogState.displaying) {
           _dialogController.show(_vm.dialogManager.errorData!, p0,
-              positive: _vm.onError,
-              close: _vm.dialogManager.closeErrorDialog);
+              positive: _vm.onError, close: _vm.dialogManager.closeErrorDialog);
         }
       }),
     ];
@@ -51,8 +50,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
     super.dispose();
   }
 
-
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -69,17 +67,96 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.SilverChalice,
         foregroundColor: AppColors.Black,
-        onPressed: () {},
+        onPressed: _vm.onAddSafeareaSection,
         child: Icon(Icons.add),
       ),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [Expanded(flex: 10, child: _lowerSideContent())],
+          children: [
+            Expanded(flex:1,child: _upperSideContent()),
+            Expanded(flex: 8, child: _lowerSideContent())
+          ],
         ),
       ),
-    );;
+    );
   }
+
+  Widget _upperSideContent(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Observer(
+              builder: (BuildContext context) {
+                return _vm.image.isNotEmpty
+                    ? CircleAvatar(
+                  radius: 0.06.sw,
+                  backgroundColor: AppColors.lightGray,
+                  foregroundImage:
+                  NetworkImage(_vm.image),
+                )
+                    : CircleAvatar(
+                  radius: 0.06.sw,
+                  // backgroundColor:
+                  //     AppColors.drawerPrimary,
+                      child: SvgPicture.asset(
+                      "assets/images/boy.svg"),
+                );
+              },
+            ),
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+              const EdgeInsets.only(top: 8.0, left: 8.0),
+              child: widget.arguments.name
+                  .text(AppTextStyle.userNameStyle),
+            ),
+            SizedBox(height: 0.01.sw),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 5.0, left: 8.0),
+                  child: Text("Class:${widget.arguments.clsname}"),
+                ),
+                SizedBox(width: 0.01.sw),
+                const SizedBox(
+                  height: 15,
+                  child: VerticalDivider(
+                    width: 5,
+                    thickness: 2,
+                    indent: 2,
+                    endIndent: 0,
+                    color: Colors.black38,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 5.0, left: 8.0),
+                  child: Text("Age:${widget.arguments.age}"),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 150.0),
+          child: SvgPicture.asset(ImageAssets.home),
+        ),
+      ],
+    );
+  }
+
 
   Widget _lowerSideContent() {
     return Column(
@@ -103,13 +180,13 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
               } else {
                 return _vm.safeAreaList.isEmpty
                     ? Center(
-                  child: Text("Does not have anyone"),
-                )
+                        child: Text("Does not have anyone"),
+                      )
                     : ListView.separated(
-                    itemBuilder: (context, index) => listItem(index),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        separatedBox(),
-                    itemCount: _vm.safeAreaList.length);
+                        itemBuilder: (context, index) => listItem(index),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            separatedBox(),
+                        itemCount: _vm.safeAreaList.length);
               }
             }),
           ),
@@ -142,105 +219,32 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Divider(),
+                    SwitchButton(
+                      value: _vm.safeAreaList[index].state,
+                      onToggle: (val) {
+                        _vm.switcherData(_vm.safeAreaList[index], changedState: (state){
+                          setState(() {
+                            _vm.safeAreaList[index].state = state;
+                          });
+                        });
+                      },
+                      child: Text(_vm.safeAreaList[index].locationName),
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
                           flex: 1,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Observer(
-                              builder: (BuildContext context) {
-                                return _vm.image.isNotEmpty
-                                    ? CircleAvatar(
-                                  radius: 0.08.sw,
-                                  backgroundColor: AppColors.lightGray,
-                                  foregroundImage:
-                                  NetworkImage(_vm.image),
-                                )
-                                    : CircleAvatar(
-                                        radius: 0.08.sw,
-                                  // backgroundColor:
-                                  //     AppColors.drawerPrimary,
-                                      child: SvgPicture.asset(
-                                      "assets/images/boy.svg"),
-
-
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets.only(top: 8.0, left: 8.0),
-                              child: _vm.safeAreaList[index].name
-                                  .text(AppTextStyle.userNameStyle),
-                            ),
-                            SizedBox(height: 0.01.sw),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0, left: 8.0),
-                                  child: Text(
-                                      _vm.safeAreaList[index].clsname),
-                                ),
-                                SizedBox(width: 0.01.sw),
-                                const SizedBox(
-                                  height: 15,
-                                  child: VerticalDivider(
-                                    width: 5,
-                                    thickness: 2,
-                                    indent: 2,
-                                    endIndent: 0,
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0, left: 8.0),
-                                  child: Text(_vm.safeAreaList[index].age),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150.0),
-                          child: SvgPicture.asset(ImageAssets.home),
-                        ),
-                      ],
-                    ),
-                    Divider(),
-
-
-
-                    SwitchButton(
-                      value: state,
-                      onToggle: (val) {
-                        setState(() {
-                          state = val;
-                        });
-                      },
-                      child: Text("Rehana School"),),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex:1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
                             child: SafeArea(
-                             child: Text("243, Grand Trunk Rd, N, Liluah, Howrah,\n West Bengal 711204",style: TextStyle(
-                                color: AppColors.lightGray,
-                                fontSize: 12.sp,
-                              ),),
+                              child: Text(
+                                _vm.safeAreaList[index].address,
+                                style: TextStyle(
+                                  color: AppColors.lightGray,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -251,14 +255,11 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Alert on:"),
-                          Text("Radious:100m"),
+                          Text("Alert on:${_vm.safeAreaList[index].alertOn}"),
+                          Text("Radious:${_vm.safeAreaList[index].radious}"),
                         ],
                       ),
                     ),
-
-
-
                     Divider(),
                   ],
                 );
@@ -269,7 +270,6 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       ),
     );
   }
-
 
   Widget separatedBox() {
     return SizedBox(

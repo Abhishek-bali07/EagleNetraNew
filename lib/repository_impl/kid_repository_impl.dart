@@ -13,6 +13,7 @@ class KidRepositoryImpl implements KidAccountRepository{
         status: true,
         message: "Success", shortDetails: List.generate(3,
               (index) => ShortDetails(
+                kidId: "1",
                   name: "Druv Sen",
                   image: "image",
                   age: "10",

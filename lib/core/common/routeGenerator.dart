@@ -6,11 +6,13 @@ import 'package:eagle_netra/presentation/screens/splash_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../presentation/screens/add_kids.dart';
+import '../../presentation/screens/add_safe_area.dart';
 import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
 import '../../presentation/screens/safeAreaPage.dart';
+import '../domain/response/kid_short_info_response.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
@@ -43,7 +45,11 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const KidsPage());
 
       case Routes.safearea:
-        return ScreenTransitions.rightToLeftTransition(const SafeAreaPage());
+        var arg = routeSettings.arguments as ShortDetails;
+        return ScreenTransitions.rightToLeftTransition(SafeAreaPage(arguments: arg));
+
+      case Routes.addsafearea:
+          return ScreenTransitions.rightToLeftTransition(const AddSafeaAreaPage());
 
       default:
         page = const Text("Undefined route");

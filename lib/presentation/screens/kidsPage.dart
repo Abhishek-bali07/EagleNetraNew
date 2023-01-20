@@ -98,13 +98,13 @@ class _KidsPageState extends State<KidsPage> {
               } else {
                 return _viewModel.kidHistory.isEmpty
                     ? Center(
-                        child: Text("Does not have anyone"),
-                      )
+                  child: Text("Does not have anyone"),
+                )
                     : ListView.separated(
-                        itemBuilder: (context, index) => listItem(index),
-                        separatorBuilder: (BuildContext context, int index) =>
-                            separatedBox(),
-                        itemCount: _viewModel.kidHistory.length);
+                    itemBuilder: (context, index) => listItem(index),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        separatedBox(),
+                    itemCount: _viewModel.kidHistory.length);
               }
             }),
           ),
@@ -114,124 +114,129 @@ class _KidsPageState extends State<KidsPage> {
   }
 
   Widget listItem(int index) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 0.02.sw,
-      ),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          boxShadow: [
-            BoxShadow(
-                color: Color(0x1a000000),
-                blurRadius: 20,
-                spreadRadius: 0,
-                offset: Offset(0, 10))
-          ]),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
-        child: Column(
-          children: [
-            Observer(
-              builder: (BuildContext context) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Observer(
-                              builder: (BuildContext context) {
-                                return _viewModel.image.isNotEmpty
-                                    ? CircleAvatar(
-                                        radius: 0.08.sw,
-                                        backgroundColor: AppColors.lightGray,
-                                        foregroundImage:
-                                            NetworkImage(_viewModel.image),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 0.08.sw,
-                                        // backgroundColor:
-                                        //     AppColors.drawerPrimary,
-                                        child: SvgPicture.asset("assets/images/boy.svg"),
-                             
-                             
-                                      );
-                              },
+    return GestureDetector(
+      onTap: (){
+        _viewModel.onSafeareaSection(_viewModel.kidHistory[index]);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 0.02.sw,
+        ),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            boxShadow: [
+              BoxShadow(
+                  color: Color(0x1a000000),
+                  blurRadius: 20,
+                  spreadRadius: 0,
+                  offset: Offset(0, 10))
+            ]),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
+          child: Column(
+            children: [
+              Observer(
+                builder: (BuildContext context) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Observer(
+                                builder: (BuildContext context) {
+                                  return _viewModel.image.isNotEmpty
+                                      ? CircleAvatar(
+                                          radius: 0.08.sw,
+                                          backgroundColor: AppColors.lightGray,
+                                          foregroundImage:
+                                              NetworkImage(_viewModel.image),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 0.08.sw,
+                                          // backgroundColor:
+                                          //     AppColors.drawerPrimary,
+                                          child: SvgPicture.asset("assets/images/boy.svg"),
+
+
+                                        );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 8.0),
-                              child: _viewModel.kidHistory[index].name
-                                  .text(AppTextStyle.userNameStyle),
-                            ),
-                            SizedBox(height: 0.01.sw),
-                            Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0, left: 8.0),
-                                  child: Text(
-                                      _viewModel.kidHistory[index].clsname),
-                                ),
-                                 SizedBox(width: 0.01.sw),
-                                const SizedBox(
-                                  height: 15,
-                                  child: VerticalDivider(
-                                    width: 5,
-                                    thickness: 2,
-                                    indent: 2,
-                                    endIndent: 0,
-                                    color: Colors.black38,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, left: 8.0),
+                                child: _viewModel.kidHistory[index].name
+                                    .text(AppTextStyle.userNameStyle),
+                              ),
+                              SizedBox(height: 0.01.sw),
+                              Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, left: 8.0),
+                                    child: Text(
+                                        _viewModel.kidHistory[index].clsname),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0, left: 8.0),
-                                  child: Text(_viewModel.kidHistory[index].age),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 150.0),
-                          child: SvgPicture.asset(ImageAssets.home),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      decoration:
-                          const BoxDecoration(color: AppColors.lightGray),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("ID Active form : 1st Jan 2022",
-                                  style: TextStyle(fontSize: 12)),
-                              Text("ID Expire on : 1st Jan 2022",
-                                  style: TextStyle(fontSize: 12)),
-                            ]),
+                                   SizedBox(width: 0.01.sw),
+                                  const SizedBox(
+                                    height: 15,
+                                    child: VerticalDivider(
+                                      width: 5,
+                                      thickness: 2,
+                                      indent: 2,
+                                      endIndent: 0,
+                                      color: Colors.black38,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, left: 8.0),
+                                    child: Text(_viewModel.kidHistory[index].age),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 150.0),
+                            child: SvgPicture.asset(ImageAssets.home),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ],
+                      Container(
+                        decoration:
+                            const BoxDecoration(color: AppColors.lightGray),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text("ID Active form : 1st Jan 2022",
+                                    style: TextStyle(fontSize: 12)),
+                                Text("ID Expire on : 1st Jan 2022",
+                                    style: TextStyle(fontSize: 12)),
+                              ]),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

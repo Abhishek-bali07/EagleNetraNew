@@ -25,17 +25,33 @@ mixin _$SafeAreaPageViewModel on _SafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$dataLoaderAtom =
+      Atom(name: '_SafeAreaPageViewModel.dataLoader', context: context);
+
+  @override
+  bool get dataLoader {
+    _$dataLoaderAtom.reportRead();
+    return super.dataLoader;
+  }
+
+  @override
+  set dataLoader(bool value) {
+    _$dataLoaderAtom.reportWrite(value, super.dataLoader, () {
+      super.dataLoader = value;
+    });
+  }
+
   late final _$safeAreaListAtom =
       Atom(name: '_SafeAreaPageViewModel.safeAreaList', context: context);
 
   @override
-  List<ShortDetails> get safeAreaList {
+  List<AreaDetails> get safeAreaList {
     _$safeAreaListAtom.reportRead();
     return super.safeAreaList;
   }
 
   @override
-  set safeAreaList(List<ShortDetails> value) {
+  set safeAreaList(List<AreaDetails> value) {
     _$safeAreaListAtom.reportWrite(value, super.safeAreaList, () {
       super.safeAreaList = value;
     });
@@ -109,6 +125,7 @@ mixin _$SafeAreaPageViewModel on _SafeAreaPageViewModel, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
+dataLoader: ${dataLoader},
 safeAreaList: ${safeAreaList},
 kidName: ${kidName},
 kidClass: ${kidClass},
