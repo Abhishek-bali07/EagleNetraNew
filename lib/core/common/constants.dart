@@ -29,7 +29,10 @@ class Constants {
   static const age = "Age";
   static const mobilenumber = "Mobile Number";
 
+  static const currentlocation = "CurrentLocation";
 
+
+  static const addcurrentlocation = "AddCurrentLocation";
 
 
    static const defaultCameraPosition = CameraPosition(

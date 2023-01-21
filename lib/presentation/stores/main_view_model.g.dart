@@ -26,6 +26,22 @@ mixin _$MainViewModel on _IMainViewModel, Store {
     });
   }
 
+  late final _$currentLocationAtom =
+      Atom(name: '_IMainViewModel.currentLocation', context: context);
+
+  @override
+  Position? get currentLocation {
+    _$currentLocationAtom.reportRead();
+    return super.currentLocation;
+  }
+
+  @override
+  set currentLocation(Position? value) {
+    _$currentLocationAtom.reportWrite(value, super.currentLocation, () {
+      super.currentLocation = value;
+    });
+  }
+
   late final _$getIntroPageDataAsyncAction =
       AsyncAction('_IMainViewModel.getIntroPageData', context: context);
 
@@ -34,10 +50,20 @@ mixin _$MainViewModel on _IMainViewModel, Store {
     return _$getIntroPageDataAsyncAction.run(() => super.getIntroPageData());
   }
 
+  late final _$getCurrentLocationAsyncAction =
+      AsyncAction('_IMainViewModel.getCurrentLocation', context: context);
+
+  @override
+  Future getCurrentLocation() {
+    return _$getCurrentLocationAsyncAction
+        .run(() => super.getCurrentLocation());
+  }
+
   @override
   String toString() {
     return '''
-gettingIntroDataLoader: ${gettingIntroDataLoader}
+gettingIntroDataLoader: ${gettingIntroDataLoader},
+currentLocation: ${currentLocation}
     ''';
   }
 }

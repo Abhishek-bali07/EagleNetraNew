@@ -20,4 +20,7 @@ class ImageAssets{
 
 
   static const home = "assets/images/home.svg";
+
+
+  static const currentlocation = "assets/images/location.svg";
 }

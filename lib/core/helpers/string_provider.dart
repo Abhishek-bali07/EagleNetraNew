@@ -1,6 +1,8 @@
 import 'dart:math';
 
 class StringProvider{
+  static const appName = "Eagle Netra";
+
   static const appVersion = "AppVersion";
 
   static const noInternet = "No Internet";
@@ -25,10 +27,24 @@ class StringProvider{
 
   static var done = "Done";
 
+  static var appSetting = "App Setting";
+
+  static var locationDeniedForever =
+      "To give your location permission, go to app settings and change current setting";
+
+  static var enableGpsMessage =
+      "Please enable your Location Service/GPS, We need this for getting your current location.";
+
 
   static var Recieving = "Receiving...";
 
   static const resendotp = "Resend OTP";
 
   static const addcard = "Add a Smart Id Card";
+
+  static var okay = "Okay";
+
+  static var permissionRationaleMessage =
+      "Without this we can't provide any service to you, so please allow this permission.";
+
 }
