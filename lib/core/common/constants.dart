@@ -32,7 +32,7 @@ class Constants {
   static const currentlocation = "CurrentLocation";
 
 
-  static const addcurrentlocation = "AddCurrentLocation";
+  static const addcurrentlocation = "Add Location Name";
 
 
    static const defaultCameraPosition = CameraPosition(

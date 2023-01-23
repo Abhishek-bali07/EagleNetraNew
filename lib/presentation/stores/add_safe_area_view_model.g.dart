@@ -9,6 +9,22 @@ part of 'add_safe_area_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
+  late final _$isShowAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.isShow', context: context);
+
+  @override
+  bool get isShow {
+    _$isShowAtom.reportRead();
+    return super.isShow;
+  }
+
+  @override
+  set isShow(bool value) {
+    _$isShowAtom.reportWrite(value, super.isShow, () {
+      super.isShow = value;
+    });
+  }
+
   late final _$markersAtom =
       Atom(name: '_AddSafeAreaPageViewModel.markers', context: context);
 
@@ -41,6 +57,14 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$onNextAsyncAction =
+      AsyncAction('_AddSafeAreaPageViewModel.onNext', context: context);
+
+  @override
+  Future onNext() {
+    return _$onNextAsyncAction.run(() => super.onNext());
+  }
+
   late final _$_AddSafeAreaPageViewModelActionController =
       ActionController(name: '_AddSafeAreaPageViewModel', context: context);
 
@@ -69,6 +93,7 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   @override
   String toString() {
     return '''
+isShow: ${isShow},
 markers: ${markers},
 circles: ${circles}
     ''';

@@ -75,18 +75,15 @@ abstract class _AddSafeAreaPageViewModel with Store{
       position: LatLng(coordinate.lat, coordinate.lng),
       consumeTapEvents: false,
       draggable: true,
-      // infoWindow: InfoWindow(
-      //   title: "Rehana School",
-      //    snippet: 'Lat: ${coordinate.lat} Lng: ${coordinate.lng}' ,
-      // ),
-      onTap: (){
-        onNext();
-      },
+      onTap: onNext,
       icon:  BitmapDescriptor.defaultMarker,
     );
-    getMarkers.add(_marker!);
-    markers = getMarkers;
-    setupCircle(coordinate);
+    if(_marker != null){
+      getMarkers.add(_marker!);
+      markers = getMarkers;
+      setupCircle(coordinate);
+    }
+
   }
 
 
@@ -111,8 +108,7 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   @action
   onNext() async {
-    isShow = false;
-
+    isShow = !isShow;
   }
 
 

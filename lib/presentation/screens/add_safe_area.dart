@@ -25,7 +25,6 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
 
-
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
   }
@@ -35,6 +34,8 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
     _dialogController =
         DialogController(dialog: ErrorDialogImpl(buildContext: context));
     _vm = AddSafeAreaPageViewModel();
+
+    super.initState();
     _disposers = [
       reaction((p0) => _vm.dialogManager.currentErrorState, (p0) {
         if (p0 == DialogState.displaying) {
@@ -49,20 +50,25 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
           ));
         }
       }),
-      reaction((p0) => _vm.isShow, (p0) async{
-        if(p0 == true){
-          await showBottomSheet(context: context,
-          builder: (BuildContext context){
-            return const SafeAreaDetailsPage();
-    });
-    }
-    }),
+      reaction((p0) => _vm.isShow, (p0) async {
+        if (p0 == true) {
+          await showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return const SafeAreaDetailsPage();
+              });
+
+          _vm.onNext();
+        }
+      }),
     ];
-    super.initState();
   }
 
   @override
   void dispose() {
+    for (var element in _disposers) {
+      element();
+    }
     super.dispose();
   }
 
@@ -101,24 +107,24 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
       child: Stack(
         children: [
           Observer(
-             builder: (BuildContext context) {
-               return GoogleMap(
-                 initialCameraPosition: _vm.initialCameraPosition(),
-                 zoomControlsEnabled: true,
-                 scrollGesturesEnabled: true,
-                 indoorViewEnabled: true,
-                 onMapCreated: onMapCreated,
-                 myLocationEnabled: true,
-                 myLocationButtonEnabled: true,
-                 markers: _vm.markers,
-                 circles: _vm.circles,
-                 onLongPress: (latlng){
-
-                   _vm.setupMarker(LatLong(lat:latlng.latitude, lng:latlng.longitude));
+            builder: (BuildContext context) {
+              return GoogleMap(
+                initialCameraPosition: _vm.initialCameraPosition(),
+                zoomControlsEnabled: true,
+                scrollGesturesEnabled: true,
+                indoorViewEnabled: true,
+                onMapCreated: onMapCreated,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                markers: _vm.markers,
+                circles: _vm.circles,
+                onLongPress: (latlng) {
+                  _vm.setupMarker(
+                      LatLong(lat: latlng.latitude, lng: latlng.longitude));
                   // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
-                 },
-               );
-             },
+                },
+              );
+            },
           ),
         ],
       ),
