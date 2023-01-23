@@ -3,6 +3,7 @@ enum AlertAction {
   locationPermissionRationale,
   locationServiceDisable,
   enableGps,
+  uploadlocation,
   none,
 
 }
