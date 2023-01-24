@@ -36,7 +36,7 @@ class _MyappState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             navigatorKey:instance<NavigationService>().navigatorKey,
             //initialRoute: Routes.splash,
-            initialRoute: Routes.addsafearea,
+            initialRoute: Routes.dashboard,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

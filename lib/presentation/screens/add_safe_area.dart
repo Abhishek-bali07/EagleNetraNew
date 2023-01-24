@@ -2,6 +2,7 @@ import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/presentation/screens/safearea_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -53,11 +54,15 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
       reaction((p0) => _vm.isShow, (p0) async {
         if (p0 == true) {
           await showModalBottomSheet(
+            constraints: BoxConstraints(
+              minHeight: 0.35.sh,
+              maxHeight: 0.35.sh,
+            ),
               context: context,
-              builder: (BuildContext context) {
-                return const SafeAreaDetailsPage();
-              });
-
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r)
+              ),
+              builder: (context) => SafeAreaDetailsPage(parentVM: _vm));
           _vm.onNext();
         }
       }),
@@ -75,7 +80,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       drawerEnableOpenDragGesture: false,
       appBar: AppBar(
         centerTitle: true,

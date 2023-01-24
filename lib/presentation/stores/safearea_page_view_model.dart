@@ -93,7 +93,6 @@ abstract class _SafeAreaPageViewModel with Store{
     var kidId = data.kidId;
     var safeAreaId = safeArea.safeAreaId;
     bool state = safeArea.state;
-
     var response = await _safeareaUseCase.AddSafearea(userId, kidId, safeAreaId, state);
     if (response is Success) {
       var data = response.data;

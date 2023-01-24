@@ -5,7 +5,7 @@ import '../domain/response/fetch_adress_response.dart';
 
 abstract class SafeAreaDetailsRepository{
 
-  Future<Resource<FetchAddressResponse>> fetchAdress(String userId, String kidId);
+  Future<Resource<FetchAddressResponse>> fetchAddress(double longitude, double latitude);
 
 
 
@@ -15,6 +15,6 @@ abstract class SafeAreaDetailsRepository{
       String locationName,
       String locationAddress,
       String alert,
-      String radious,
+      double radius,
       );
 }

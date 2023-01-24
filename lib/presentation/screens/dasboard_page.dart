@@ -1,12 +1,20 @@
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mobx/mobx.dart';
 
+import '../../core/common/dialog_state.dart';
+import '../../core/common/lat_long.dart';
 import '../../core/helpers/image_assets.dart';
 import '../../core/helpers/navigation_service.dart';
+import '../../helpers_impl/error_dialog_impl.dart';
+import '../../utils/dialog_controller.dart';
 import '../app_navigator/di.dart';
+import '../stores/dashboard_page_view_model.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -16,6 +24,48 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  GoogleMapController? _controller;
+  late final DashBoardPageViewModel _viewm;
+  late final List<ReactionDisposer> _disposers;
+  late final DialogController _dialogController;
+
+  onMapCreated(GoogleMapController controller) {
+    _controller = controller;
+  }
+
+
+  @override
+  void initState(){
+    _dialogController =
+        DialogController(dialog: ErrorDialogImpl(buildContext: context));
+    _viewm = DashBoardPageViewModel();
+    super.initState();
+    _disposers = [
+      reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
+        if (p0 == DialogState.displaying) {
+          _dialogController.show(_viewm.dialogManager.errorData!, p0,
+              close: _viewm.dialogManager.closeErrorDialog, positive: _viewm.onRetry);
+        }
+      }),
+
+      reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
+        if (p0 != null) {
+          _controller?.moveCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(target: LatLng(p0.latitude, p0.longitude), zoom: 15),
+          ));
+        }
+      }),
+    ];
+  }
+
+
+  @override
+  void dispose() {
+    for (var element in _disposers) {
+      element();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +102,8 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(flex: 1, child: _upperSideContent()),
-            Expanded(flex: 7, child: _lowerSideContent())
+
+            Expanded(flex: 8, child: _lowerSideContent())
           ],
         ),
       ),
@@ -145,21 +195,34 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
 
-  @override
-  Widget _upperSideContent() {
-    return Container(
-
-    );
-  }
 
 
   @override
   Widget _lowerSideContent() {
-    return SafeArea(
-        child: Center(
-          child: Text("DashboardPage")
+    return Align(
+      child: Stack(
+        children: [
+        Observer( builder: (BuildContext context) {
+          return GoogleMap(
+            initialCameraPosition: _viewm.initialCameraPosition(),
+            zoomControlsEnabled: true,
+            scrollGesturesEnabled: true,
+            indoorViewEnabled: true,
+            onMapCreated: onMapCreated,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            markers: _viewm.markers,
+            onLongPress: (latlng) {
+              _viewm.setupMarker(
+                  LatLong(lat: latlng.latitude, lng: latlng.longitude));
+              // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
+            },
+          );
+        }
         ),
-      );
+      ],),
+    );
+
 
 
   }
