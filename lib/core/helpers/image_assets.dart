@@ -23,4 +23,14 @@ class ImageAssets{
 
 
   static const currentlocation = "assets/images/location.svg";
+
+
+  static const telephone = "assets/images/telephone.svg";
+
+  static const battery = "assets/images/battery.svg";
+
+  static const network= "assets/images/Icons.svg";
+
+
+  static const navigate= "assets/images/navigate.svg";
 }

@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/common/validator.dart';
 import '../../core/repository/addKids_repository.dart';
+import '../../core/repository/dashboard_page_repository.dart';
 import '../../core/repository/kid_live_location_repository.dart';
 import '../../core/repository/kid_repository.dart';
 import '../../core/repository/safearea_details_repository.dart';
@@ -24,6 +25,7 @@ import '../../core/repository/safearea_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
 import '../../helpers_impl/validator_impl.dart';
 import '../../repository_impl/addKids_repository_impl.dart';
+import '../../repository_impl/dashboard_page_repository_impl.dart';
 import '../../repository_impl/kid_live_location_repository_impl.dart';
 import '../../repository_impl/kid_repository_impl.dart';
 import '../../repository_impl/safearea_details_repository_impl.dart';
@@ -83,5 +85,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<KidLiveLocationRepository>(() => KidLiveLocationRepositoryImpl());
 
   instance.registerLazySingleton<SafeAreaDetailsRepository>(() => SafeareaDetailsUseCaseImpl());
+
+  instance.registerLazySingleton<DashboardPageRepository>(() => DashboardPageUseCaseImpl());
 
 }

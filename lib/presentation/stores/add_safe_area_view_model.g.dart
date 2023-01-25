@@ -233,6 +233,14 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$setupMarkerAsyncAction =
+      AsyncAction('_AddSafeAreaPageViewModel.setupMarker', context: context);
+
+  @override
+  Future setupMarker(LatLong coordinate) {
+    return _$setupMarkerAsyncAction.run(() => super.setupMarker(coordinate));
+  }
+
   late final _$onNextAsyncAction =
       AsyncAction('_AddSafeAreaPageViewModel.onNext', context: context);
 
@@ -301,17 +309,6 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
         .startAction(name: '_AddSafeAreaPageViewModel.setupCircle');
     try {
       return super.setupCircle(coordinate);
-    } finally {
-      _$_AddSafeAreaPageViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setupMarker(LatLong coordinate) {
-    final _$actionInfo = _$_AddSafeAreaPageViewModelActionController
-        .startAction(name: '_AddSafeAreaPageViewModel.setupMarker');
-    try {
-      return super.setupMarker(coordinate);
     } finally {
       _$_AddSafeAreaPageViewModelActionController.endAction(_$actionInfo);
     }

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Icons" transform="translate(3 3)">
+    <g id="Rounded" transform="translate(-239 -1839)">
+      <g id="Device" transform="translate(100 1650)">
+        <g id="Round-_-Device-_-signal_cellular_3_bar" data-name="Round-/-Device-/-signal_cellular_3_bar" transform="translate(136 186)">
+          <g id="Group_3" data-name="Group 3">
+            <path id="Path" d="M0,0H24V24H0Z" fill="none" fill-rule="evenodd"/>
+            <path id="_Secondary-Color" data-name="🔹Secondary-Color" d="M4.41,22H20a2.006,2.006,0,0,0,2-2V4.41a1,1,0,0,0-1.71-.71L3.71,20.29A1,1,0,0,0,4.41,22Z" fill="#d0d0d0" fill-rule="evenodd"/>
+            <path id="_-Icon-Color" data-name="🔹-Icon-Color" d="M17,7,3.71,20.29A1,1,0,0,0,4.41,22H17Z" fill="#1d1d1d" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

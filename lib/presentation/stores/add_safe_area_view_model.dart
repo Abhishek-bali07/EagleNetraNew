@@ -136,10 +136,6 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   @action
   setupMarker(LatLong coordinate) async{
-    BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
-      "assets/images/bike.png",
-    );
     Set<Marker> getMarkers = {};
     _marker = Marker(
       anchor: const Offset(0.5, 0.5),

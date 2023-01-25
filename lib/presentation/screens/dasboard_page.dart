@@ -15,6 +15,7 @@ import '../../helpers_impl/error_dialog_impl.dart';
 import '../../utils/dialog_controller.dart';
 import '../app_navigator/di.dart';
 import '../stores/dashboard_page_view_model.dart';
+import 'device_details_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -28,6 +29,8 @@ class _DashboardPageState extends State<DashboardPage> {
   late final DashBoardPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
+
+
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
@@ -55,6 +58,22 @@ class _DashboardPageState extends State<DashboardPage> {
           ));
         }
       }),
+      reaction((p0) => _viewm.isShow, (p0) async {
+        if(p0 ==  true){
+          await showModalBottomSheet(
+          constraints: BoxConstraints(
+            minHeight: 0.30.sh,
+            maxHeight: 0.30.sh,
+          ),
+          context: context,
+          shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+          builder: (context) => DeviceDetailsPage());
+
+          _viewm.openBottomSheet();
+        }
+      })
     ];
   }
 
@@ -211,12 +230,12 @@ class _DashboardPageState extends State<DashboardPage> {
             onMapCreated: onMapCreated,
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
-            markers: _viewm.markers,
-            onLongPress: (latlng) {
-              _viewm.setupMarker(
-                  LatLong(lat: latlng.latitude, lng: latlng.longitude));
-              // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
-            },
+            markers:_viewm.markers,
+            // onLongPress: (latlng) {
+            //   _viewm.setupMarker(
+            //       LatLong(lat: latlng.latitude, lng: latlng.longitude));
+            //   // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
+            // },
           );
         }
         ),
