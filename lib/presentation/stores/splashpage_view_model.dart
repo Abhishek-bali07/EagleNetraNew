@@ -13,6 +13,11 @@ import 'package:eagle_netra/utils/api_client_configuration.dart';
 import 'package:eagle_netra/utils/connectivity_state.dart';
 import 'package:eagle_netra/utils/dialog_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/version.dart';
+import 'package:flutter_mobx/version.dart';
+import 'package:flutter_mobx/version.dart';
+import 'package:flutter_mobx/version.dart';
+import 'package:flutter_mobx/version.dart';
 import 'package:mobx/mobx.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -98,7 +103,30 @@ abstract class _SplashViewModel with Store, CheckInternet{
 
 
   @action
-  _checkAppVersion() async{}
+  _checkAppVersion() async {
+    var response = await _splashrepo.fetchAppVersion();
+    if (response is Success) {
+      var data = response.data;
+
+      switch (data != null && data.status) {
+        case true:
+          if (int.parse(packageInfo.buildNumber) < data!.version.code) {
+            dialogManager.initData(AlertData(
+                StringProvider.appUpdate,
+                null,
+                StringProvider.appId,
+                data.version.message,
+                StringProvider.okay,
+                StringProvider.notYet,
+                null,
+                data.version)
+            );
+          } else {
+            batchCall = BatchCallCommand.initiate;
+          }
+      }
+    }
+  }
 
 }
 

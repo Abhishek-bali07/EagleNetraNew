@@ -41,6 +41,22 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
     });
   }
 
+  late final _$isCallingAtom =
+      Atom(name: '_DashBoardPageViewModel.isCalling', context: context);
+
+  @override
+  bool get isCalling {
+    _$isCallingAtom.reportRead();
+    return super.isCalling;
+  }
+
+  @override
+  set isCalling(bool value) {
+    _$isCallingAtom.reportWrite(value, super.isCalling, () {
+      super.isCalling = value;
+    });
+  }
+
   late final _$markersAtom =
       Atom(name: '_DashBoardPageViewModel.markers', context: context);
 
@@ -102,6 +118,22 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
   set currentDate(String value) {
     _$currentDateAtom.reportWrite(value, super.currentDate, () {
       super.currentDate = value;
+    });
+  }
+
+  late final _$callingNumberAtom =
+      Atom(name: '_DashBoardPageViewModel.callingNumber', context: context);
+
+  @override
+  String get callingNumber {
+    _$callingNumberAtom.reportRead();
+    return super.callingNumber;
+  }
+
+  @override
+  set callingNumber(String value) {
+    _$callingNumberAtom.reportWrite(value, super.callingNumber, () {
+      super.callingNumber = value;
     });
   }
 
@@ -245,10 +277,12 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
     return '''
 isShow: ${isShow},
 isLoader: ${isLoader},
+isCalling: ${isCalling},
 markers: ${markers},
 isVisible: ${isVisible},
 kidName: ${kidName},
 currentDate: ${currentDate},
+callingNumber: ${callingNumber},
 currentTime: ${currentTime},
 battery: ${battery},
 deviceCondition: ${deviceCondition},

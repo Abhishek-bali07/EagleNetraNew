@@ -1,11 +1,18 @@
 import 'package:eagle_netra/core/helpers/image_assets.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../stores/dashboard_page_view_model.dart';
 
 class DeviceDetailsPage extends StatefulWidget {
-  const DeviceDetailsPage({Key? key}) : super(key: key);
+  const DeviceDetailsPage({Key? key, required this.parentViewModel})
+      : super(key: key);
+   final DashBoardPageViewModel parentViewModel;
+
 
   @override
   State<DeviceDetailsPage> createState() => _DeviceDetailsPageState();
@@ -41,17 +48,22 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Reyansh Saha",style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                          Text("15:44 pm (14th December 2022)"),
+                          Text(widget.parentViewModel.kidName,style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          Text(widget.parentViewModel.currentDate),
                         ],
                       ),
                     ),
                     SizedBox(width: 0.01.sw),
                     Expanded(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(ImageAssets.telephone)),
-                    ),
+                    child:GestureDetector(
+                     onTap: () async{
+                       Uri phoneno = Uri.parse("tel:${widget.parentViewModel.callingNumber}");
+                    if (await launchUrl(phoneno)) {
+                       launchUrl(phoneno);
+                       }
+                     } ,
+                     child: SvgPicture.asset(ImageAssets.telephone)),
+                ),
 
 
                   ],
@@ -69,7 +81,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SvgPicture.asset(ImageAssets.battery),
-                            Text("45% Battery")
+                            Text("${widget.parentViewModel.battery}Battery")
                           ],
                         ),
                       ),
@@ -79,7 +91,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text("Good"),
+                            Text(widget.parentViewModel.deviceCondition),
                             SvgPicture.asset(ImageAssets.network),
                           ],
                         ),
@@ -100,7 +112,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                       child:  Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Text(
-                          "243, Grand Trunk Rd, N, Liluah, Howrah, West Bengal 711204",textAlign: TextAlign.center,),
+                          widget.parentViewModel.locationAddress,textAlign: TextAlign.center,),
                       ),
                     ),
                     SizedBox(width: 0.02.sw),

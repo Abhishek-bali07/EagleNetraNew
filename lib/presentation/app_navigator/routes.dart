@@ -9,4 +9,6 @@ class Routes{
   static const kidPage = "kidPage";
   static const safearea = "safearea";
   static const addsafearea = "addsafearea";
+  static const kidsHistory = "kidsHistory";
+  static const support = "support";
 }

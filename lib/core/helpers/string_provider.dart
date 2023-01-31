@@ -1,6 +1,9 @@
 import 'dart:math';
 
 class StringProvider{
+
+  static const appUpdate = "Version Update";
+
   static const appName = "Eagle Netra";
 
   static const appVersion = "AppVersion";
@@ -8,6 +11,8 @@ class StringProvider{
   static const noInternet = "No Internet";
 
   static const error = "Error";
+
+  static const notYet = "Not yet";
 
   static const retry = "Retry";
 

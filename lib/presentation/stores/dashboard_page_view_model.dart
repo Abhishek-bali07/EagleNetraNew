@@ -17,6 +17,7 @@ import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
 import 'main_view_model.dart';
 
+
 part 'dashboard_page_view_model.g.dart';
 
 class DashBoardPageViewModel = _DashBoardPageViewModel with _$DashBoardPageViewModel;
@@ -39,6 +40,9 @@ abstract class _DashBoardPageViewModel with Store{
   bool isLoader = false;
 
   @observable
+  bool isCalling = false;
+
+  @observable
   ObservableSet<Marker> markers = ObservableSet.of({});
 
   @observable
@@ -49,6 +53,10 @@ abstract class _DashBoardPageViewModel with Store{
 
   @observable
   String currentDate = "";
+
+
+  @observable
+  String callingNumber = "";
 
 
   @observable
@@ -142,13 +150,17 @@ abstract class _DashBoardPageViewModel with Store{
         battery = data.batteryperformance;
         deviceCondition = data.condition;
         locationAddress = data.devicelocation;
+        callingNumber = data.phone;
         openBottomSheet();
+
         break;
       default:
     }
   }
-
   }
+
+
+
 
 
 

@@ -8,6 +8,7 @@ class KidDeviceResponse{
    String devicelocation;
    String batteryperformance;
    String condition;
+   String phone;
 
   KidDeviceResponse({
     required this.status,
@@ -18,6 +19,7 @@ class KidDeviceResponse{
     required this.devicetime,
     required this.devicelocation,
     required this.batteryperformance,
-    required this.condition
+    required this.condition,
+    required this.phone,
   });
 }

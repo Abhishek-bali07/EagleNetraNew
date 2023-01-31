@@ -8,10 +8,12 @@ import 'package:flutter/cupertino.dart';
 import '../../presentation/screens/add_kids.dart';
 import '../../presentation/screens/add_safe_area.dart';
 import '../../presentation/screens/kidsPage.dart';
+import '../../presentation/screens/kids_history.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
 import '../../presentation/screens/safeAreaPage.dart';
+import '../../presentation/screens/support.dart';
 import '../domain/response/kid_short_info_response.dart';
 
 class RouteGenerator {
@@ -50,6 +52,13 @@ class RouteGenerator {
 
       case Routes.addsafearea:
           return ScreenTransitions.rightToLeftTransition(const AddSafeaAreaPage());
+
+      case Routes.kidsHistory:
+        return ScreenTransitions.rightToLeftTransition(const KidsHistory());
+
+
+      case Routes.support:
+        return ScreenTransitions.rightToLeftTransition(const SupportPage());
 
       default:
         page = const Text("Undefined route");

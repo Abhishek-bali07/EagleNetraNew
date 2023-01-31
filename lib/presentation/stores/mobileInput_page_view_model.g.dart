@@ -161,20 +161,20 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     return _$onNextAsyncAction.run(() => super.onNext());
   }
 
-  late final _$reSendOtpAsyncAction =
-      AsyncAction('_MobileInputViewModel.reSendOtp', context: context);
-
-  @override
-  Future reSendOtp() {
-    return _$reSendOtpAsyncAction.run(() => super.reSendOtp());
-  }
-
   late final _$verifyOtpAsyncAction =
       AsyncAction('_MobileInputViewModel.verifyOtp', context: context);
 
   @override
   Future verifyOtp() {
     return _$verifyOtpAsyncAction.run(() => super.verifyOtp());
+  }
+
+  late final _$reSendOtpAsyncAction =
+      AsyncAction('_MobileInputViewModel.reSendOtp', context: context);
+
+  @override
+  Future reSendOtp() {
+    return _$reSendOtpAsyncAction.run(() => super.reSendOtp());
   }
 
   late final _$validateInputAsyncAction =

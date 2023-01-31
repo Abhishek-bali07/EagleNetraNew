@@ -102,16 +102,52 @@ abstract class _MobileInputViewModel  with Store {
     if (response is Success) {
       var data = response.data;
       sendingLoader = false;
-
       switch (data != null && data.status) {
         case true:
           isShow = data!.isSend;
           break;
-
-
       }
     }
   }
+
+
+
+  @action
+  verifyOtp() async{
+    verifyLoader = true;
+    var number = mobileNumber.trim();
+    var otp = onOtp;
+    var response = await _mobinputrepo.verifyOtp(number, otp);
+    if(response is Success){
+      var data = response.data;
+      switch (data != null && data.status) {
+        case true:
+          if(data!.isVerified){
+            _appSettings.saveUserId(data.userId);
+            if(data.userStatus == UserStatus.registered.value){
+              _navigator.navigateTo(Routes.dashboard);
+            }else{
+              verifyLoader = false;
+              _navigator.navigateTo(Routes.registration);
+            }
+            //  otpEntered;
+          }else{
+            verifyLoader = false;
+            dialogManager.initErrorData(AlertData(
+                StringProvider.error,
+                null,
+                StringProvider.appId,
+                data.message,
+                StringProvider.retry,
+                null,
+                null,AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
+          }
+      }
+    }
+
+  }
+
+
 
 
   @action
@@ -136,54 +172,6 @@ abstract class _MobileInputViewModel  with Store {
     }
   }
 
-
-  @action
-  verifyOtp() async{
-    verifyLoader = true;
-    var number = mobileNumber.trim();
-    var otp = onOtp;
-    var response = await _mobinputrepo.verifyOtp(number, otp);
-    if(response is Success){
-      var data = response.data;
-      switch (data != null && data.status) {
-        case true:
-          if(data!.isVerified){
-            _appSettings.saveUserId(data.userId);
-            if(data.userStatus == UserStatus.registered.value){
-              _navigator.navigateTo(Routes.dashboard);
-            }else{
-              verifyLoader = false;
-              _navigator.navigateTo(Routes.registration);
-            }
-            //  otpEntered;
-          }else{
-            verifyLoader = false;
-            dialogManager.initErrorData(AlertData(  
-              StringProvider.error,
-              null,
-              StringProvider.appId,
-              data.message,
-              StringProvider.retry,
-              null,
-              null,AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
-          }
-      }
-    }
-
-  }
-
-//  bool _isValid = false;
-
-  // @action
-  // otpEntered(String enteredOtp) {
-  //   onOtp = enteredOtp;
-  //   verifyOtp();
-  //   // if (_isValid) {
-  //   //   _navigator.navigateTo(Routes.dashboard);
-  //   // }else{
-  //   //   verifyOtp();
-  //   // }
-  // }
 
 
   onRetry(AlertAction? action) {

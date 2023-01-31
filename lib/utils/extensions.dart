@@ -1,11 +1,15 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
+import 'package:eagle_netra/core/domain/response/business_object.dart';
 import 'package:eagle_netra/presentation/nested_screens/intro_one.dart';
 import 'package:eagle_netra/presentation/nested_screens/intro_three.dart';
 import 'package:eagle_netra/presentation/nested_screens/intro_two.dart';
 import 'package:eagle_netra/presentation/stores/slider_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../core/common/response.dart';
 
 extension SliderPage on int {
   Widget getIntroPage() {
@@ -108,4 +112,30 @@ showMyDialog(
   ).then((result) {
     dialogTrigger.callback(result);
   });
+
+
+
+}
+extension MyApiCall on Future<BusinessObject> {
+  Future<Resource<R>> handleResponse<R>() async {
+    try {
+      var result = await this;
+      return Success(result as R);
+    } on DioError catch (ex) {
+      switch (ex.type) {
+        case DioErrorType.connectTimeout:
+          return Error(message: ex.message);
+        case DioErrorType.sendTimeout:
+          return Error(message: ex.message);
+        case DioErrorType.receiveTimeout:
+          return Error(message: ex.message);
+        case DioErrorType.response:
+          return Error(message: ex.message);
+        case DioErrorType.cancel:
+          return Error(message: ex.message);
+        case DioErrorType.other:
+          return Error(message: ex.message);
+      }
+    }
+  }
 }

@@ -20,6 +20,7 @@ import '../../core/repository/addKids_repository.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../core/repository/kid_live_location_repository.dart';
 import '../../core/repository/kid_repository.dart';
+import '../../core/repository/kidshistory_repository.dart';
 import '../../core/repository/safearea_details_repository.dart';
 import '../../core/repository/safearea_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
@@ -28,6 +29,7 @@ import '../../repository_impl/addKids_repository_impl.dart';
 import '../../repository_impl/dashboard_page_repository_impl.dart';
 import '../../repository_impl/kid_live_location_repository_impl.dart';
 import '../../repository_impl/kid_repository_impl.dart';
+import '../../repository_impl/kidhistory_repository_impl.dart';
 import '../../repository_impl/safearea_details_repository_impl.dart';
 import '../../repository_impl/safearea_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
@@ -61,7 +63,7 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(sharedPrefs));
 
-  instance.registerLazySingleton<SplashRepository>(() => SplashRepositoryImpl());
+  instance.registerLazySingleton<SplashRepository>(() => SplashRepositoryImpl(dio));
 
   instance.registerLazySingleton<NavigationService>(() => NavigationServiceImpl());
 
@@ -69,7 +71,7 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<Validator>(() => ValidatorImpl());
 
-  instance.registerLazySingleton<MobileInputRepository>(() => MobileInputRepositoryImpl());
+  instance.registerLazySingleton<MobileInputRepository>(() => MobileInputRepositoryImpl(dio));
 
 
   instance.registerLazySingleton<RegisterUserRepository>(() => RegisterUserUseCaseImpl());
@@ -87,5 +89,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<SafeAreaDetailsRepository>(() => SafeareaDetailsUseCaseImpl());
 
   instance.registerLazySingleton<DashboardPageRepository>(() => DashboardPageUseCaseImpl());
+
+  instance.registerLazySingleton<KidsHistoryRepository>(() => KidsHistoryRepositoryImpl());
 
 }

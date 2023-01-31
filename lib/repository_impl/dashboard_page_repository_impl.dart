@@ -35,7 +35,7 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
       image: "",
       devicedate: "25th January 2023", devicetime: "15:44pm",
       devicelocation: "243, Grand Trunk Rd, N, Liluah, Howrah, West Bengal 711204",
-      batteryperformance: "45%", condition: "Good",
+      batteryperformance: "45%", condition: "Good",phone: "7908635232"
 
     ));
   }

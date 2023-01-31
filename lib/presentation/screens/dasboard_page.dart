@@ -42,6 +42,7 @@ class _DashboardPageState extends State<DashboardPage> {
     _dialogController =
         DialogController(dialog: ErrorDialogImpl(buildContext: context));
     _viewm = DashBoardPageViewModel();
+
     super.initState();
     _disposers = [
       reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
@@ -69,7 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
           shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-          builder: (context) => DeviceDetailsPage());
+          builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
 
           _viewm.openBottomSheet();
         }
