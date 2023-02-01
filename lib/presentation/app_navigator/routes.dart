@@ -11,4 +11,5 @@ class Routes{
   static const addsafearea = "addsafearea";
   static const kidsHistory = "kidsHistory";
   static const support = "support";
+  static const kidstrack = "kidstrack";
 }

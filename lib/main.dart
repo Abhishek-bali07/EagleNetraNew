@@ -31,12 +31,12 @@ class _MyappState extends State<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(428,926),
       builder: (BuildContext context, Widget? child) {
-        return  MaterialApp(
+        return MaterialApp(
             color: Colors.red,
             debugShowCheckedModeBanner: false,
             navigatorKey:instance<NavigationService>().navigatorKey,
             //initialRoute: Routes.splash,
-            initialRoute: Routes.support,
+            initialRoute: Routes.kidsHistory,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

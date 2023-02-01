@@ -51,7 +51,6 @@ class _DashboardPageState extends State<DashboardPage> {
               close: _viewm.dialogManager.closeErrorDialog, positive: _viewm.onRetry);
         }
       }),
-
       reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
         if (p0 != null) {
           _controller?.moveCamera(CameraUpdate.newCameraPosition(

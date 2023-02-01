@@ -113,8 +113,8 @@ class _KidsHistoryState extends State<KidsHistory> {
 
   Widget listItem(int index){
     return GestureDetector(
-      onTap: (){
-              
+      onTap:(){
+        _viewModel.onNext(_viewModel.kidHistory[index]);
       },
       child: Container(
         padding: EdgeInsets.symmetric(

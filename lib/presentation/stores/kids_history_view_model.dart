@@ -1,3 +1,6 @@
+import 'package:eagle_netra/core/common/api_route.dart';
+import 'package:eagle_netra/presentation/app_navigator/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/alert_action.dart';
@@ -86,4 +89,10 @@ abstract class _KidsHistoryViewModel with Store{
     }
   }
 
+
+
+  onNext(ShortDetails arg){
+    debugPrint("ShortDetails $arg");
+    _navigator.navigatorKey.currentState?.pushNamed(Routes.kidstrack, arguments: arg);
+  }
 }

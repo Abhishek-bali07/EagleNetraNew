@@ -20,6 +20,7 @@ import '../../core/repository/addKids_repository.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../core/repository/kid_live_location_repository.dart';
 import '../../core/repository/kid_repository.dart';
+import '../../core/repository/kids_track_repository.dart';
 import '../../core/repository/kidshistory_repository.dart';
 import '../../core/repository/safearea_details_repository.dart';
 import '../../core/repository/safearea_repository.dart';
@@ -30,6 +31,7 @@ import '../../repository_impl/dashboard_page_repository_impl.dart';
 import '../../repository_impl/kid_live_location_repository_impl.dart';
 import '../../repository_impl/kid_repository_impl.dart';
 import '../../repository_impl/kidhistory_repository_impl.dart';
+import '../../repository_impl/kids_track_repository_impl.dart';
 import '../../repository_impl/safearea_details_repository_impl.dart';
 import '../../repository_impl/safearea_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
@@ -91,5 +93,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<DashboardPageRepository>(() => DashboardPageUseCaseImpl());
 
   instance.registerLazySingleton<KidsHistoryRepository>(() => KidsHistoryRepositoryImpl());
+
+  instance.registerLazySingleton<KidsTrackRepository>(() => KidsTrackRepositoryImpl());
 
 }

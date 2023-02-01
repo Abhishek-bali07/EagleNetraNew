@@ -12,6 +12,8 @@ class StringProvider{
 
   static const error = "Error";
 
+  static var set = "SET";
+
   static const notYet = "Not yet";
 
   static const retry = "Retry";

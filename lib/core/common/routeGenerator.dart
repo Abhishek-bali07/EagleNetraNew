@@ -9,6 +9,7 @@ import '../../presentation/screens/add_kids.dart';
 import '../../presentation/screens/add_safe_area.dart';
 import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/kids_history.dart';
+import '../../presentation/screens/kids_track_page.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
@@ -55,6 +56,12 @@ class RouteGenerator {
 
       case Routes.kidsHistory:
         return ScreenTransitions.rightToLeftTransition(const KidsHistory());
+
+
+      case Routes.kidstrack:
+        var arg = routeSettings.arguments as ShortDetails;
+        print("$arg");
+        return ScreenTransitions.rightToLeftTransition(KidsTrackPage(arguments: arg));
 
 
       case Routes.support:

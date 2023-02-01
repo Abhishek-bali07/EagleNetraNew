@@ -21,6 +21,7 @@ class AddSafeaAreaPage extends StatefulWidget {
 }
 
 class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
+
   GoogleMapController? _controller;
   late final AddSafeAreaPageViewModel _vm;
   late final List<ReactionDisposer> _disposers;
