@@ -8,7 +8,9 @@ import 'package:mobx/mobx.dart';
 import '../../core/common/dialog_state.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../utils/app_date_picker.dart';
+
 import '../../utils/dialog_controller.dart';
+import '../../utils/multi_date_picker.dart';
 import '../stores/kids_track_page_view_model.dart';
 import '../ui/theme.dart';
 
@@ -46,8 +48,11 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
       }),
       reaction((p0) =>_viewm.dialogManager.datePickerState, (p0) {
         if (p0 is DialogState && p0 == DialogState.displaying) {
-          AppDatePicker.show(context, DateTime.now(), DateTime(2000),
-              DateTime(2050), _viewm.onSelectDate,
+          MultiDatePicker.show(context,
+              DateTime(2020,3,5,9,0,0),
+              DateTime(2020,3,25,9,0,0),
+              DateTime.now(),
+              _viewm.onSelectDate,
               dismissed: _viewm.dialogManager.closeDatePicker);
         }
       }),
@@ -197,6 +202,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
               onMapCreated: onMapCreated,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
+
               //markers:_viewm.markers,
               // onLongPress: (latlng) {
               //   _viewm.setupMarker(

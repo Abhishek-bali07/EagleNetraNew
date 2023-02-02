@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../core/common/alert_action.dart';
 import '../../core/common/app_settings.dart';
@@ -60,10 +61,14 @@ abstract class _KidsTrackPageViewModel with Store{
   @observable
   bool isVisible = false;
 
+  @observable
+  SfDateRangePicker? _selectedDateRange;
+
   @action
-  onSelectDate(DateTime? selected) {
+  onSelectDate(DateRangePickerSelectionChangedArgs? selected) {
     if (selected != null) {
-      date = "${selected.day}-${selected.month}-${selected.year}";
+      date =  selected.value;
+      //date = "${selected.day}-${selected.month}-${selected.year}";
       debugPrint('daTE: $date');
       initialData();
     } else {

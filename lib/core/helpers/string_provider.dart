@@ -14,6 +14,10 @@ class StringProvider{
 
   static var set = "SET";
 
+  static var ok = "OK";
+
+  static var cancel = "CANCEL";
+
   static const notYet = "Not yet";
 
   static const retry = "Retry";
