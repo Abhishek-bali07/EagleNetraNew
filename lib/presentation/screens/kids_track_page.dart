@@ -151,7 +151,9 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                             vertical: 0.05.sw, horizontal: 0.05.sw),
                         child: Row(
                           children: [
-                            Expanded(child: Text("Date")),
+                            Expanded(
+                              flex: 3,
+                                child: Text("Date")),
                             Expanded(
                               flex: 8,
                               child: Align(

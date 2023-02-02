@@ -63,7 +63,7 @@ abstract class _KidsTrackPageViewModel with Store{
   @action
   onSelectDate(DateTime? selected) {
     if (selected != null) {
-      date = "${selected.year}-${selected.month}-${selected.day}";
+      date = "${selected.day}-${selected.month}-${selected.year}";
       debugPrint('daTE: $date');
       initialData();
     } else {
@@ -102,15 +102,13 @@ abstract class _KidsTrackPageViewModel with Store{
         icon:BitmapDescriptor.defaultMarker,
     );
     markers.add(marker);
-
-
   }
 
 
 
   onError(AlertAction? action) {
     if (action == AlertAction.kidShortInfo) {
-     // trackData();
+
     }
   }
 

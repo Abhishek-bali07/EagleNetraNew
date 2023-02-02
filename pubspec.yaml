@@ -67,6 +67,8 @@ dependencies:
   google_maps_flutter: ^2.2.0
   custom_check_box: ^0.0.4
   url_launcher: ^6.1.8
+  date_range_picker: ^1.0.5
+  timelines: ^0.1.0
 
 
 dev_dependencies:
