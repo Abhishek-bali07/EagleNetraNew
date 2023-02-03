@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:progress_timeline/progress_timeline.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../core/common/alert_action.dart';
@@ -9,6 +10,7 @@ import '../../core/common/constants.dart';
 import '../../core/common/current_date_time.dart';
 import '../../core/common/lat_long.dart';
 import '../../core/common/message_informer.dart';
+import '../../core/common/position.dart';
 import '../../core/common/response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
@@ -31,6 +33,8 @@ abstract class _KidsTrackPageViewModel with Store{
   final msgInformer = MessageInformer();
 
   ShortDetails data;
+
+  List<KidPosition> states = [];
 
   @observable
   ObservableSet<Marker> markers = ObservableSet.of({});
@@ -78,6 +82,7 @@ abstract class _KidsTrackPageViewModel with Store{
 
 
 
+
   initialData() async {
     //var userId = _appSettings.userId();
     var userId = "1";
@@ -90,15 +95,16 @@ abstract class _KidsTrackPageViewModel with Store{
       switch(data != null && data.status){
         case true:
           for (var element in data!.latlongData) {
-            await setupMarker(element.latLong,element.posId);
+            await setupMarker(element.latLong,element.posId,element.postionalTime);
           }
+          states = data.latlongData;
       }
     }
   }
 
 
   @action
-  setupMarker(LatLong coordinate, String posId) async {
+  setupMarker(LatLong coordinate, String posId, String positionalTime) async {
     var marker = Marker(
         markerId: MarkerId("${coordinate.hashCode}"),
         position: LatLng(coordinate.lat, coordinate.lng),

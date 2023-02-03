@@ -69,10 +69,10 @@ packages:
     dependency: transitive
     description:
       name: bech32
-      sha256: c36ff22d905b5864cafa7a3cf5e65dd2ca26cff30db1d6a9bd1bbfa2a231e58f
+      sha256: "156cbace936f7720c79a79d16a03efad343b1ef17106716e04b8b8e39f99f7f7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.2"
   better_player:
     dependency: transitive
     description:
@@ -269,10 +269,10 @@ packages:
     dependency: transitive
     description:
       name: convert
-      sha256: "196284f26f69444b7f5c50692b55ec25da86d9e500451dc09333bf2e3ad69259"
+      sha256: "0f08b14755d163f6e2134cb58222dd25ea2a2ee8a195e53983d57c075324d592"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -1141,6 +1141,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  progress_timeline:
+    dependency: "direct main"
+    description:
+      name: progress_timeline
+      sha256: e59166ddcdb1e7e8313cd1b212d566b0194654ed32d756fc1adec7edb44a0c6c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   provider:
     dependency: "direct main"
     description:
@@ -1189,6 +1197,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: a93573eb12a8a9707872b92f9d5b9d15f482d4e261a6acb930abea17aef376d0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.10"
   sensors:
     dependency: transitive
     description:
@@ -1386,14 +1402,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
-  timelines:
-    dependency: "direct main"
-    description:
-      name: timelines
-      sha256: "40214f5ab772ff45459cb8c15e5f60505a6828af0c0eb1eec6f29ed911a4c1c5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   timezone:
     dependency: transitive
     description:

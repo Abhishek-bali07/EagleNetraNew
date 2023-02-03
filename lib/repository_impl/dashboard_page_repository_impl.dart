@@ -16,7 +16,7 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
         status: true,
         message: "Success",
         latlongData: List.generate(1, (index) => KidPosition(
-            posId: "1", latLong:LatLong(lat: 22.63355, lng:  88.35533)
+            posId: "1", latLong:LatLong(lat: 22.63355, lng:  88.35533), postionalTime: ""
           
         )
         

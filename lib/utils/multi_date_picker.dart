@@ -9,8 +9,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 class MultiDatePicker {
   MultiDatePicker ._();
 
-  static show(BuildContext context,DateTime minDate,
-      DateTime maxDate,
+  static show(BuildContext context,DateTime minDate, DateTime maxDate,
       DateTime initialDisplayDate, Function(DateRangePickerSelectionChangedArgs?) onSelect,
       {Function? dismissed})  async {
       SfDateRangePicker selected = await SfDateRangePicker(
@@ -23,10 +22,8 @@ class MultiDatePicker {
       monthViewSettings: const DateRangePickerMonthViewSettings(firstDayOfWeek: 6),
       selectionMode: DateRangePickerSelectionMode.range,
       onSelectionChanged: onSelect,
-
-
     );
-    onSelect(selected);
+    //onSelect(selected);
 
     dismissed?.call();
   }

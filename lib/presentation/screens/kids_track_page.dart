@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:progress_timeline/progress_timeline.dart';
+
 
 import '../../core/common/dialog_state.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
@@ -15,8 +19,9 @@ import '../stores/kids_track_page_view_model.dart';
 import '../ui/theme.dart';
 
 class KidsTrackPage extends StatefulWidget {
+
    ShortDetails arguments;
-   KidsTrackPage({Key? key, required this.arguments}) : super(key: key);
+   KidsTrackPage({Key? key, required this.arguments }) : super(key: key);
 
   @override
   State<KidsTrackPage> createState() => _KidsTrackPageState();
@@ -28,6 +33,8 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
   late final KidsTrackPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
+  ProgressTimeline? progressTimeline;
+
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
@@ -36,7 +43,15 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
   @override
   void initState() {
     _viewm = KidsTrackPageViewModel(widget.arguments);
+
     super.initState();
+    progressTimeline = ProgressTimeline(
+      states: _viewm.states,
+      checkedIcon: Icon(Icons.check_circle_outline),
+      connectorColor: Colors.blue,
+      connectorWidth: 7.0,
+      currentIcon:Icon(Icons.check_circle),
+    );
 
     _disposers = [
       reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
@@ -116,7 +131,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
         child: Column(
           children: [
 
-            Expanded(flex: 8, child: _lowerSideContent())
+            Expanded(flex: 10, child: _lowerSideContent())
           ],
         ),
 
@@ -157,10 +172,10 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                                 child: Text("Date")),
                             Expanded(
-                              flex: 8,
+                              flex: 7,
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Column(
@@ -192,7 +207,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
               ],
             )),
         Expanded(
-          flex:9,
+          flex:8,
           child: Observer( builder: (BuildContext context) {
             return GoogleMap(
               initialCameraPosition: _viewm.initialCameraPosition(),
@@ -213,6 +228,12 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
           }
           ),
         ),
+        Expanded(
+          flex: 1,
+          child:Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: progressTimeline,
+          ) ),
       ],
     );
   }

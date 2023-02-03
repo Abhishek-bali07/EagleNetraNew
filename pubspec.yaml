@@ -67,8 +67,9 @@ dependencies:
   google_maps_flutter: ^2.2.0
   custom_check_box: ^0.0.4
   url_launcher: ^6.1.8
-  timelines: ^0.1.0
+  progress_timeline: ^0.0.5
   syncfusion_flutter_datepicker: ^20.4.44
+
 
 
 dev_dependencies:
