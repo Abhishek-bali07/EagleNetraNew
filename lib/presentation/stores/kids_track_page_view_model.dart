@@ -1,7 +1,8 @@
+import 'package:eagle_netra/core/common/package.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:progress_timeline/progress_timeline.dart';
+
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../core/common/alert_action.dart';
@@ -34,7 +35,10 @@ abstract class _KidsTrackPageViewModel with Store{
 
   ShortDetails data;
 
-  List<KidPosition> states = [];
+  bool _isVisible = true;
+
+  @observable
+  List<String> process = [];
 
   @observable
   ObservableSet<Marker> markers = ObservableSet.of({});
@@ -44,6 +48,10 @@ abstract class _KidsTrackPageViewModel with Store{
 
   @observable
   String date = "";
+
+  @observable
+  String time = "";
+
 
   @action
   currentDate() {
@@ -69,10 +77,10 @@ abstract class _KidsTrackPageViewModel with Store{
   SfDateRangePicker? _selectedDateRange;
 
   @action
-  onSelectDate(DateRangePickerSelectionChangedArgs? selected) {
+  onSelectDate(DateTime? selected) {
     if (selected != null) {
-      date =  selected.value;
-      //date = "${selected.day}-${selected.month}-${selected.year}";
+      //date =  selected.value;
+       date = "${selected.day}-${selected.month}-${selected.year}";
       debugPrint('daTE: $date');
       initialData();
     } else {
@@ -83,6 +91,8 @@ abstract class _KidsTrackPageViewModel with Store{
 
 
 
+
+  @action
   initialData() async {
     //var userId = _appSettings.userId();
     var userId = "1";
@@ -92,12 +102,14 @@ abstract class _KidsTrackPageViewModel with Store{
     if(response is Success){
       var data = response.data;
       isVisible = false;
+      var tmp = <String>[];
       switch(data != null && data.status){
         case true:
           for (var element in data!.latlongData) {
             await setupMarker(element.latLong,element.posId,element.postionalTime);
+            tmp.add(element.postionalTime);
           }
-          states = data.latlongData;
+        process = tmp;
       }
     }
   }

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:progress_timeline/progress_timeline.dart';
+import 'package:timelines/timelines.dart';
 
 
 import '../../core/common/dialog_state.dart';
@@ -17,6 +17,10 @@ import '../../utils/dialog_controller.dart';
 import '../../utils/multi_date_picker.dart';
 import '../stores/kids_track_page_view_model.dart';
 import '../ui/theme.dart';
+
+const completeColor = Color(0xff5e6172);
+const inProgressColor = Color(0xff5ec792);
+const todoColor = Color(0xffd1d2d7);
 
 class KidsTrackPage extends StatefulWidget {
 
@@ -33,7 +37,23 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
   late final KidsTrackPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
-  ProgressTimeline? progressTimeline;
+  int index = 0;
+
+  int _processIndex = 3;
+
+  Color getColor(int index) {
+    if (index == _processIndex) {
+      return completeColor;
+    } else if (index < _processIndex) {
+      return completeColor;
+    } else {
+      return completeColor;
+    }
+  }
+
+
+
+
 
 
   onMapCreated(GoogleMapController controller) {
@@ -45,13 +65,6 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
     _viewm = KidsTrackPageViewModel(widget.arguments);
 
     super.initState();
-    progressTimeline = ProgressTimeline(
-      states: _viewm.states,
-      checkedIcon: Icon(Icons.check_circle_outline),
-      connectorColor: Colors.blue,
-      connectorWidth: 7.0,
-      currentIcon:Icon(Icons.check_circle),
-    );
 
     _disposers = [
       reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
@@ -61,16 +74,14 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
               close: _viewm.dialogManager.closeErrorDialog);
         }
       }),
-      reaction((p0) =>_viewm.dialogManager.datePickerState, (p0) {
+      reaction((p0) => _viewm.dialogManager.datePickerState, (p0) {
         if (p0 is DialogState && p0 == DialogState.displaying) {
-          MultiDatePicker.show(context,
-              DateTime(2020,3,5,9,0,0),
-              DateTime(2020,3,25,9,0,0),
-              DateTime.now(),
-              _viewm.onSelectDate,
+          AppDatePicker.show(context, DateTime.now(), DateTime(2000),
+              DateTime(2050), _viewm.onSelectDate,
               dismissed: _viewm.dialogManager.closeDatePicker);
         }
       }),
+
       reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
         if (p0 != null) {
           _controller?.moveCamera(CameraUpdate.newCameraPosition(
@@ -150,7 +161,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 0.01.sw, right: 0.02.sw,left: 0.02.sw),
+                  padding: EdgeInsets.only( right: 0.02.sw,left: 0.02.sw),
                   child: InkWell(
                     onTap: _viewm.openDatePicker,
                     child: Container(
@@ -206,6 +217,21 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                 ),
               ],
             )),
+         Observer(
+           builder: (BuildContext context) {
+              return Visibility(
+               visible: _viewm.date.isNotEmpty? true : false,
+               child: ElevatedButton(
+
+                 onPressed: () {  },
+                 child: null,
+
+               ),
+
+             );
+           },
+
+         ),
         Expanded(
           flex:8,
           child: Observer( builder: (BuildContext context) {
@@ -232,7 +258,119 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
           flex: 1,
           child:Padding(
             padding: const EdgeInsets.all(8.0),
-            child: progressTimeline,
+            child: Observer(
+              builder: (context) =>Timeline.tileBuilder(
+
+                theme: TimelineThemeData(
+                  direction: Axis.horizontal,
+                  connectorTheme: const ConnectorThemeData(
+                  space: 15.0,
+                  thickness: 3.0,
+              ),
+              ),
+
+                builder: TimelineTileBuilder.connected(
+                  connectionDirection: ConnectionDirection.before,
+                  itemExtentBuilder: (_, __) =>
+                  MediaQuery.of(context).size.width / _viewm.process.length,
+                  contentsBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        _viewm.process[index],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: getColor(index),
+                        ),
+                      ),
+                    );
+                  },
+                  indicatorBuilder: (_, index) {
+                    var color;
+                    var child;
+                   if (index  <= _processIndex) {
+                      color = completeColor;
+                      child = const Icon(
+                        Icons.timer,
+                        color: Colors.white,
+                        size: 15.0,
+                      );
+                    }
+                   else {
+                     color = completeColor;
+                     child = const Icon(
+                       Icons.timer,
+                       color: Colors.white,
+                       size: 15.0,
+                     );
+                    }
+
+                    if (index <= _processIndex) {
+                      return Stack(
+                        children: [
+                          CustomPaint(
+                            size: Size(20.0, 20.0),
+
+                          ),
+                          DotIndicator(
+                            size: 20.0,
+                            color: color,
+                            child: child,
+                          ),
+                        ],
+                      );
+                    }
+                    else {
+                      return Stack(
+                        children: [
+                          CustomPaint(
+                            size: Size(20.0, 20.0),
+
+                          ),
+                          DotIndicator(
+                            size: 20.0,
+                            color: color,
+                            child: child,
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                  connectorBuilder: (_, index, type) {
+                    if (index > 0) {
+                      if (index == _processIndex) {
+                        final prevColor = getColor(index - 1);
+                        final color = getColor(index);
+                        List<Color> gradientColors;
+                        if (type == ConnectorType.start) {
+                          gradientColors = [Color.lerp(prevColor, color, 0.5)!, color];
+                        } else {
+                          gradientColors = [
+                            prevColor,
+                            Color.lerp(prevColor, color, 0.5)!
+                          ];
+                        }
+                        return DecoratedLineConnector(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: gradientColors,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return SolidLineConnector(
+                          color: getColor(index),
+                        );
+                      }
+                    } else {
+                      return null;
+                    }
+                  },
+                  itemCount: _viewm.process.length,
+                ),
+              ),
+
+            ),
           ) ),
       ],
     );
