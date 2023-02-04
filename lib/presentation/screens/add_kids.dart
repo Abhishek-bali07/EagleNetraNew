@@ -153,7 +153,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
               child: Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.only(top: 1),
                     child: Container(
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.surface),

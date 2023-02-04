@@ -1,7 +1,9 @@
+import 'package:eagle_netra/core/common/package.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:progress_timeline/progress_timeline.dart';
+
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../core/common/alert_action.dart';
@@ -34,47 +36,71 @@ abstract class _KidsTrackPageViewModel with Store{
 
   ShortDetails data;
 
-  List<KidPosition> states = [];
+  bool _isVisible = true;
 
   @observable
-  ObservableSet<Marker> markers = ObservableSet.of({});
+  List<String> process = [];
+
+  @observable
+  Set<Marker> markers = {};
+
+  List<Marker> _backupMakers = [];
 
   @observable
   bool datesSelectedListLoader = false;
 
   @observable
-  String date = "";
+  String date = "2023-02-03";
+
+  @observable
+  String time = "";
+
+  @observable
+  String startTime = "00:00";
+
+  @observable
+  String  endTime = "11:00";
+
+
+  @observable
+  String image = "";
+
 
   @action
   currentDate() {
     date = GetDateState.getCurrentDate();
   }
 
+  @action
+  rangeStart(BuildContext context, TimeOfDay timeOfDay) {
+   startTime = GetDateState.getStartTimeRange(context, timeOfDay);
+  }
+
+
+  @action
+  rangeEnd(BuildContext context, TimeOfDay timeOfDay){
+  endTime = GetDateState.getStartTimeRange(context, timeOfDay);
+  }
+
+
   openDatePicker() {
     dialogManager.openDatePicker();
   }
 
-
-  @observable
-  String image = "";
-
   _KidsTrackPageViewModel(this.data){
-    initialData();
+    mainVM.getCurrentLocation();
+    //onSelectDate;
   }
 
   @observable
   bool isVisible = false;
 
-  @observable
-  SfDateRangePicker? _selectedDateRange;
 
   @action
-  onSelectDate(DateRangePickerSelectionChangedArgs? selected) {
+  onSelectDate(DateTime? selected) {
     if (selected != null) {
-      date =  selected.value;
-      //date = "${selected.day}-${selected.month}-${selected.year}";
+      date = "${selected.year}-${selected.month}-${selected.day}";
       debugPrint('daTE: $date');
-      initialData();
     } else {
       currentDate();
     }
@@ -82,22 +108,39 @@ abstract class _KidsTrackPageViewModel with Store{
 
 
 
+  @action
+  onSelectStartTime(TimeOfDay selectedstarttime){
+    startTime = "${selectedstarttime.hour}:${selectedstarttime.minute}";
+  }
 
+  @action
+  onSelectEndTime(TimeOfDay selectedendtime){
+    endTime = "${selectedendtime.hour}:${selectedendtime.minute}";
+  }
+
+
+
+
+  @action
   initialData() async {
     //var userId = _appSettings.userId();
     var userId = "1";
     var kidId = data.kidId;
     isVisible  = true;
-    var response = await kids_track_use_case.fetchPositions(kidId,date,userId);
+    var response = await kids_track_use_case.fetchPositions(kidId,date,userId, startTime,endTime);
     if(response is Success){
       var data = response.data;
       isVisible = false;
+      var tmp = <String>[];
       switch(data != null && data.status){
         case true:
           for (var element in data!.latlongData) {
             await setupMarker(element.latLong,element.posId,element.postionalTime);
+            tmp.add(element.postionalTime);
           }
-          states = data.latlongData;
+          markers = _backupMakers.toSet();
+          process = tmp;
+          break;
       }
     }
   }
@@ -112,7 +155,7 @@ abstract class _KidsTrackPageViewModel with Store{
         draggable: false,
         icon:BitmapDescriptor.defaultMarker,
     );
-    markers.add(marker);
+    _backupMakers.add(marker);
   }
 
 
@@ -135,5 +178,6 @@ abstract class _KidsTrackPageViewModel with Store{
       return Constants.defaultCameraPosition;
     }
   }
+
 
 }

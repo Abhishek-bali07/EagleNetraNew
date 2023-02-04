@@ -5,6 +5,7 @@ import 'package:eagle_netra/presentation/screens/slider_page.dart';
 import 'package:eagle_netra/presentation/screens/splash_page.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../presentation/screens/access_page.dart';
 import '../../presentation/screens/add_kids.dart';
 import '../../presentation/screens/add_safe_area.dart';
 import '../../presentation/screens/kidsPage.dart';
@@ -62,6 +63,11 @@ class RouteGenerator {
         var arg = routeSettings.arguments as ShortDetails;
         print("$arg");
         return ScreenTransitions.rightToLeftTransition(KidsTrackPage(arguments: arg));
+
+
+
+      case Routes.accessmanagement:
+        return ScreenTransitions.rightToLeftTransition(const AccessManagementPage());
 
 
       case Routes.support:

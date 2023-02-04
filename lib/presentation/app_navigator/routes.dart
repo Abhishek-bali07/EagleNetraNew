@@ -12,4 +12,5 @@ class Routes{
   static const kidsHistory = "kidsHistory";
   static const support = "support";
   static const kidstrack = "kidstrack";
+  static const accessmanagement = "accessmanagement";
 }
