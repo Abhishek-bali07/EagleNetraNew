@@ -66,6 +66,9 @@ abstract class _KidsTrackPageViewModel with Store{
   String image = "";
 
 
+
+
+
   @action
   currentDate() {
     date = GetDateState.getCurrentDate();
@@ -141,6 +144,7 @@ abstract class _KidsTrackPageViewModel with Store{
           markers = _backupMakers.toSet();
           process = tmp;
           break;
+
       }
     }
   }
