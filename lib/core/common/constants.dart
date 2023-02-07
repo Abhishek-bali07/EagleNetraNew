@@ -42,8 +42,8 @@ class Constants {
 
 
 
-  static const gurdianname = "Gurdian name";
-  static const gurdiannumber = "Gurdian Mobile Number";
+  static const gurdianname = "Guardian name";
+  static const gurdiannumber = "Guardian Mobile Number";
   static const relationship = "Relationship";
 
 }

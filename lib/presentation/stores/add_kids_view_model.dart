@@ -208,6 +208,7 @@ abstract class _AddKidViewModel with Store{
     validate();
   }
 
+  @action
   validate() {
     valid = file != null && isNameValid() &&  isCardValid() && isDeviceValid() && isNumberValid();
   }

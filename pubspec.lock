@@ -329,14 +329,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.4"
-  datetime_picker_formfield_new:
-    dependency: "direct main"
-    description:
-      name: datetime_picker_formfield_new
-      sha256: "3ae16c2739a61d54c86f2f3fa5e62eab98ff538a1340e9ba01f2e89673518ce3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   dbus:
     dependency: transitive
     description:
@@ -385,14 +377,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.2"
-  f_datetimerangepicker:
-    dependency: "direct main"
-    description:
-      name: f_datetimerangepicker
-      sha256: f87b99ea45a4862038fac617d22b24c2cbe879e3634a91aed401fc0485097ff6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   fake_async:
     dependency: transitive
     description:
@@ -745,10 +729,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_ios
-      sha256: "39c013200046d14c58b71dc4fa3d00e425fc9c699d589136cd3ca018727c0493"
+      sha256: "8ffb14b43713d7c43fb21299cc18181cc5b39bd3ea1cc427a085c6400fe5aa52"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.6+6"
+    version: "0.8.6+7"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -1378,22 +1362,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.1"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      sha256: b3e500b1896d40c8961ab430a94fc22eff8fa1b33af03584e2f0b89371c3fa6a
-      url: "https://pub.dev"
-    source: hosted
-    version: "20.4.48"
-  syncfusion_flutter_datepicker:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_datepicker
-      sha256: "9dcd4e8a079e34d8807f137b70a4ad57b9ef606f0afee661ca50d0b2d1092771"
-      url: "https://pub.dev"
-    source: hosted
-    version: "20.4.48"
   term_glyph:
     dependency: transitive
     description:
@@ -1410,6 +1378,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
+  timeline_tile:
+    dependency: "direct main"
+    description:
+      name: timeline_tile
+      sha256: "85ec2023c67137397c2812e3e848b2fb20b410b67cd9aff304bb5480c376fc0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   timelines:
     dependency: "direct main"
     description:
@@ -1462,10 +1438,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "698fa0b4392effdc73e9e184403b627362eb5fbf904483ac9defbb1c2191d809"
+      sha256: e8f2efc804810c0f2f5b485f49e7942179f56eabcfe81dce3387fec4bb55876b
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.8"
+    version: "6.1.9"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1478,10 +1454,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: bb328b24d3bccc20bdf1024a0990ac4f869d57663660de9c936fb8c043edefe3
+      sha256: "0a5af0aefdd8cf820dd739886efb1637f1f24489900204f50984634c07a54815"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.18"
+    version: "6.1.0"
   url_launcher_linux:
     dependency: transitive
     description:

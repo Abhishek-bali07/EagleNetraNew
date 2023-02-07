@@ -55,17 +55,6 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
 
 
 
-  int _processIndex = 3;
-
-  Color getColor(int index) {
-    if (index == _processIndex) {
-      return completeColor;
-    } else if (index < _processIndex) {
-      return completeColor;
-    } else {
-      return completeColor;
-    }
-  }
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;

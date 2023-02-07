@@ -16,22 +16,26 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/common/validator.dart';
+import '../../core/repository/access_management_repository.dart';
 import '../../core/repository/addKids_repository.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../core/repository/kid_live_location_repository.dart';
 import '../../core/repository/kid_repository.dart';
 import '../../core/repository/kids_track_repository.dart';
 import '../../core/repository/kidshistory_repository.dart';
+import '../../core/repository/management_history_repository.dart';
 import '../../core/repository/safearea_details_repository.dart';
 import '../../core/repository/safearea_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
 import '../../helpers_impl/validator_impl.dart';
+import '../../repository_impl/access_management_repository_impl.dart';
 import '../../repository_impl/addKids_repository_impl.dart';
 import '../../repository_impl/dashboard_page_repository_impl.dart';
 import '../../repository_impl/kid_live_location_repository_impl.dart';
 import '../../repository_impl/kid_repository_impl.dart';
 import '../../repository_impl/kidhistory_repository_impl.dart';
 import '../../repository_impl/kids_track_repository_impl.dart';
+import '../../repository_impl/management_history_repository_impl.dart';
 import '../../repository_impl/safearea_details_repository_impl.dart';
 import '../../repository_impl/safearea_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
@@ -95,5 +99,9 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<KidsHistoryRepository>(() => KidsHistoryRepositoryImpl());
 
   instance.registerLazySingleton<KidsTrackRepository>(() => KidsTrackRepositoryImpl());
+
+  instance.registerLazySingleton<AccessManagementRepository>(() => AddAccessManagementUseCaseImpl());
+
+  instance.registerLazySingleton<ManagementHistoryRepository>(() => ManagementHistoryRepositoryImpl());
 
 }

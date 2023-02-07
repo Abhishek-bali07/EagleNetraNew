@@ -1,9 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/constants.dart';
+import '../../core/common/wrapper.dart';
+import '../../core/helpers/image_assets.dart';
+import '../../core/helpers/widgets.dart';
 import '../../utils/dialog_controller.dart';
+import '../../utils/extensions.dart';
 import '../stores/access_management_view_model.dart';
 import '../ui/theme.dart';
 
@@ -23,12 +30,37 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
 
   @override
   void initState() {
-  _vm = AccessManagementViewModel();
+    textEditingController = TextEditingController();
+    _vm = AccessManagementViewModel();
     super.initState();
     _disposers = [
-
+      reaction((_) => _vm.showPickSourceDialog, (value) {
+        if (value is DialogTrigger && value != null) {
+          showMyDialog(value, context,
+                  (BuildContext context) => ImageSourceDialog(context),
+              barrierDismissible: true);
+        }
+      }),
+      reaction((_) => _vm.snackbarMessage, //to observe
+              (value) {
+            var v = value as Wrapper<String>;
+            if (v.core != "") {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(v.core),
+                duration: Duration(seconds: 2),
+              ));
+            }
+          }),
 
     ];
+  }
+
+  @override
+  void dispose() {
+    for (var element in _disposers) {
+      element.call();
+    }
+    super.dispose();
   }
 
   @override
@@ -58,6 +90,9 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
 }
 
 
+
+
+
   Widget  _lowerSideContent() {
     return SafeArea(
         child: Stack(
@@ -79,14 +114,49 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 50, left: 24, right: 24),
+                                    left: 24, right: 24),
                                 child: Column(
                                   children: [
+
+                                    Container(
+                                      width: 140,
+                                      height: 140,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.blue, shape: BoxShape.circle),
+                                      child: Stack(
+                                        children: [
+                                          Observer(builder: (_) => getImage()),
+                                          Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(16.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    _vm.pickFile();
+                                                  },
+                                                  child: CircleAvatar(
+                                                    backgroundColor: Theme.of(context)
+                                                        .colorScheme
+                                                        .surface,
+                                                    radius: 18,
+                                                    child: CircleAvatar(
+                                                      backgroundColor: AppColors.Black,
+                                                      radius: 16,
+                                                      child: const Icon(Icons.edit),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+
+                                    SizedBox(height: 0.03.sw),
 
                                     TextField(
                                       keyboardType: TextInputType.name,
                                       onChanged: (value) {
-                                       // _vm.onNameChanged(value);
+                                       _vm.onNameChanged(value);
                                       },
                                       decoration: InputDecoration(
                                         hintText: Constants.gurdianname,
@@ -112,7 +182,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                     TextField(
                                       keyboardType: TextInputType.name,
                                       onChanged: (value) {
-                                       // _vm.onCardNumberChanged(value);
+                                       _vm.onNumberChanged(value);
                                       },
                                       decoration: InputDecoration(
                                         hintText: Constants.gurdiannumber,
@@ -138,7 +208,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                     TextField(
                                       keyboardType: TextInputType.text,
                                       onChanged: (value) {
-                                        //_vm.onDeviceChanged(value);
+                                        _vm.onRelationChanged(value);
                                       },
                                       decoration: InputDecoration(
                                         hintText: Constants.relationship,
@@ -170,9 +240,6 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                   ],
                                 ),
                               ),
-
-
-
                             ],
                           ),
                         ),
@@ -187,25 +254,22 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                           width: double.maxFinite,
                           height: 60,
                           child: Observer(
-                              builder: (_) => ElevatedButton(
+                            builder: (BuildContext context) {
+                              return  ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Theme.of(context)
                                       .colorScheme
                                       .onPrimary,
-                                  backgroundColor: AppColors.Black,
+                                  backgroundColor:  AppColors.drawerPrimary,
                                   disabledForegroundColor:
                                   AppColors.drawerPrimary,
-                                  disabledBackgroundColor: AppColors
-                                      .drawerPrimary, // Disable color
+                                  disabledBackgroundColor: AppColors.Black, // Disable color
                                 ),
-                                onPressed: _vm.valid == true &&
-                                    !(_vm.submitting == true)
-                                    ? () {
-                                  //  _vm.onSubmit();
-                                }
+                                onPressed: _vm.valid == true && !(_vm.submitting == true)
+                                    ? _vm.onSubmit
                                     : null,
                                 child: !(_vm.submitting == true)
-                                    ? Text(
+                                    ? const Text(
                                   Constants.addbtn,
                                   style: TextStyle(
                                       color: AppColors.White,
@@ -214,18 +278,42 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                       FontWeight.w500),
                                 )
                                     : CircularProgressIndicator(color: Colors.white),
-                              )),
+                              );
+                            },
+
+
+
+                          ),
                         ),
 
                       ),
                     ),
+
+
                   ],
                 ),
               ),
             ),
           ],
 
-        ),);
+        ),
+    );
+  }
+  Widget getImage() {
+    return CircleAvatar(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      radius: 140,
+      child: CircleAvatar(
+        backgroundImage: _vm.file == null
+            ?  AssetImage(ImageAssets.UserImage)
+            : getFileImage(_vm.file),
+        backgroundColor: AppColors.SilverChalice,
+        radius: 60,
+      ),
+    );
   }
 
+  ImageProvider getFileImage(File? file) {
+    return FileImage(file!);
+  }
 }

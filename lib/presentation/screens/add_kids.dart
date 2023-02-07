@@ -440,7 +440,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
                               }
                                   : null,
                               child: !(_vm.submitting == true)
-                                  ? Text(
+                                  ? const Text(
                                 Constants.addbtn,
                                 style: TextStyle(
                                     color: AppColors.White,

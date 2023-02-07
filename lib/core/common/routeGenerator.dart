@@ -5,12 +5,13 @@ import 'package:eagle_netra/presentation/screens/slider_page.dart';
 import 'package:eagle_netra/presentation/screens/splash_page.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../presentation/screens/access_page.dart';
+import '../../presentation/screens/access_management_page.dart';
 import '../../presentation/screens/add_kids.dart';
 import '../../presentation/screens/add_safe_area.dart';
 import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/kids_history.dart';
 import '../../presentation/screens/kids_track_page.dart';
+import '../../presentation/screens/management_page.dart';
 import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
@@ -68,6 +69,10 @@ class RouteGenerator {
 
       case Routes.accessmanagement:
         return ScreenTransitions.rightToLeftTransition(const AccessManagementPage());
+
+
+      case Routes.management:
+        return ScreenTransitions.rightToLeftTransition(const ManagementAccessPage());
 
 
       case Routes.support:

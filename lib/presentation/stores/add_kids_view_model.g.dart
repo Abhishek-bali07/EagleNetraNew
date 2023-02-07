@@ -243,6 +243,17 @@ mixin _$AddKidViewModel on _AddKidViewModel, Store {
   }
 
   @override
+  dynamic validate() {
+    final _$actionInfo = _$_AddKidViewModelActionController.startAction(
+        name: '_AddKidViewModel.validate');
+    try {
+      return super.validate();
+    } finally {
+      _$_AddKidViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 gettingLoader: ${gettingLoader},

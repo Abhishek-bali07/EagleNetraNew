@@ -42,6 +42,7 @@ abstract class _KidsHistoryViewModel with Store{
   @observable
   String kidClass = "";
 
+
   String kidAge = "";
 
   @observable

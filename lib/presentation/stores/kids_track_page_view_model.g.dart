@@ -155,22 +155,6 @@ mixin _$KidsTrackPageViewModel on _KidsTrackPageViewModel, Store {
     });
   }
 
-  late final _$_selectedDateRangeAtom = Atom(
-      name: '_KidsTrackPageViewModel._selectedDateRange', context: context);
-
-  @override
-  SfDateRangePicker? get _selectedDateRange {
-    _$_selectedDateRangeAtom.reportRead();
-    return super._selectedDateRange;
-  }
-
-  @override
-  set _selectedDateRange(SfDateRangePicker? value) {
-    _$_selectedDateRangeAtom.reportWrite(value, super._selectedDateRange, () {
-      super._selectedDateRange = value;
-    });
-  }
-
   late final _$initialDataAsyncAction =
       AsyncAction('_KidsTrackPageViewModel.initialData', context: context);
 
