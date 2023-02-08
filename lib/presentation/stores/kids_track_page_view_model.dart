@@ -26,7 +26,7 @@ part 'kids_track_page_view_model.g.dart';
 
 class KidsTrackPageViewModel = _KidsTrackPageViewModel with _$KidsTrackPageViewModel;
 
-abstract class _KidsTrackPageViewModel with Store{
+abstract class _KidsTrackPageViewModel with Store {
   final mainVM = instance<MainViewModel>();
   final _navigator = instance<NavigationService>();
   final _appSettings = instance<AppSettings>();
@@ -59,14 +59,11 @@ abstract class _KidsTrackPageViewModel with Store{
   String startTime = "00:00";
 
   @observable
-  String  endTime = "11:00";
+  String endTime = "11:00";
 
 
   @observable
   String image = "";
-
-
-
 
 
   @action
@@ -76,13 +73,13 @@ abstract class _KidsTrackPageViewModel with Store{
 
   @action
   rangeStart(BuildContext context, TimeOfDay timeOfDay) {
-   startTime = GetDateState.getStartTimeRange(context, timeOfDay);
+    startTime = GetDateState.getStartTimeRange(context, timeOfDay);
   }
 
 
   @action
-  rangeEnd(BuildContext context, TimeOfDay timeOfDay){
-  endTime = GetDateState.getStartTimeRange(context, timeOfDay);
+  rangeEnd(BuildContext context, TimeOfDay timeOfDay) {
+    endTime = GetDateState.getStartTimeRange(context, timeOfDay);
   }
 
 
@@ -90,7 +87,7 @@ abstract class _KidsTrackPageViewModel with Store{
     dialogManager.openDatePicker();
   }
 
-  _KidsTrackPageViewModel(this.data){
+  _KidsTrackPageViewModel(this.data) {
     mainVM.getCurrentLocation();
     //onSelectDate;
   }
@@ -110,18 +107,15 @@ abstract class _KidsTrackPageViewModel with Store{
   }
 
 
-
   @action
-  onSelectStartTime(TimeOfDay selectedstarttime){
+  onSelectStartTime(TimeOfDay selectedstarttime) {
     startTime = "${selectedstarttime.hour}:${selectedstarttime.minute}";
   }
 
   @action
-  onSelectEndTime(TimeOfDay selectedendtime){
+  onSelectEndTime(TimeOfDay selectedendtime) {
     endTime = "${selectedendtime.hour}:${selectedendtime.minute}";
   }
-
-
 
 
   @action
@@ -129,22 +123,23 @@ abstract class _KidsTrackPageViewModel with Store{
     //var userId = _appSettings.userId();
     var userId = "1";
     var kidId = data.kidId;
-    isVisible  = true;
-    var response = await kids_track_use_case.fetchPositions(kidId,date,userId, startTime,endTime);
-    if(response is Success){
+    isVisible = true;
+    var response = await kids_track_use_case.fetchPositions(
+        kidId, date, userId, startTime, endTime);
+    if (response is Success) {
       var data = response.data;
       isVisible = false;
       var tmp = <String>[];
-      switch(data != null && data.status){
+      switch (data != null && data.status) {
         case true:
           for (var element in data!.latlongData) {
-            await setupMarker(element.latLong,element.posId,element.postionalTime);
+            await setupMarker(
+                element.latLong, element.posId, element.postionalTime);
             tmp.add(element.postionalTime);
           }
           markers = _backupMakers.toSet();
           process = tmp;
           break;
-
       }
     }
   }
@@ -153,15 +148,14 @@ abstract class _KidsTrackPageViewModel with Store{
   @action
   setupMarker(LatLong coordinate, String posId, String positionalTime) async {
     var marker = Marker(
-        markerId: MarkerId("${coordinate.hashCode}"),
-        position: LatLng(coordinate.lat, coordinate.lng),
-        consumeTapEvents: true,
-        draggable: false,
-        icon:BitmapDescriptor.defaultMarker,
+      markerId: MarkerId("${coordinate.hashCode}"),
+      position: LatLng(coordinate.lat, coordinate.lng),
+      consumeTapEvents: true,
+      draggable: false,
+      icon: BitmapDescriptor.defaultMarker,
     );
     _backupMakers.add(marker);
   }
-
 
 
   onError(AlertAction? action) {
