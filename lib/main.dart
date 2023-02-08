@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
            navigatorKey: instance<NavigationService>().navigatorKey,
             //initialRoute: Routes.splash,
-            initialRoute: Routes.kidsHistory,
+            initialRoute: Routes.dashboard,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

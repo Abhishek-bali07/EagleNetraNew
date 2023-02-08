@@ -158,51 +158,58 @@ class _DashboardPageState extends State<DashboardPage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
+              leading: SvgPicture.asset(ImageAssets.safearea),
               title: Text(" Safe Area"),
               onTap:(){
                 Navigator.pushNamed(context, Routes.safearea);
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings), title: Text("My Kids"),
+              leading: SvgPicture.asset(ImageAssets.mykids),
+              title: Text("My Kids"),
               onTap: () {
-                Navigator.pushNamed(context, Routes.mykids);
+                Navigator.pushNamed(context, Routes.kidPage);
               },
             ),
             ListTile(
-              leading: Icon(Icons.contacts), title: Text("SOS Numbers"),
+              leading: SvgPicture.asset(ImageAssets.sos),
+              title: Text("SOS Numbers"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.home), title: Text("History"),
+              leading: SvgPicture.asset(ImageAssets.contact),
+              title: Text("History"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidsHistory);
               },
             ),
             ListTile(
-              leading: Icon(Icons.home), title: Text("Access"),
+              leading: SvgPicture.asset(ImageAssets.access),
+              title: Text("Access"),
+              onTap: () {
+                Navigator.pushNamed(context, Routes.management);
+              },
+            ),
+            ListTile(
+              leading: SvgPicture.asset(ImageAssets.contact),
+              title: Text("Subscription"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.subscriptions), title: Text("Subscription"),
+              leading: SvgPicture.asset(ImageAssets.support),
+              title: Text("Support "),
               onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.support), title: Text("Support "),
-              onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, Routes.support);
               },
             ),
 
             ListTile(
-              leading: Icon(Icons.logout), title: Text("Logout"),
+              leading: SvgPicture.asset(ImageAssets.logout),
+              title: Text("Logout"),
               onTap: () {
                 Navigator.pop(context);
               },

@@ -33,4 +33,18 @@ class ImageAssets{
 
 
   static const navigate= "assets/images/navigate.svg";
+
+  static const access= "assets/images/access.svg";
+
+  static const logout= "assets/images/logout.svg";
+
+  static const mykids= "assets/images/mykids.svg";
+
+  static const safearea= "assets/images/safearea.svg";
+
+  static const sos= "assets/images/sos.svg";
+
+  static const support= "assets/images/support.svg";
+
+  static const contact= "assets/images/Contacts.svg";
 }
