@@ -1,3 +1,4 @@
+import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -135,13 +136,13 @@ class _DashboardPageState extends State<DashboardPage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const UserAccountsDrawerHeader(
-              accountName: Text("Abhishek Mishra"),
-              accountEmail: Text("abhishekm977@gmail.com"),
-              decoration: BoxDecoration(
+             UserAccountsDrawerHeader(
+              accountName: Observer(builder: (context) => Text(_viewm.userName)),
+              accountEmail: Observer(builder: (context) => Text(_viewm.userEmail)),
+              decoration: const BoxDecoration(
                 color: AppColors.drawerPrimary,
               ),
-              currentAccountPicture: CircleAvatar(
+              currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.orange,
                 child: Text(
                   "A",
@@ -150,7 +151,8 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home), title: Text("Dashboard "),
+              leading: Icon(Icons.home),
+              title: Text("Dashboard "),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -158,14 +160,14 @@ class _DashboardPageState extends State<DashboardPage> {
             ListTile(
               leading: Icon(Icons.home),
               title: Text(" Safe Area"),
-              onTap: () {
-                Navigator.pop(context);
+              onTap:(){
+                Navigator.pushNamed(context, Routes.safearea);
               },
             ),
             ListTile(
               leading: Icon(Icons.settings), title: Text("My Kids"),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, Routes.mykids);
               },
             ),
             ListTile(
@@ -177,7 +179,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ListTile(
               leading: Icon(Icons.home), title: Text("History"),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, Routes.kidsHistory);
               },
             ),
             ListTile(

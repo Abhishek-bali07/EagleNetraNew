@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eagle_netra/core/domain/response/management_history_response.dart';
 import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/utils/my_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,6 +33,8 @@ abstract class _AccessManagementViewModel with Store{
 
   var name = "";
 
+  var image = "";
+
   var mobile = "";
 
   var relation = "";
@@ -48,6 +51,8 @@ abstract class _AccessManagementViewModel with Store{
 
   @observable
   File? file;
+
+  bool checkStatus = false;
 
 
 
@@ -97,17 +102,26 @@ abstract class _AccessManagementViewModel with Store{
       submitting = false;
       switch(data != null && data.status){
         case true:
+          // checkStatus = data!.status;
+          // MyUtils.toastMessage(data.message);
           if(data!.isAdded){
-            MyUtils.toastMessage("Data Submitted");
+           MyUtils.toastMessage(data.message);
             _navigator.pop(
-              result:
-            );
-          }else{
-            MyUtils.toastMessage("Error");
+              result: data.isAdded);
           }
-      }
+        }
+
+      }else if(response is Error){
+      MyUtils.toastMessage(response.message ?? "");
     }
   }
+
+
+  // Future<bool> backToPrevious() async{
+  //   _navigator.navigatorKey.currentState!.pop(checkStatus);
+  //   return false;
+  // }
+
 
 
   @action

@@ -3,6 +3,7 @@ import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/response/device_data_response.dart';
 
 import 'package:eagle_netra/core/domain/response/lat_long_response.dart';
+import 'package:eagle_netra/core/domain/response/short_profile_response.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../core/common/lat_long.dart';
@@ -36,6 +37,16 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
       devicedate: "25th January 2023", devicetime: "15:44pm",
       devicelocation: "243, Grand Trunk Rd, N, Liluah, Howrah, West Bengal 711204",
       batteryperformance: "45%", condition: "Good",phone: "7908635232"
+
+    ));
+  }
+
+  @override
+  Future<Resource<ShortProfileResponse>> fetchUser(String userId) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return Success(ShortProfileResponse(
+        status: true, message: "Success", shortprofile: ShortProfile(
+        name: "Vikash Singh", email: "vikash@v-xplore.com", mobile: "8885552222", profileImage: "")
 
     ));
   }

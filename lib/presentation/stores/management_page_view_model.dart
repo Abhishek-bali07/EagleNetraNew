@@ -78,12 +78,13 @@ abstract class _ManagementViewModel with Store{
 
   onAddManagementSection() async{
     var arg = await _navigator.navigateTo(Routes.accessmanagement);
-
+    if(arg is bool){
+      if(arg){
+        getInitialData();
+      }
+    }
   }
 
 
-  bool backToPrevious() {
 
-    return false;
-  }
 }

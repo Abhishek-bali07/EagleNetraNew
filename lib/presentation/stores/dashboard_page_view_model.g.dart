@@ -9,6 +9,70 @@ part of 'dashboard_page_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
+  late final _$gettingLoaderAtom =
+      Atom(name: '_DashBoardPageViewModel.gettingLoader', context: context);
+
+  @override
+  bool get gettingLoader {
+    _$gettingLoaderAtom.reportRead();
+    return super.gettingLoader;
+  }
+
+  @override
+  set gettingLoader(bool value) {
+    _$gettingLoaderAtom.reportWrite(value, super.gettingLoader, () {
+      super.gettingLoader = value;
+    });
+  }
+
+  late final _$userNameAtom =
+      Atom(name: '_DashBoardPageViewModel.userName', context: context);
+
+  @override
+  String get userName {
+    _$userNameAtom.reportRead();
+    return super.userName;
+  }
+
+  @override
+  set userName(String value) {
+    _$userNameAtom.reportWrite(value, super.userName, () {
+      super.userName = value;
+    });
+  }
+
+  late final _$userEmailAtom =
+      Atom(name: '_DashBoardPageViewModel.userEmail', context: context);
+
+  @override
+  String get userEmail {
+    _$userEmailAtom.reportRead();
+    return super.userEmail;
+  }
+
+  @override
+  set userEmail(String value) {
+    _$userEmailAtom.reportWrite(value, super.userEmail, () {
+      super.userEmail = value;
+    });
+  }
+
+  late final _$userImageAtom =
+      Atom(name: '_DashBoardPageViewModel.userImage', context: context);
+
+  @override
+  String get userImage {
+    _$userImageAtom.reportRead();
+    return super.userImage;
+  }
+
+  @override
+  set userImage(String value) {
+    _$userImageAtom.reportWrite(value, super.userImage, () {
+      super.userImage = value;
+    });
+  }
+
   late final _$isShowAtom =
       Atom(name: '_DashBoardPageViewModel.isShow', context: context);
 
@@ -242,6 +306,22 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
         .run(() => super.setupMarker(coordinate, posId));
   }
 
+  late final _$getDrawerDataAsyncAction =
+      AsyncAction('_DashBoardPageViewModel.getDrawerData', context: context);
+
+  @override
+  Future getDrawerData() {
+    return _$getDrawerDataAsyncAction.run(() => super.getDrawerData());
+  }
+
+  late final _$initialDataAsyncAction =
+      AsyncAction('_DashBoardPageViewModel.initialData', context: context);
+
+  @override
+  Future initialData() {
+    return _$initialDataAsyncAction.run(() => super.initialData());
+  }
+
   late final _$openBottomSheetAsyncAction =
       AsyncAction('_DashBoardPageViewModel.openBottomSheet', context: context);
 
@@ -275,6 +355,10 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
   @override
   String toString() {
     return '''
+gettingLoader: ${gettingLoader},
+userName: ${userName},
+userEmail: ${userEmail},
+userImage: ${userImage},
 isShow: ${isShow},
 isLoader: ${isLoader},
 isCalling: ${isCalling},

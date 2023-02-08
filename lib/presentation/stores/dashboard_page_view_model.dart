@@ -15,6 +15,7 @@ import '../../core/helpers/navigation_service.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
+import '../app_navigator/routes.dart';
 import 'main_view_model.dart';
 
 
@@ -32,6 +33,18 @@ abstract class _DashBoardPageViewModel with Store{
 
   Marker? _marker;
 
+  @observable
+  bool gettingLoader = false;
+
+  @observable
+  String userName = "";
+
+
+  @observable
+  String userEmail = "";
+
+  @observable
+  String userImage = "";
 
   @observable
   bool isShow = false;
@@ -81,7 +94,9 @@ abstract class _DashBoardPageViewModel with Store{
   String locationAddress = "";
 
   _DashBoardPageViewModel(){
+    getDrawerData();
     initialData();
+
   }
 
   @action
@@ -104,7 +119,30 @@ abstract class _DashBoardPageViewModel with Store{
 
   }
 
+  @action
+  getDrawerData() async {
+    gettingLoader = true;
+    //var userId = _prefs.userId;
+    var userId = "1";
+    var response = await dashboard_page_use_case.fetchUser(userId);
+    if (response is Success) {
+      var data = response.data;
+      gettingLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          userName = data!.shortprofile.name;
+          userEmail = data.shortprofile.email;
+          userImage = data.shortprofile.profileImage;
+          break;
+        default:
+      }
+    } else if (response is Error) {
 
+      }
+  }
+
+
+  @action
   initialData() async {
   var userId = "";
   isVisible  = true;
@@ -160,14 +198,6 @@ abstract class _DashBoardPageViewModel with Store{
   }
 
 
-
-
-
-
-
-
-
-
   CameraPosition initialCameraPosition() {
     if (mainVM.currentLocation != null) {
       return CameraPosition(
@@ -184,4 +214,10 @@ abstract class _DashBoardPageViewModel with Store{
 
   @action
   onRetry(AlertAction? action) {}
+
+
+  @action
+  onSafearea(){
+    _navigator.navigateTo(Routes.safearea);
+  }
 }

@@ -72,7 +72,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
       centerTitle: true,
       backgroundColor: AppColors.appBlack,
       leading: IconButton(
-        onPressed: () {},
+        onPressed: (){},
         icon: Icon(Icons.arrow_back),
       ),
       title: Text("Access Management"),

@@ -291,7 +291,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                       return Stack(
                         children: [
                           CustomPaint(
-                            size: Size(20.0, 20.0),
+                            size: Size(20.0, 19.0),
 
                           ),
                           DotIndicator(
