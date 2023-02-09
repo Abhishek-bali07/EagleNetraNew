@@ -157,18 +157,19 @@ class _DashboardPageState extends State<DashboardPage> {
                 Navigator.pop(context);
               },
             ),
-            ListTile(
-              leading: SvgPicture.asset(ImageAssets.safearea),
-              title: Text(" Safe Area"),
-              onTap:(){
-                Navigator.pushNamed(context, Routes.safearea);
-              },
-            ),
+
             ListTile(
               leading: SvgPicture.asset(ImageAssets.mykids),
               title: Text("My Kids"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidPage);
+              },
+            ),
+            ListTile(
+              leading: SvgPicture.asset(ImageAssets.safearea),
+              title: Text(" Safe Area"),
+              onTap:(){
+               Navigator.pushNamed(context, Routes.safearea);
               },
             ),
             ListTile(

@@ -32,7 +32,7 @@ class _BaseUrlApi implements BaseUrlApi {
     )
             .compose(
               _dio.options,
-              '/dev/rohan/eagle_netra_api/baseUrl',
+              '/eagle_netra_api/baseurl',
               queryParameters: queryParameters,
               data: _data,
             )

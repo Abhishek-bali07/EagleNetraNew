@@ -27,7 +27,8 @@ class RouteGenerator {
         return  ScreenTransitions.rightToLeftTransition(const SplashPage());
 
       case Routes.slider:
-        return ScreenTransitions.rightToLeftTransition(const SliderPage());
+        debugPrint("navigatetoslider");
+        return ScreenTransitions.rightToLeftTransition(SliderPage());
 
       case Routes.mobileinput:
         return ScreenTransitions.rightToLeftTransition(MobileInput());

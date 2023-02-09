@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
             color: Colors.red,
             debugShowCheckedModeBanner: false,
            navigatorKey: instance<NavigationService>().navigatorKey,
-            //initialRoute: Routes.splash,
-            initialRoute: Routes.dashboard,
+            initialRoute: Routes.registration,
+            //initialRoute: Routes.dashboard,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

@@ -215,9 +215,4 @@ abstract class _DashBoardPageViewModel with Store{
   @action
   onRetry(AlertAction? action) {}
 
-
-  @action
-  onSafearea(){
-    _navigator.navigateTo(Routes.safearea);
-  }
 }

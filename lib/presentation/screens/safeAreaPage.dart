@@ -87,7 +87,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Observer(
@@ -110,48 +110,45 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-              const EdgeInsets.only(top: 8.0, left: 8.0),
-              child: widget.arguments.name
-                  .text(AppTextStyle.userNameStyle),
-            ),
-            SizedBox(height: 0.01.sw),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 5.0, left: 8.0),
-                  child: Text("Class:${widget.arguments.clsname}"),
-                ),
-                SizedBox(width: 0.01.sw),
-                const SizedBox(
-                  height: 15,
-                  child: VerticalDivider(
-                    width: 5,
-                    thickness: 2,
-                    indent: 2,
-                    endIndent: 0,
-                    color: Colors.black38,
+        Expanded(
+          flex: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets.only(top: 8.0, left: 8.0),
+                child: widget.arguments.name
+                    .text(AppTextStyle.userNameStyle),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 8.0),
+                    child: Text("${widget.arguments.clsname}"),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 5.0, left: 8.0),
-                  child: Text("Age:${widget.arguments.age}"),
-                ),
-              ],
-            ),
-          ],
+
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 8.0),
+                    child: Text("(Age:${widget.arguments.age})"),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 150.0),
-          child: SvgPicture.asset(ImageAssets.home),
+        Expanded(
+          flex: 2 ,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: SvgPicture.asset(ImageAssets.home),
+          ),
         ),
       ],
     );

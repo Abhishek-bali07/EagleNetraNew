@@ -60,18 +60,19 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<MainRepository>(() => MainRepositoryImpl());
 
   instance.registerLazySingleton<MainViewModel>(() => MainViewModel());
+  instance.registerLazySingleton<NavigationService>(() => NavigationServiceImpl());
 
   instance.registerLazySingleton<Environment>(() => env);
 
   //alice.setNavigatorKey(instance<NavigationService>().navigatorKey);
-
+  alice.setNavigatorKey(NavigationServiceImpl().navigatorKey);
   dio.interceptors.add(alice.getDioInterceptor());
 
   instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(sharedPrefs));
 
   instance.registerLazySingleton<SplashRepository>(() => SplashRepositoryImpl(dio));
 
-  instance.registerLazySingleton<NavigationService>(() => NavigationServiceImpl());
+
 
  // instance.registerLazySingleton<>(() => ());
 

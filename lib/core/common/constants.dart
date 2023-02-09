@@ -46,4 +46,7 @@ class Constants {
   static const gurdiannumber = "Guardian Mobile Number";
   static const relationship = "Relationship";
 
+  static const getStarted = "Get Started";
+  static const skip = "Skip";
+
 }

@@ -353,17 +353,6 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
   }
 
   @override
-  dynamic onSafearea() {
-    final _$actionInfo = _$_DashBoardPageViewModelActionController.startAction(
-        name: '_DashBoardPageViewModel.onSafearea');
-    try {
-      return super.onSafearea();
-    } finally {
-      _$_DashBoardPageViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 gettingLoader: ${gettingLoader},

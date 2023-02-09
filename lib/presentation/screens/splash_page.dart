@@ -17,7 +17,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final viewm =  SplashViewModel();
+ late final  SplashViewModel viewm;
+
+ @override
+ void initState() {
+    viewm = SplashViewModel();
+    super.initState();
+  }
 
 
 

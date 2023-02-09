@@ -17,6 +17,7 @@ class AppColors{
   static const appPrimary = Color(0xFFFAAAAD);
   static const drawerPrimary = Color(0xFFE68273);
   static const greenPrimary = Color(0xFF518D3C);
+  static Color Alto = Color(0xFFDBDBDB);
 
 
 }

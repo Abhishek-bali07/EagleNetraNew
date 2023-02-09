@@ -1,6 +1,10 @@
 class ApiRoutes{
 
+  static const signin = "$parent/signin";
+
+  static const validateOtp = "$parent/validateOtp";
+
   ApiRoutes._();
-  static const parent = "/dev/rohan/eagle_netra_api";
-  static const baseUrl = "$parent/baseUrl";
+  static const parent = "/eagle_netra_api";
+  static const baseUrl = "$parent/baseurl";
 }

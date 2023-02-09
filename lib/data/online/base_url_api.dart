@@ -14,4 +14,6 @@ abstract class BaseUrlApi {
 
   @GET(ApiRoutes.baseUrl)
   Future<BaseUrlResponse> appBaseUrl();
+
+
 }

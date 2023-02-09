@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../stores/support_page_view_model.dart';
 import '../ui/theme.dart';
 
 
@@ -12,6 +13,14 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
+  late final SupportPageViewModel _vm;
+
+
+  @override
+  void initState() {
+    _vm = SupportPageViewModel();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +29,9 @@ class _SupportPageState extends State<SupportPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _vm.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text("Support"),
@@ -54,26 +65,5 @@ class _SupportPageState extends State<SupportPage> {
     );
   }
 
-  // @override
-  // Widget _lowerSideContent() {
-  //   return Column(
-  //     children: [
-  //       Expanded(
-  //         flex: 10,
-  //         child: Container(
-  //           color: Colors.green,
-  //           child: Column(
-  //             children: [
-  //               Text("We are always here to help you."),
-  //               Text("Call Us @"),
-  //               Text("1086616235"),
-  //               Text("Email Us @"),
-  //               Text("Info@eaglenetra.com"),
-  //             ],
-  //           )
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
 }

@@ -85,6 +85,10 @@ abstract class _ManagementViewModel with Store{
     }
   }
 
+  backToPrevious(){
+    _navigator.popAndNavigateTo(Routes.dashboard);
+  }
+
 
 
 }

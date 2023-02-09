@@ -33,12 +33,41 @@ class _SignInApi implements SignInApi {
     )
             .compose(
               _dio.options,
-              '/dev/rohan/eagle_netra_api/signin',
+              '/eagle_netra_api/signin',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SendOtpResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OtpVerificationResponse> validateOtp(
+    number,
+    otp,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'phone_number': number,
+      r'otp': otp,
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<OtpVerificationResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/eagle_netra_api/validateOtp',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = OtpVerificationResponse.fromJson(_result.data!);
     return value;
   }
 

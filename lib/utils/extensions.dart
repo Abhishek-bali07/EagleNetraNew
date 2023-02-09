@@ -11,19 +11,19 @@ import 'package:flutter/material.dart';
 
 import '../core/common/response.dart';
 
-extension SliderPage on int {
-  Widget getIntroPage() {
-    switch (this) {
-      case 0:
-        return IntroOne();
-      case 1:
-        return IntroTwo( pos: this);
-      case 2:
-        return IntroThree(pos: this);
-    }
-    return const SizedBox.shrink();
-  }
-}
+// extension SliderPage on int {
+//   Widget getIntroPage(SliderStore sliderStore) {
+//     switch (this) {
+//       case 0:
+//         return IntroOne();
+//       case 1:
+//         return IntroTwo( pos: this);
+//       case 2:
+//         return IntroThree(pos: this);
+//     }
+//     return const SizedBox.shrink();
+//   }
+// }
 
 
 extension MyText on String {

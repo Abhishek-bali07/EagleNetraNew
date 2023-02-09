@@ -34,13 +34,16 @@ class MobileInputRepositoryImpl implements MobileInputRepository{
 
   @override
   Future<Resource<OtpVerificationResponse>> verifyOtp(String number, String otp) async{
-    await Future.delayed(const Duration(seconds: 2));
-    return Success(OtpVerificationResponse(
-        status: true,
-        message: "OTP Not Matched",
-        isVerified: true,
-        userId: "1",
-        userStatus:"REGISTERED"));
+    return _signInApi
+        .validateOtp(number, otp)
+        .handleResponse<OtpVerificationResponse>();
+    // await Future.delayed(const Duration(seconds: 2));
+    // return Success(OtpVerificationResponse(
+    //     status: true,
+    //     message: "OTP Not Matched",
+    //     isVerified: true,
+    //     userId: "1",
+    //     userStatus:"REGISTERED"));
   }
 
 }

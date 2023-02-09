@@ -49,7 +49,7 @@ abstract class _SplashViewModel with Store, CheckInternet{
 
   _SplashViewModel() {
     _initPackageInfo();
-    _getBaseUrl();
+    //_getBaseUrl();
     checkNow((connectivityState) {
       switch (connectivityState) {
         case ConnectivityState.Gained:
@@ -88,7 +88,7 @@ abstract class _SplashViewModel with Store, CheckInternet{
       switch(data != null && data.status){
         case true:
           _appSettings.setBaseUrl(data!.baseUrl);
-          _navigator.navigateTo(Routes.slider);
+          _navigator.navigatorKey.currentState?.pushNamed(Routes.slider);
           
           break;
         default:

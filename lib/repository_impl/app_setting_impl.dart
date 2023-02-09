@@ -43,6 +43,18 @@ class AppSettingsImpl extends AppSettings {
    sharedPreferences.setString(Constants.userId, id);
   }
 
+  @override
+  void saveSliderDone(bool done) {
+    sharedPreferences.setBool(Constants.intro_done_key, done);
+  }
+
+  @override
+  bool sliderDone() {
+    return sharedPreferences.getBool(Constants.intro_done_key) ?? false;
+  }
+
+
+
   // @override
   // String get code =>  sharedPreferences.getString(Constants.countrycode) ?? "";
 
