@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import '../../presentation/screens/access_management_page.dart';
 import '../../presentation/screens/add_kids.dart';
 import '../../presentation/screens/add_safe_area.dart';
+import '../../presentation/screens/device_subscrption_page.dart';
 import '../../presentation/screens/kidsPage.dart';
 import '../../presentation/screens/kids_history.dart';
 import '../../presentation/screens/kids_track_page.dart';
@@ -16,6 +17,7 @@ import '../../presentation/screens/my_kids.dart';
 import '../../presentation/screens/dasboard_page.dart';
 import '../../presentation/screens/registration_page.dart';
 import '../../presentation/screens/safeAreaPage.dart';
+import '../../presentation/screens/subscription_page.dart';
 import '../../presentation/screens/support.dart';
 import '../domain/response/kid_short_info_response.dart';
 
@@ -74,6 +76,9 @@ class RouteGenerator {
 
       case Routes.management:
         return ScreenTransitions.rightToLeftTransition(const ManagementAccessPage());
+
+      case Routes.subscription:
+        return ScreenTransitions.rightToLeftTransition( const SubscriptionPage());
 
 
       case Routes.support:

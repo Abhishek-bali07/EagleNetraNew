@@ -26,6 +26,7 @@ import '../../core/repository/kidshistory_repository.dart';
 import '../../core/repository/management_history_repository.dart';
 import '../../core/repository/safearea_details_repository.dart';
 import '../../core/repository/safearea_repository.dart';
+import '../../core/repository/subscription_repository.dart';
 import '../../core/repository/userRegister_repository.dart';
 import '../../helpers_impl/validator_impl.dart';
 import '../../repository_impl/access_management_repository_impl.dart';
@@ -38,6 +39,7 @@ import '../../repository_impl/kids_track_repository_impl.dart';
 import '../../repository_impl/management_history_repository_impl.dart';
 import '../../repository_impl/safearea_details_repository_impl.dart';
 import '../../repository_impl/safearea_repository_impl.dart';
+import '../../repository_impl/subscription_repository_impl.dart';
 import '../../repository_impl/userRegister_repository_impl.dart';
 
 final instance = GetIt.instance;
@@ -104,5 +106,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<AccessManagementRepository>(() => AddAccessManagementUseCaseImpl());
 
   instance.registerLazySingleton<ManagementHistoryRepository>(() => ManagementHistoryRepositoryImpl());
+
+  instance.registerLazySingleton<SubscriptionRepository>(() => SubscriptionRepositoryImpl());
 
 }
