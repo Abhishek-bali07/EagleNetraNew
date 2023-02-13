@@ -23,7 +23,7 @@ class _SignInApi implements SignInApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = {'phone_number': number};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<SendOtpResponse>(Options(
       method: 'POST',
@@ -62,7 +62,7 @@ class _SignInApi implements SignInApi {
     )
             .compose(
               _dio.options,
-              '/eagle_netra_api/validateOtp',
+              '/eagle_netra_api/otp',
               queryParameters: queryParameters,
               data: _data,
             )

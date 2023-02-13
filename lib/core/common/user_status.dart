@@ -1,6 +1,6 @@
 enum UserStatus {
   registered("REGISTERED"),
-  unRegistered("NOT REGISTERED");
+  unregistered("UNREGISTERED");
 
   final String value;
   const UserStatus(this.value);

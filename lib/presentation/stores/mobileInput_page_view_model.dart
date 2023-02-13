@@ -82,22 +82,14 @@ abstract class _MobileInputViewModel  with Store {
   @action
   onNumberChange(String number) {
     mobileNumber = number;
+    debugPrint("$mobileNumber");
   }
-
-  @action
-  onUserOtp(String value){
-    onOtp = value;
-    if(onOtp.length == 4 && onOtp =='2222'){
-      verifyOtp();
-    }
-  }
-
 
   @action
   onNext() async {
     isShow = false;
     sendingLoader = true;
-    var number = mobileNumber.trim();
+    var number = mobileNumber.replaceAll("-", "");
     var response = await _mobinputrepo.sendOtp(number);
     if (response is Success) {
       var data = response.data;
@@ -107,44 +99,79 @@ abstract class _MobileInputViewModel  with Store {
           isShow = data!.isSend;
           break;
       }
+    }else if(response is Error){
+      sendingLoader = false;
+      dialogManager.initErrorData(AlertData(
+          StringProvider.error,
+          null,
+          StringProvider.appId,
+          response.message ?? "",
+          StringProvider.retry,
+          null,
+          null,
+          AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
     }
   }
 
-
+  @action
+  onUserOtp(String value){
+    onOtp = value;
+    if(onOtp.length == 4){
+      verifyOtp();
+    }
+  }
 
   @action
   verifyOtp() async{
     verifyLoader = true;
-    var number = mobileNumber.trim();
+   var number = mobileNumber.replaceAll("-", "");
     var otp = onOtp;
     var response = await _mobinputrepo.verifyOtp(number, otp);
     if(response is Success){
       var data = response.data;
+      verifyLoader = false;
       switch (data != null && data.status) {
         case true:
           if(data!.isVerified){
             _appSettings.saveUserId(data.userId);
             if(data.userStatus == UserStatus.registered.value){
-              _navigator.navigateTo(Routes.dashboard);
-            }else{
-              verifyLoader = false;
-              _navigator.navigateTo(Routes.registration);
-            }
+                 _navigator.navigateTo(Routes.dashboard);
+               } else{
+                     verifyLoader = false;
+                     _navigator.navigateTo(Routes.registration);
+               }
             //  otpEntered;
-          }else{
-            verifyLoader = false;
-            dialogManager.initErrorData(AlertData(
-                StringProvider.error,
-                null,
-                StringProvider.appId,
-                data.message,
-                StringProvider.retry,
-                null,
-                null,AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
           }
+          else{
+            verifyLoader = false;
+            //_navigator.navigateTo(Routes.registration);
+          }
+          break;
+        default:
+          verifyLoader = false;
+          dialogManager.initErrorData(AlertData(
+              StringProvider.error,
+              null,
+              StringProvider.appId,
+              data?.message ?? "",
+              StringProvider.retry,
+              null,
+              null,
+              AlertBehaviour(
+                  option: AlertOption.none, action: AlertAction.none)));
       }
+    }else if (response is Error) {
+      verifyLoader = false;
+      dialogManager.initErrorData(AlertData(
+          StringProvider.notmatched,
+          null,
+          StringProvider.appId,
+          response.message ?? "",
+          StringProvider.retry,
+          null,
+          null,
+          AlertBehaviour(option: AlertOption.none, action: AlertAction.none)));
     }
-
   }
 
 
@@ -153,7 +180,7 @@ abstract class _MobileInputViewModel  with Store {
   @action
   reSendOtp() async {
     reSendingOtpLoader = true;
-    var number = mobileNumber.trim();
+    var number = mobileNumber.replaceAll("-", "");
     var response = await _mobinputrepo.sendOtp(number);
     if(response is Success){
       var data = response.data;
@@ -194,13 +221,6 @@ abstract class _MobileInputViewModel  with Store {
   }
 
 
-  // @action
-  // String? validateOtp(String? otp) {
-  //   if (otp != null) {
-  //     var regEp = RegExp(r"[0-9]{4}");
-  //     enableBtn = regEp.hasMatch(otp);
-  //   }
-  //   return null;
-  // }
+
 
 }

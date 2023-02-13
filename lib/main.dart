@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
             color: Colors.red,
             debugShowCheckedModeBanner: false,
-           navigatorKey: instance<NavigationService>().navigatorKey,
+            //navigatorKey: instance<NavigationService>().navigatorKey,
+            navigatorKey: alice.getNavigatorKey(),
             initialRoute: Routes.splash,
             //initialRoute: Routes.dashboard,
             onGenerateRoute: RouteGenerator.getRoute);

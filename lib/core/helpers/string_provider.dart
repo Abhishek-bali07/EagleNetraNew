@@ -12,6 +12,8 @@ class StringProvider{
 
   static const error = "Error";
 
+  static const notmatched = "Otp is not matched";
+
   static var set = "SET";
 
   static var ok = "OK";

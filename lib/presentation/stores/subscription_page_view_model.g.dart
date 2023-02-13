@@ -121,6 +121,31 @@ mixin _$SubscriptionPageViewModel on _SubscriptionPageViewModel, Store {
     });
   }
 
+  late final _$expireDateAtom =
+      Atom(name: '_SubscriptionPageViewModel.expireDate', context: context);
+
+  @override
+  String get expireDate {
+    _$expireDateAtom.reportRead();
+    return super.expireDate;
+  }
+
+  @override
+  set expireDate(String value) {
+    _$expireDateAtom.reportWrite(value, super.expireDate, () {
+      super.expireDate = value;
+    });
+  }
+
+  late final _$getInitialDataAsyncAction = AsyncAction(
+      '_SubscriptionPageViewModel.getInitialData',
+      context: context);
+
+  @override
+  Future getInitialData() {
+    return _$getInitialDataAsyncAction.run(() => super.getInitialData());
+  }
+
   @override
   String toString() {
     return '''
@@ -130,7 +155,8 @@ kidName: ${kidName},
 kidClass: ${kidClass},
 Rmessage: ${Rmessage},
 image: ${image},
-amount: ${amount}
+amount: ${amount},
+expireDate: ${expireDate}
     ''';
   }
 }

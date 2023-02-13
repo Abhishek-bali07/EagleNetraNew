@@ -66,8 +66,8 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<Environment>(() => env);
 
-  //alice.setNavigatorKey(instance<NavigationService>().navigatorKey);
-  alice.setNavigatorKey(NavigationServiceImpl().navigatorKey);
+  alice.setNavigatorKey(instance<NavigationService>().navigatorKey);
+ // alice.setNavigatorKey(NavigationServiceImpl().navigatorKey);
   dio.interceptors.add(alice.getDioInterceptor());
 
   instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(sharedPrefs));

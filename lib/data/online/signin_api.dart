@@ -15,7 +15,7 @@ abstract class SignInApi{
   @POST(ApiRoutes.signin)
   @FormUrlEncoded()
   Future<SendOtpResponse> otpSend(
-      @Path("phone_number") String number,
+      @Field("phone_number") String number,
   );
 
 

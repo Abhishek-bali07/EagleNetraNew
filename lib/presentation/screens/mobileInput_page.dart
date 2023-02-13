@@ -54,12 +54,11 @@ class _MobileInputState extends State<MobileInput> {
             context: context,
             builder: (BuildContext context) {
               return VerifyOtpPage(
-                onOtp: (value) {
-                  vm.onUserOtp(value);
-                },
+                onOtp: vm.onUserOtp,
                 number: vm.mobileNumber, reSendingOtpLoader: vm.reSendingOtpLoader, reSendOtp: vm.reSendOtp
               );
             });
+        vm.isShow = false;
       }
 
       }),
@@ -142,13 +141,11 @@ class _MobileInputState extends State<MobileInput> {
                         node: inputManager,
                         controller: _mobileNumberInputController,
                         onTextChange: (number) {
-                          if (number.length == 10) {
+                          if (number.length == 12) {
                             inputManager.unfocus();
                           }
                           vm.onNumberChange(number);
                         },
-                        //codes: vm.codes,
-                        //onCodeSelect: vm.onCodeSelected,
                         onNumberCleared: vm.onNumberClear,
                         gettingLoader: vm.gettingDataLoader,
                       );
