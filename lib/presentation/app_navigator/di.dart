@@ -83,7 +83,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<MobileInputRepository>(() => MobileInputRepositoryImpl(dio));
 
 
-  instance.registerLazySingleton<RegisterUserRepository>(() => RegisterUserUseCaseImpl());
+  instance.registerLazySingleton<RegisterUserRepository>(() => RegisterUserUseCaseImpl(dio));
 
 
   instance.registerLazySingleton<AddCardRepository>(() => AddKidsUseCaseImpl());

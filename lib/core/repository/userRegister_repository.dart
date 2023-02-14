@@ -8,7 +8,7 @@ import '../domain/response/user_register_response.dart';
 
 abstract class RegisterUserRepository{
   Future<Resource<RegisterUserResponse>> registerUser(
-      String mobile,
+      String userId,
       String name,
       String email,
       File image,

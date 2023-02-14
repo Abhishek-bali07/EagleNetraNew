@@ -140,11 +140,11 @@ abstract class _MobileInputViewModel  with Store {
                      verifyLoader = false;
                      _navigator.navigateTo(Routes.registration);
                }
-            //  otpEntered;
+
           }
           else{
-            verifyLoader = false;
-            //_navigator.navigateTo(Routes.registration);
+            // verifyLoader = false;
+            // _navigator.navigateTo(Routes.registration);
           }
           break;
         default:

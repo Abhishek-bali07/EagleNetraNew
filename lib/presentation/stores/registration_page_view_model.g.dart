@@ -122,6 +122,14 @@ mixin _$RegistrationViewModel on _RegistrationViewModel, Store {
     });
   }
 
+  late final _$submitUserDetailsAsyncAction =
+      AsyncAction('_RegistrationViewModel.submitUserDetails', context: context);
+
+  @override
+  Future submitUserDetails() {
+    return _$submitUserDetailsAsyncAction.run(() => super.submitUserDetails());
+  }
+
   late final _$_RegistrationViewModelActionController =
       ActionController(name: '_RegistrationViewModel', context: context);
 

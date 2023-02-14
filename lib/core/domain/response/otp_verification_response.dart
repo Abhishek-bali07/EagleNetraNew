@@ -23,35 +23,34 @@ OtpVerificationResponse otpVerificationResponseFromJson(String str) => OtpVerifi
 
 String otpVerificationResponseToJson(OtpVerificationResponse data) => json.encode(data.toJson());
 
-class OtpVerificationResponse extends BusinessObject{
+class OtpVerificationResponse extends BusinessObject {
   OtpVerificationResponse({
     required this.status,
+    required this.userStatus,
     required this.message,
     required this.userId,
     required this.isVerified,
-    required this.userStatus,
   });
 
   final bool status;
-  final String message;
-  final bool isVerified;
-  final String userId;
   final String userStatus;
+  final String message;
+  final String userId;
+  final bool isVerified;
 
   factory OtpVerificationResponse.fromJson(Map<String, dynamic> json) => OtpVerificationResponse(
     status: json["status"],
+    userStatus: json["userStatus"],
     message: json["message"],
     userId: json["userId"],
     isVerified: json["isVerified"],
-    userStatus: json["userStatus"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "userStatus": userStatus,
     "message": message,
     "userId": userId,
     "isVerified": isVerified,
-    "userStatus": userStatus,
-
   };
 }

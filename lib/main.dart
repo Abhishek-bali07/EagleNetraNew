@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             //navigatorKey: instance<NavigationService>().navigatorKey,
             navigatorKey: alice.getNavigatorKey(),
-            initialRoute: Routes.splash,
-            //initialRoute: Routes.dashboard,
+            //initialRoute: Routes.splash,
+            initialRoute: Routes.registration,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

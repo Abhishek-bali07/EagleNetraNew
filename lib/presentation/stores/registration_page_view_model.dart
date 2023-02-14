@@ -1,11 +1,13 @@
  import 'dart:io';
 
  import 'package:eagle_netra/presentation/app_navigator/routes.dart';
+import 'package:eagle_netra/utils/my_utils.dart';
  import 'package:flutter/cupertino.dart';
  import 'package:image_picker/image_picker.dart';
  import 'package:mobx/mobx.dart';
 
-  import '../../core/common/app_settings.dart';
+  import '../../core/common/api_route.dart';
+import '../../core/common/app_settings.dart';
   import '../../core/common/constants.dart';
   import '../../core/common/package.dart';
   import '../../core/common/response.dart';
@@ -46,6 +48,8 @@ abstract class _RegistrationViewModel with Store{
   var _email = "";
 
   var _mobile = "";
+
+  bool checkStatus = false;
 
   @observable
   File? file;
@@ -99,34 +103,43 @@ abstract class _RegistrationViewModel with Store{
   }
 
 
-
+  @action
   submitUserDetails() async{
-    // if(file == null){
-    //   return;
-    // }
     submitting = true;
     var response = await  _register_user_use_case.registerUser(
-        _mobile, _name, _email, file!,  selected.value);
+      _appSettings.userId,
+        _name,
+        _email,
+        file!,
+        selected.value);
     if(response is Success) {
       var data = response.data;
+      submitting = false;
       switch (data != null && data.status) {
         case true:
-          if(data!.isVerified){
-            var userId = response.data!.userId;
-            _appSettings.saveUserId(userId ?? "");
-            if(data.userStatus == UserStatus.registered.value){
-              _navigator.navigatorKey.currentState
-                  ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
-            }else{
-              submitting = false;
-             _navigator.navigateTo(Routes.mykids);
-            }
-          }
+          checkStatus = data!.status;
+          MyUtils.toastMessage(data.message);
+          _navigator.navigatorKey.currentState!.pushNamed(Routes.mykids);
+          //_navigator.navigatorKey.currentState!.pop();
+
+          break;
+        default:
+
+              // if(data!.isVerified){
+          //   var userId = response.data!.userId;
+          //   _appSettings.saveUserId(userId ?? "");
+          //   if(data.userStatus == UserStatus.registered.value){
+          //     _navigator.navigatorKey.currentState
+          //         ?.pushNamedAndRemoveUntil(Routes.dashboard, (Route<dynamic> route) => false);
+          //   }else{
+          //     submitting = false;
+          //    _navigator.navigateTo(Routes.mykids);
+          //   }
+          // }
       }
+    }else if(response is Error){
+      MyUtils.toastMessage(response.message ?? "");
     }
-
-
-
   }
 
 
