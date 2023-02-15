@@ -59,7 +59,7 @@ class _KidsPageState extends State<KidsPage> {
           onPressed: () {},
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text("My Kids"),
+        title: Text("MyKids"),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.SilverChalice,
@@ -92,7 +92,7 @@ class _KidsPageState extends State<KidsPage> {
                       width: 0.10.sh,
                       child: Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 0.05.sw, horizontal: 0.05.sw),
+                              vertical: 0.02.sw, horizontal: 0.05.sw),
                           child: const CircularProgressIndicator())),
                 );
               } else {
@@ -119,12 +119,13 @@ class _KidsPageState extends State<KidsPage> {
         _viewModel.onSafeareaSection(_viewModel.kidHistory[index]);
       },
       child: Container(
+        width: 0.90.sw,
         padding: EdgeInsets.symmetric(
           vertical: 0.02.sw,
         ),
         decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: BorderRadius.all(Radius.circular(25)),
             boxShadow: [
               BoxShadow(
                   color: Color(0x1a000000),
@@ -133,7 +134,7 @@ class _KidsPageState extends State<KidsPage> {
                   offset: Offset(0, 10))
             ]),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
+          padding: EdgeInsets.symmetric(vertical: 0.01.sw, horizontal: 0.03.sw),
           child: Column(
             children: [
               Observer(

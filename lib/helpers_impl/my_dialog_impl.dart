@@ -74,19 +74,7 @@ class MyDialogImpl implements MyDialog {
     close?.call();
   }
 
-  // void _controlBehaviour(AlertBehaviour data, Function(AlertOption) action) {
-  //   switch (data.action) {
-  //     case AlertAction.welcomeJaduRideInitialData:
-  //       action(data.option);
-  //       break;
-  //     case AlertAction.action:
-  //       action(data.option);
-  //       break;
-  //     case AlertAction.getCities:
-  //       action(data.option);
-  //       break;
-  //   }
-  // }
+
 
   @override
   Future showWithCustomData(AlertData data, DialogState state, Widget ui, {Function? close}) {

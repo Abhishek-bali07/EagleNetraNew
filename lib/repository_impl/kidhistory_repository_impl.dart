@@ -18,10 +18,10 @@ class KidsHistoryRepositoryImpl implements KidsHistoryRepository{
             age: "10",
             clsname: "Class V",
             expiredOn: "31st Dec, 2023",
-            activateFrom: "1st Jan 2023")),
-      // shortDetails: ShortDetails(name: "Druv Sen", age: "12", clsname: "VI", expiredOn: "31st dec 2023", activateFrom: "1st Jan 2023", image: "assets/images/userimg.png")
+            activateFrom: "1st Jan 2023", deviceId: "2233")),
+
 
     ));
   }
-  
+
 }

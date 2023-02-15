@@ -21,7 +21,8 @@ class SplashRepositoryImpl implements SplashRepository{
 
   @override
   Future<Resource<BaseUrlResponse>> getBaseUrl() async{
-    var result = await _baseUrlApi.appBaseUrl().handleResponse<BaseUrlResponse>();
+    var result = await _baseUrlApi.appBaseUrl()
+        .handleResponse<BaseUrlResponse>();
     return result;
 
     //  await Future.delayed(const Duration(seconds: 2));

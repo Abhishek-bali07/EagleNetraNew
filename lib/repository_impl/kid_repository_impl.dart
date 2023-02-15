@@ -1,10 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:eagle_netra/core/common/response.dart';
 
 import 'package:eagle_netra/core/domain/response/kid_short_info_response.dart';
+import 'package:eagle_netra/utils/api_client_configuration.dart';
 
 import '../core/repository/kid_repository.dart';
+import '../data/online/kid_details_api.dart';
 
 class KidRepositoryImpl implements KidAccountRepository{
+
+  final Dio _dio;
+  late final KidDetailsApi _kidDetailsApi;
+
+  KidRepositoryImpl(this._dio){
+    _dio.options = ApiClientConfiguration.initialConfiguration;
+    _kidDetailsApi = KidDetailsApi(_dio);
+  }
+
   @override
   Future<Resource<KidShortInfoResponse>> kidShortInfo(String userId) async {
     await Future.delayed(const Duration(seconds: 2));
@@ -19,7 +31,7 @@ class KidRepositoryImpl implements KidAccountRepository{
                   age: "10",
                   clsname: "Class V",
                   expiredOn: "31st Dec, 2023",
-                  activateFrom: "1st Jan 2023")),
+                  activateFrom: "1st Jan 2023", deviceId: "2233")),
         // shortDetails: ShortDetails(name: "Druv Sen", age: "12", clsname: "VI", expiredOn: "31st dec 2023", activateFrom: "1st Jan 2023", image: "assets/images/userimg.png")
 
       )

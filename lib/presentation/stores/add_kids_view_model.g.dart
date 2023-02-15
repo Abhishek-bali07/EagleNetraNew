@@ -129,6 +129,14 @@ mixin _$AddKidViewModel on _AddKidViewModel, Store {
     return _$initialDataAsyncAction.run(() => super.initialData());
   }
 
+  late final _$submitKidsDetailsAsyncAction =
+      AsyncAction('_AddKidViewModel.submitKidsDetails', context: context);
+
+  @override
+  Future submitKidsDetails() {
+    return _$submitKidsDetailsAsyncAction.run(() => super.submitKidsDetails());
+  }
+
   late final _$_AddKidViewModelActionController =
       ActionController(name: '_AddKidViewModel', context: context);
 

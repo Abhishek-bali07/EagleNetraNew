@@ -7,11 +7,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../core/common/alert_action.dart';
+import '../../core/common/alert_behaviour.dart';
+import '../../core/common/alert_data.dart';
+import '../../core/common/alert_option.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/constants.dart';
 import '../../core/common/response.dart';
 import '../../core/common/validator.dart';
 import '../../core/common/wrapper.dart';
+import '../../core/helpers/string_provider.dart';
 import '../../utils/dialog_manager.dart';
 import '../../utils/extensions.dart';
 import '../../utils/my_utils.dart';
@@ -131,23 +136,44 @@ abstract class _AddKidViewModel with Store{
   }
 
 
+  _AddKidViewModel(){
+    initialData();
+  }
+
 
 
   @action
   initialData() async{
     gettingLoader = true;
-    var userId = _appSettings.userId();
+    var userId = _appSettings.userId;
     var response =  await add_card_use_case.getProfileInittialData(userId);
     if(response is Success){
       var data = response.data;
       gettingLoader = false;
       switch(data != null && data.status){
         case true:
-          userMobileNumber = data!.mobile;
+          userMobileNumber = data!.data.number;
+          break;
+        default:
+          dialogManager.initErrorData(AlertData(
+              StringProvider.error,
+              null,
+              StringProvider.appId,
+              data?.message ?? "",
+              StringProvider.retry,
+              null,
+              null,
+              AlertBehaviour(
+                  option: AlertOption.invokeOnBarrier,
+                  action: AlertAction.accessShortInfo)));
       }
     }
   }
 
+
+
+
+  @action
   submitKidsDetails() async{
     submitting = true;
     var userId = _appSettings.userId;
@@ -168,13 +194,25 @@ abstract class _AddKidViewModel with Store{
       switch(data != null && data.status){
         case true:
           if(data!.isAdded){
-
-            //_navigator.navigateTo(Routes.mykids);
-            MyUtils.toastMessage("Data submitted...");
+            _navigator.navigatorKey.currentState!.pushNamed(Routes.kidPage);
+           // _navigator.navigateTo(Routes.mykids);
+            MyUtils.toastMessage(data.message);
           }else{
-            MyUtils.toastMessage("Error");
+            dialogManager.initErrorData(AlertData(
+                StringProvider.error,
+                null,
+                StringProvider.appId,
+                data.message,
+                StringProvider.okay,
+                null,
+                null,
+                AlertBehaviour(
+                    option: AlertOption.none, action: AlertAction.none)));
+
           }
       }
+    }else if(response  is Error){
+      MyUtils.toastMessage(response.message ?? "");
     }
   }
 
@@ -210,7 +248,7 @@ abstract class _AddKidViewModel with Store{
 
   @action
   validate() {
-    valid = file != null && isNameValid() &&  isCardValid() && isDeviceValid() && isNumberValid();
+    valid = file != null && isNameValid() &&  isCardValid() && isDeviceValid() ;
   }
 
   isNameValid() {
@@ -218,18 +256,16 @@ abstract class _AddKidViewModel with Store{
   }
 
   isCardValid(){
-    return  _validator.isValidCard(_cardnumber);
+    return  _cardnumber.length <=10;
   }
 
   isDeviceValid(){
-    return _device.length>= 5;
+    return _device.length <= 4;
     }
 
   isValidage(){
     return _addage.length <= 3;
 
   }
-  isNumberValid(){
-    return _validator.isValidNumber(_addmobile2);
-  }
+
 }

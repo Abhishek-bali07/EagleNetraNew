@@ -433,8 +433,7 @@ class _AddKidScreenState extends State<AddKidScreen> {
                                 disabledBackgroundColor: AppColors
                                     .drawerPrimary, // Disable color
                               ),
-                              onPressed: _vm.valid == true &&
-                                  !(_vm.submitting == true)
+                              onPressed: _vm.valid == true && !(_vm.submitting == true)
                                   ? () {
                                 _vm.onSubmit();
                               }
