@@ -121,6 +121,14 @@ mixin _$KidsPageViewModel on _KidsPageViewModel, Store {
     });
   }
 
+  late final _$getInitialDataAsyncAction =
+      AsyncAction('_KidsPageViewModel.getInitialData', context: context);
+
+  @override
+  Future getInitialData() {
+    return _$getInitialDataAsyncAction.run(() => super.getInitialData());
+  }
+
   @override
   String toString() {
     return '''

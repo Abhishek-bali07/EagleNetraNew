@@ -32,44 +32,40 @@ class KidShortInfoResponse  extends BusinessObject{
 
 class ShortDetails {
   ShortDetails({
-    required this.kidId,
+    required this.smartCardId,
     required this.name,
     required this.age,
-    required this.clsname,
+    required this.clsName,
     required this.image,
     required this.activateFrom,
-    required this.expiredOn,
     required this.deviceId,
   });
 
-  final String kidId;
+  final String smartCardId;
   final String name;
   final String age;
-  final String clsname;
+  final String clsName;
   final String image;
   final String activateFrom;
-  final String expiredOn;
   final String deviceId;
 
   factory ShortDetails.fromJson(Map<String, dynamic> json) => ShortDetails(
-    kidId: json["kidId"],
+    smartCardId: json["smartCardId"],
     name: json["name"],
     age: json["age"],
-    clsname: json["clsname"],
+    clsName: json["clsName"],
     image: json["image"],
     activateFrom: json["activateFrom"],
-    expiredOn: json["expiredOn"],
     deviceId: json["device_id"],
   );
 
   Map<String, dynamic> toJson() => {
-    "kidId": kidId,
+    "smartCardId": smartCardId,
     "name": name,
     "age": age,
-    "clsname": clsname,
+    "clsName": clsName,
     "image": image,
     "activateFrom": activateFrom,
-    "expiredOn" : expiredOn,
     "device_id": deviceId,
   };
 }

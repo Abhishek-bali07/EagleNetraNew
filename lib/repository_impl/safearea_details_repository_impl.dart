@@ -18,7 +18,14 @@ class SafeareaDetailsUseCaseImpl extends SafeAreaDetailsRepository{
   }
 
   @override
-  Future<Resource<AddSafeAreaDetailsResponse>> uploadLocationDetails(String userId, String kidId, String locationName, String locationAddress, String alert, double radius) async {
+  Future<Resource<AddSafeAreaDetailsResponse>> uploadLocationDetails(
+      String userId,
+      String smartCardId,
+      String locationName,
+      String locationAddress,
+      bool valuefirst,
+      bool valuesecond,
+      double radius) async {
     await Future.delayed(const Duration(seconds: 2));
     return Success(AddSafeAreaDetailsResponse(
         status: true,

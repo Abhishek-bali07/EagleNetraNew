@@ -64,10 +64,9 @@ abstract class _SafeAreaPageViewModel with Store{
 
   initialData() async {
     isLoading = true;
-  //  var userId = _appSettings.userId();
-    var userId = "1";
-    var kidId = data.kidId;
-    var response = await _safeareaUseCase.kidShortInfo(userId, kidId);
+    var userId = _appSettings.userId;
+    var smartCardId = data.smartCardId;
+    var response = await _safeareaUseCase.kidShortInfo(userId, smartCardId);
     if (response is Success) {
       var data = response.data;
       isLoading = false;
@@ -88,12 +87,11 @@ abstract class _SafeAreaPageViewModel with Store{
 
   switcherData(AreaDetails safeArea, {Function(bool)? changedState}) async {
     dataLoader = true;
-    //var userId = _appSettings.userId();
-    var userId = "1";
-    var kidId = data.kidId;
+    var userId = _appSettings.userId;
+    var smartCardId = data.smartCardId;
     var safeAreaId = safeArea.safeAreaId;
     bool state = safeArea.state;
-    var response = await _safeareaUseCase.AddSafearea(userId, kidId, safeAreaId, state);
+    var response = await _safeareaUseCase.AddSafearea(userId, smartCardId, safeAreaId, state);
     if (response is Success) {
       var data = response.data;
       dataLoader = false;

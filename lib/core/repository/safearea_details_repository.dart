@@ -11,10 +11,11 @@ abstract class SafeAreaDetailsRepository{
 
   Future<Resource<AddSafeAreaDetailsResponse>> uploadLocationDetails(
       String userId,
-      String kidId,
+      String smartCardId,
       String locationName,
       String locationAddress,
-      String alert,
+      bool valuefirst,
+      bool valuesecond,
       double radius,
       );
 }

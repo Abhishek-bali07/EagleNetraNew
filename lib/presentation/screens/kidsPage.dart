@@ -61,12 +61,7 @@ class _KidsPageState extends State<KidsPage> {
         ),
         title: Text("MyKids"),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.SilverChalice,
-        foregroundColor: AppColors.Black,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
+
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -189,7 +184,7 @@ class _KidsPageState extends State<KidsPage> {
                                     padding: const EdgeInsets.only(
                                         top: 5.0, left: 8.0),
                                     child: Text(
-                                        _viewModel.kidHistory[index].clsname),
+                                        _viewModel.kidHistory[index].clsName),
                                   ),
                                    SizedBox(width: 0.01.sw),
                                   const SizedBox(

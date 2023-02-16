@@ -89,22 +89,6 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
-  late final _$selectedAtom =
-      Atom(name: '_AddSafeAreaPageViewModel.selected', context: context);
-
-  @override
-  AlertRadio get selected {
-    _$selectedAtom.reportRead();
-    return super.selected;
-  }
-
-  @override
-  set selected(AlertRadio value) {
-    _$selectedAtom.reportWrite(value, super.selected, () {
-      super.selected = value;
-    });
-  }
-
   late final _$alertSelectedAtom =
       Atom(name: '_AddSafeAreaPageViewModel.alertSelected', context: context);
 
@@ -185,38 +169,6 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
-  late final _$userIdAtom =
-      Atom(name: '_AddSafeAreaPageViewModel.userId', context: context);
-
-  @override
-  String get userId {
-    _$userIdAtom.reportRead();
-    return super.userId;
-  }
-
-  @override
-  set userId(String value) {
-    _$userIdAtom.reportWrite(value, super.userId, () {
-      super.userId = value;
-    });
-  }
-
-  late final _$kidIdAtom =
-      Atom(name: '_AddSafeAreaPageViewModel.kidId', context: context);
-
-  @override
-  String get kidId {
-    _$kidIdAtom.reportRead();
-    return super.kidId;
-  }
-
-  @override
-  set kidId(String value) {
-    _$kidIdAtom.reportWrite(value, super.kidId, () {
-      super.kidId = value;
-    });
-  }
-
   late final _$radiusAtom =
       Atom(name: '_AddSafeAreaPageViewModel.radius', context: context);
 
@@ -230,6 +182,38 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   set radius(double value) {
     _$radiusAtom.reportWrite(value, super.radius, () {
       super.radius = value;
+    });
+  }
+
+  late final _$valuefirstAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.valuefirst', context: context);
+
+  @override
+  bool get valuefirst {
+    _$valuefirstAtom.reportRead();
+    return super.valuefirst;
+  }
+
+  @override
+  set valuefirst(bool value) {
+    _$valuefirstAtom.reportWrite(value, super.valuefirst, () {
+      super.valuefirst = value;
+    });
+  }
+
+  late final _$valuesecondAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.valuesecond', context: context);
+
+  @override
+  bool get valuesecond {
+    _$valuesecondAtom.reportRead();
+    return super.valuesecond;
+  }
+
+  @override
+  set valuesecond(bool value) {
+    _$valuesecondAtom.reportWrite(value, super.valuesecond, () {
+      super.valuesecond = value;
     });
   }
 
@@ -282,17 +266,6 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   }
 
   @override
-  dynamic onRadioSelected(AlertRadio? selectedValue) {
-    final _$actionInfo = _$_AddSafeAreaPageViewModelActionController
-        .startAction(name: '_AddSafeAreaPageViewModel.onRadioSelected');
-    try {
-      return super.onRadioSelected(selectedValue);
-    } finally {
-      _$_AddSafeAreaPageViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic onRetry(AlertAction? action) {
     final _$actionInfo = _$_AddSafeAreaPageViewModelActionController
         .startAction(name: '_AddSafeAreaPageViewModel.onRetry');
@@ -326,6 +299,28 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   }
 
   @override
+  dynamic onCheckFirst(bool? value) {
+    final _$actionInfo = _$_AddSafeAreaPageViewModelActionController
+        .startAction(name: '_AddSafeAreaPageViewModel.onCheckFirst');
+    try {
+      return super.onCheckFirst(value);
+    } finally {
+      _$_AddSafeAreaPageViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCheckSecond(bool? value) {
+    final _$actionInfo = _$_AddSafeAreaPageViewModelActionController
+        .startAction(name: '_AddSafeAreaPageViewModel.onCheckSecond');
+    try {
+      return super.onCheckSecond(value);
+    } finally {
+      _$_AddSafeAreaPageViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 gettingDataLoader: ${gettingDataLoader},
@@ -333,15 +328,14 @@ sendingLoader: ${sendingLoader},
 isShow: ${isShow},
 markers: ${markers},
 circles: ${circles},
-selected: ${selected},
 alertSelected: ${alertSelected},
 uploadingLoader: ${uploadingLoader},
 isLoader: ${isLoader},
 locationAddress: ${locationAddress},
 locationName: ${locationName},
-userId: ${userId},
-kidId: ${kidId},
-radius: ${radius}
+radius: ${radius},
+valuefirst: ${valuefirst},
+valuesecond: ${valuesecond}
     ''';
   }
 }

@@ -36,7 +36,7 @@ class AddSafeAreaPageViewModel = _AddSafeAreaPageViewModel with _$AddSafeAreaPag
 
 abstract class _AddSafeAreaPageViewModel with Store{
   final mainVM = instance<MainViewModel>();
-  final _prefs = instance<AppSettings>();
+  final _appSettings = instance<AppSettings>();
   final messageInformer = MessageInformer();
   final dialogManager = DialogManager();
   final _navigator = instance<NavigationService>();
@@ -65,8 +65,8 @@ abstract class _AddSafeAreaPageViewModel with Store{
   Set<Circle> circles = {};
 
 
-  @observable
-  AlertRadio selected = AlertRadio.none;
+  // @observable
+  // AlertRadio selected = AlertRadio.none;
 
   @observable
   String alertSelected = "";
@@ -84,14 +84,21 @@ abstract class _AddSafeAreaPageViewModel with Store{
   @observable
   String locationName = "";
 
-  @observable
-  String userId = "1ab";
-  //
-  @observable
-  String kidId = "333";
+  // @observable
+  // String userId = "1ab";
+  // //
+  // @observable
+  // String kidId = "333";
 
   @observable
   double radius = 500;
+
+  @observable
+  bool valuefirst = false;
+
+
+  @observable
+  bool valuesecond = false;
 
   @action
   onNameChanged(String value) {
@@ -99,13 +106,16 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   }
 
-  @action
-  onRadioSelected(AlertRadio? selectedValue) {
-    if (selectedValue != null) {
-      debugPrint(selectedValue.toString());
-      selected = selectedValue;
-    }
-  }
+
+
+  // @action
+  // onRadioSelected(AlertRadio? selectedValue) {
+  //   if (selectedValue != null) {
+  //     debugPrint(selectedValue.toString());
+  //     selected = selectedValue;
+  //   }
+  // }
+
 
   @action
   onRetry(AlertAction? action) {}
@@ -164,21 +174,6 @@ abstract class _AddSafeAreaPageViewModel with Store{
   }
 
 
-
-  CameraPosition initialCameraPosition() {
-    if (mainVM.currentLocation != null) {
-      return CameraPosition(
-        target: LatLng(mainVM.currentLocation?.latitude ?? 0,
-            mainVM.currentLocation?.longitude ?? 0),
-        zoom: 16,
-      );
-    } else {
-      return Constants.defaultCameraPosition;
-    }
-  }
-
-
-
   @action
   getLocationName(LatLong coordinate) async {
    double Longitude = coordinate.lng;
@@ -205,18 +200,33 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
 
   @action
+  onCheckFirst(bool? value){
+    if(value != null){
+      valuefirst = value;
+    }
+  }
+
+  @action
+  onCheckSecond(bool? value){
+    if(value != null){
+      valuesecond = value;
+    }
+  }
+
+
+  @action
   addNow() async{
     uploadingLoader = true;
+    var userId = _appSettings.userId;
+    var smartCardId = data!.smartCardId;
     var response = await add_safe_area_use_case.uploadLocationDetails(
-       // _prefs!.userId,
-      // data!.kidId,
-
        userId,
-       kidId,
-        locationName,
-        locationAddress!.name,
-        alertSelected,
-        radius);
+       smartCardId,
+       locationName,
+       locationAddress!.name,
+       valuefirst ,
+       valuesecond,
+       radius);
     if (response is Success) {
       var data = response.data;
       uploadingLoader = false;
@@ -246,7 +256,17 @@ abstract class _AddSafeAreaPageViewModel with Store{
   }
 
 
-
+  CameraPosition initialCameraPosition() {
+    if (mainVM.currentLocation != null) {
+      return CameraPosition(
+        target: LatLng(mainVM.currentLocation?.latitude ?? 0,
+            mainVM.currentLocation?.longitude ?? 0),
+        zoom: 16,
+      );
+    } else {
+      return Constants.defaultCameraPosition;
+    }
+  }
 
 
 }

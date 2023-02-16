@@ -91,7 +91,7 @@ Future<void> initAppModule() async{
   instance.registerLazySingleton<KidAccountRepository>(() => KidRepositoryImpl(dio));
 
 
-  instance.registerLazySingleton<SafeAreaRepository>(() => SafeareaRepositoryImpl());
+  instance.registerLazySingleton<SafeAreaRepository>(() => SafeareaRepositoryImpl(dio));
 
   instance.registerLazySingleton<KidLiveLocationRepository>(() => KidLiveLocationRepositoryImpl());
 

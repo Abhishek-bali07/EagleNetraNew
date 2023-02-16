@@ -188,7 +188,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                                       padding: const EdgeInsets.only(
                                           top: 5.0, left: 8.0),
                                       child: Text(
-                                          _viewModel.kidHistory[index].clsname),
+                                          _viewModel.kidHistory[index].clsName),
                                     ),
 
 

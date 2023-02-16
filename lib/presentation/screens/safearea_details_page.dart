@@ -27,6 +27,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
   late final DialogController dialogController;
   late final TextEditingController textEditingController;
 
+
   // bool shouldCheck = false;
 
   @override
@@ -92,16 +93,18 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                       "Alert:",
                       style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp),
                     ),
+
                     Observer(builder: (BuildContext context) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Radio(
-                            value: AlertRadio.entry,
-                            groupValue: widget.parentVM.selected,
-                            activeColor: AppColors.greenPrimary,
-                            onChanged: widget.parentVM.onRadioSelected,
+                          Checkbox(
+                            checkColor: Colors.white,
+                            activeColor: Colors.green,
+                            value: widget.parentVM.valuefirst,
+                            onChanged:widget.parentVM.onCheckFirst,
                           ),
+
                           const Text(
                             "Entry",
                             style: TextStyle(
@@ -116,11 +119,11 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Radio(
-                            value: AlertRadio.exit,
-                            groupValue: widget.parentVM.selected,
-                            activeColor: AppColors.greenPrimary,
-                            onChanged: widget.parentVM.onRadioSelected,
+                          Checkbox(
+                            checkColor: Colors.white,
+                            activeColor: Colors.green,
+                            value: widget.parentVM.valuesecond,
+                            onChanged: widget.parentVM.onCheckSecond,
                           ),
                           const Text(
                             "Exit",
@@ -192,3 +195,12 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
     );
   }
 }
+
+
+
+// Radio(
+//   value: AlertRadio.entry,
+//   groupValue: widget.parentVM.selected,
+//   activeColor: AppColors.greenPrimary,
+//   onChanged: widget.parentVM.onRadioSelected,
+// ),

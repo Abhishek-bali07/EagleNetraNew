@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import '../../core/common/alert_action.dart';
 import '../../core/common/app_settings.dart';
@@ -55,13 +56,15 @@ abstract class _KidsPageViewModel with Store{
     getInitialData();
   }
 
+
+  @action
   getInitialData() async {
    isLoading = true;
-   //var userId = _appSettings.userId();
-   var userId = "1";
-    var response = await _kidUseCase.kidShortInfo(userId);
+   var userId = _appSettings.userId;
+   var response = await _kidUseCase.kidShortInfo(userId);
     if (response is Success) {
       var data = response.data;
+      debugPrint("data:$data");
       isLoading = false;
       switch (data != null && data.status) {
         case true:

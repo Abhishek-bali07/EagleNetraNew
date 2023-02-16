@@ -122,10 +122,10 @@ abstract class _KidsTrackPageViewModel with Store {
   initialData() async {
     //var userId = _appSettings.userId();
     var userId = "1";
-    var kidId = data.kidId;
+    var smartCardId = data.smartCardId;
     isVisible = true;
     var response = await kids_track_use_case.fetchPositions(
-        kidId, date, userId, startTime, endTime);
+        smartCardId, date, userId, startTime, endTime);
     if (response is Success) {
       var data = response.data;
       isVisible = false;

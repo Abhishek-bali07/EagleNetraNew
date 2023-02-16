@@ -12,12 +12,11 @@ class KidsHistoryRepositoryImpl implements KidsHistoryRepository{
       status: true,
       message: "Success", shortDetails: List.generate(2,
             (index) => ShortDetails(
-            kidId: "1",
+            smartCardId: "1",
             name: "Rehana Saha",
             image: "image",
             age: "10",
-            clsname: "Class V",
-            expiredOn: "31st Dec, 2023",
+            clsName: "Class V",
             activateFrom: "1st Jan 2023", deviceId: "2233")),
 
 
