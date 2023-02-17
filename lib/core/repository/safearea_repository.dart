@@ -6,5 +6,5 @@ import '../domain/response/safe_area_response.dart';
 abstract class SafeAreaRepository{
   Future<Resource<SafeareaResponse>> kidShortInfo(String userId, String smartCardId);
 
-  Future<Resource<ActivateSwitchResponse>> AddSafearea(String userId, String kidId,String safeAreaId, bool state);
+  Future<Resource<ActivateSwitchResponse>> AddSafearea(String safeAreaId, bool state);
 }

@@ -8,13 +8,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/dialog_state.dart';
+import '../../core/domain/response/kid_short_info_response.dart';
 import '../../helpers_impl/error_dialog_impl.dart';
 import '../../utils/dialog_controller.dart';
 import '../stores/add_safe_area_view_model.dart';
 import '../ui/theme.dart';
 
 class AddSafeaAreaPage extends StatefulWidget {
-  const AddSafeaAreaPage({Key? key}) : super(key: key);
+  ShortDetails arguments;
+  AddSafeaAreaPage({Key? key,required this.arguments}) : super(key: key);
 
   @override
   State<AddSafeaAreaPage> createState() => _AddSafeaAreaPageState();
@@ -35,7 +37,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   void initState() {
     _dialogController =
         DialogController(dialog: ErrorDialogImpl(buildContext: context));
-    _vm = AddSafeAreaPageViewModel();
+    _vm = AddSafeAreaPageViewModel(widget.arguments);
 
     super.initState();
     _disposers = [
@@ -56,8 +58,8 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
         if (p0 == true) {
           await showModalBottomSheet(
             constraints: BoxConstraints(
-              minHeight: 0.35.sh,
-              maxHeight: 0.35.sh,
+              minHeight: 0.45.sh,
+              maxHeight: 0.45.sh,
             ),
               context: context,
               shape: RoundedRectangleBorder(
@@ -81,7 +83,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       drawerEnableOpenDragGesture: false,
       appBar: AppBar(
         centerTitle: true,

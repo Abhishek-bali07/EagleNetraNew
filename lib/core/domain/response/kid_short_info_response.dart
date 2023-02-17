@@ -45,7 +45,7 @@ class ShortDetails {
   final String name;
   final String age;
   final String clsName;
-  final String image;
+  final String? image;
   final String activateFrom;
   final String deviceId;
 

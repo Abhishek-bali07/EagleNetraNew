@@ -5,13 +5,15 @@ import '../domain/response/fetch_adress_response.dart';
 
 abstract class SafeAreaDetailsRepository{
 
-  Future<Resource<FetchAddressResponse>> fetchAddress(double longitude, double latitude);
+  Future<Resource<FetchAddressResponse>> fetchAddress(double latitude, double longitude);
 
 
 
   Future<Resource<AddSafeAreaDetailsResponse>> uploadLocationDetails(
       String userId,
       String smartCardId,
+      double latitude,
+      double longitude,
       String locationName,
       String locationAddress,
       bool valuefirst,

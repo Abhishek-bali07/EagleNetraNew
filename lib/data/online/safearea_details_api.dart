@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
 import '../../core/common/api_route.dart';
+import '../../core/domain/response/activate_switch_response.dart';
 import '../../core/domain/response/safe_area_response.dart';
 
 part 'safearea_details_api.g.dart';
@@ -17,4 +18,9 @@ abstract class SafeAreaDetailsApi{
       @Path("smartCardId") String smartCardId,
       );
 
+
+  @POST("${ApiRoutes.parent}/user/safearea/{safeAreaId}/status")
+  Future<ActivateSwitchResponse> getToggle(
+      @Path("safeAreaId") String safeAreaId,
+      );
 }

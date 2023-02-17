@@ -72,11 +72,13 @@ abstract class _SafeAreaPageViewModel with Store{
       isLoading = false;
       switch (data != null && data.status) {
         case true:
-          if (data!.areaDetails.isEmpty) {
+          if (data!.areaDetails?.isEmpty==true) {
 
             safeAreaList = [];
           } else {
-            safeAreaList = data.areaDetails;
+            if(data.areaDetails != null) {
+              safeAreaList = data.areaDetails!;
+            }
           }
       }
     }else if (response is Error) {
@@ -87,18 +89,16 @@ abstract class _SafeAreaPageViewModel with Store{
 
   switcherData(AreaDetails safeArea, {Function(bool)? changedState}) async {
     dataLoader = true;
-    var userId = _appSettings.userId;
-    var smartCardId = data.smartCardId;
     var safeAreaId = safeArea.safeAreaId;
     bool state = safeArea.state;
-    var response = await _safeareaUseCase.AddSafearea(userId, smartCardId, safeAreaId, state);
+    var response = await _safeareaUseCase.AddSafearea(safeAreaId, state);
     if (response is Success) {
       var data = response.data;
       dataLoader = false;
       switch (data != null && data.status) {
         case true:
           if(data != null) {
-            changedState?.call(data.isActivate);
+            changedState?.call(data.isActivated);
           }
       }
 

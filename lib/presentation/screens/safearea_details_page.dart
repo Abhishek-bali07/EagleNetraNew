@@ -80,7 +80,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                   child: Observer(
                     builder: (context) =>
                         widget.parentVM.locationAddress != null
-                            ?  Center(child: Text(widget.parentVM.locationAddress!.name))
+                            ?  Center(child: Text(widget.parentVM.locationAddress))
                             : const SizedBox.shrink(),
                   ),
                 ),

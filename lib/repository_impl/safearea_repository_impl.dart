@@ -42,17 +42,18 @@ class SafeareaRepositoryImpl implements SafeAreaRepository{
   }
 
   @override
-  Future<Resource<ActivateSwitchResponse>> AddSafearea(String userId, String smartCardId, String safeAreaId, bool state) async {
-    await Future.delayed(const Duration(seconds: 2));
-    return Success(
-      ActivateSwitchResponse(
-        status: true,
-        message: "Success",
-        isActivate: true,
-        
-        
-      )
-    );
+  Future<Resource<ActivateSwitchResponse>> AddSafearea(String safeAreaId, bool state) async {
+  return _safeAreaDetailsApi
+      .getToggle(safeAreaId)
+      .handleResponse<ActivateSwitchResponse>();
+    // await Future.delayed(const Duration(seconds: 2));
+    // return Success(
+    //   ActivateSwitchResponse(
+    //     status: true,
+    //     message: "Success",
+    //     isActivated: true,
+    //)
+    //);
   }
 
  

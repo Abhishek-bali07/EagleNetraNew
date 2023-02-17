@@ -141,13 +141,13 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
       Atom(name: '_AddSafeAreaPageViewModel.locationAddress', context: context);
 
   @override
-  LocationDetails? get locationAddress {
+  String get locationAddress {
     _$locationAddressAtom.reportRead();
     return super.locationAddress;
   }
 
   @override
-  set locationAddress(LocationDetails? value) {
+  set locationAddress(String value) {
     _$locationAddressAtom.reportWrite(value, super.locationAddress, () {
       super.locationAddress = value;
     });

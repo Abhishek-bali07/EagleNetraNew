@@ -5,7 +5,6 @@ import 'package:eagle_netra/core/domain/response/business_object.dart';
 
 SafeareaResponse safeareaResponseFromJson(String str) => SafeareaResponse.fromJson(json.decode(str));
 
-String safeareaResponseToJson(SafeareaResponse data) => json.encode(data.toJson());
 
 class SafeareaResponse extends BusinessObject {
   SafeareaResponse({
@@ -16,19 +15,15 @@ class SafeareaResponse extends BusinessObject {
 
   final bool status;
   final String message;
-  final List<AreaDetails> areaDetails;
+  final List<AreaDetails>? areaDetails;
 
   factory SafeareaResponse.fromJson(Map<String, dynamic> json) => SafeareaResponse(
     status: json["status"],
     message: json["message"],
-    areaDetails: List<AreaDetails>.from(json["areaDetails"].map((x) => AreaDetails.fromJson(x))),
+    areaDetails:json["areaDetails"] != null? List<AreaDetails>.from(json["areaDetails"].map((x) => AreaDetails.fromJson(x))): null,
   );
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "areaDetails": List<dynamic>.from(areaDetails.map((x) => x.toJson())),
-  };
+
 }
 
 class AreaDetails {
@@ -66,6 +61,10 @@ class AreaDetails {
     "alertOn": alertOn,
   };
 }
+
+
+
+
 
 
 // class SafeareaResponse {

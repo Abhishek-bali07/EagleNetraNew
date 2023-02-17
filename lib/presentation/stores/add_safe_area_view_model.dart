@@ -79,7 +79,7 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
 
   @observable
-  LocationDetails? locationAddress;
+  String locationAddress = "";
 
   @observable
   String locationName = "";
@@ -121,7 +121,7 @@ abstract class _AddSafeAreaPageViewModel with Store{
   onRetry(AlertAction? action) {}
 
 
-  _AddSafeAreaPageViewModel(){
+  _AddSafeAreaPageViewModel(this.data){
     mainVM.getCurrentLocation();
 
   }
@@ -179,7 +179,7 @@ abstract class _AddSafeAreaPageViewModel with Store{
    double Longitude = coordinate.lng;
    double Latitude  =  coordinate.lat;
    isLoader = true;
-   var response = await add_safe_area_use_case.fetchAddress(Longitude, Latitude);
+   var response = await add_safe_area_use_case.fetchAddress( Latitude,Longitude);
    if(response is Success){
     var data = response.data;
     isLoader = false;
@@ -216,14 +216,18 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   @action
   addNow() async{
+    var Latitude  =  _marker?.position.latitude;
+    var Longitude = _marker?.position.longitude;
     uploadingLoader = true;
     var userId = _appSettings.userId;
     var smartCardId = data!.smartCardId;
     var response = await add_safe_area_use_case.uploadLocationDetails(
        userId,
        smartCardId,
+       Longitude!,
+       Latitude!,
        locationName,
-       locationAddress!.name,
+       locationAddress,
        valuefirst ,
        valuesecond,
        radius);
