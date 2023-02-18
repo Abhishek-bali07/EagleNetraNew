@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:eagle_netra/core/common/lat_long.dart';
+import 'package:eagle_netra/utils/my_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -25,7 +26,7 @@ class DashBoardPageViewModel = _DashBoardPageViewModel with _$DashBoardPageViewM
 
 abstract class _DashBoardPageViewModel with Store{
   final mainVM = instance<MainViewModel>();
-  final _prefs = instance<AppSettings>();
+  final _appSettings = instance<AppSettings>();
   final messageInformer = MessageInformer();
   final dialogManager = DialogManager();
   final _navigator = instance<NavigationService>();
@@ -122,8 +123,7 @@ abstract class _DashBoardPageViewModel with Store{
   @action
   getDrawerData() async {
     gettingLoader = true;
-    //var userId = _prefs.userId;
-    var userId = "1";
+    var userId = _appSettings.userId;
     var response = await dashboard_page_use_case.fetchUser(userId);
     if (response is Success) {
       var data = response.data;
@@ -144,7 +144,7 @@ abstract class _DashBoardPageViewModel with Store{
 
   @action
   initialData() async {
-  var userId = "";
+  var userId = _appSettings.userId;
   isVisible  = true;
   var response = await dashboard_page_use_case.fetchPosition(userId);
   if(response is Success){
@@ -173,7 +173,7 @@ abstract class _DashBoardPageViewModel with Store{
     // api call
     // response get
     // open bottom sheet
-  var userId = "";
+  var userId =_appSettings.userId;
   isLoader = true;
   var response = await dashboard_page_use_case.deviceData(posId,userId);
   if(response is Success){
@@ -194,6 +194,8 @@ abstract class _DashBoardPageViewModel with Store{
         break;
       default:
     }
+  }else if(response is Error){
+    MyUtils.toastMessage(response.message ?? "");
   }
   }
 

@@ -16,7 +16,7 @@ import '../ui/theme.dart';
 
 class AddSafeaAreaPage extends StatefulWidget {
   ShortDetails arguments;
-  AddSafeaAreaPage({Key? key,required this.arguments}) : super(key: key);
+  AddSafeaAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   State<AddSafeaAreaPage> createState() => _AddSafeaAreaPageState();
@@ -35,11 +35,12 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
 
   @override
   void initState() {
-    _dialogController =
-        DialogController(dialog: ErrorDialogImpl(buildContext: context));
+    _dialogController = DialogController(dialog: ErrorDialogImpl(buildContext: context));
     _vm = AddSafeAreaPageViewModel(widget.arguments);
+    //_vm = AddSafeAreaPageViewModel();
 
     super.initState();
+
     _disposers = [
       reaction((p0) => _vm.dialogManager.currentErrorState, (p0) {
         if (p0 == DialogState.displaying) {

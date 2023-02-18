@@ -12,3 +12,15 @@ class LatLongResponse{
     required this.message,
     required this.latlongData});
 }
+
+class  KidPosition{
+  String posId;
+  LatLong latLong;
+  String postionalTime;
+
+  KidPosition({
+    required this.posId,
+    required this.latLong,
+    required this.postionalTime,
+  });
+}

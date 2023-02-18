@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:eagle_netra/core/common/position.dart';
 import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/response/device_data_response.dart';
@@ -8,8 +9,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../core/common/lat_long.dart';
 import '../core/repository/dashboard_page_repository.dart';
+import '../data/online/dashboard_api.dart';
+import '../utils/api_client_configuration.dart';
 
 class DashboardPageUseCaseImpl extends DashboardPageRepository{
+  final Dio _dio;
+  late final DashBoardPageApi _dashBoardPageApi;
+
+  DashboardPageUseCaseImpl(this._dio){
+    _dio.options = ApiClientConfiguration.initialConfiguration;
+    _dashBoardPageApi = DashBoardPageApi(_dio);
+ }
+
+
   @override
   Future<Resource<LatLongResponse>> fetchPosition(String userId) async {
     await Future.delayed(const Duration(seconds: 2));

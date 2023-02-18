@@ -27,14 +27,12 @@ import '../app_navigator/di.dart';
 import '../app_navigator/routes.dart';
 import 'main_view_model.dart';
 
-
-
 part 'add_safe_area_view_model.g.dart';
 
-class AddSafeAreaPageViewModel = _AddSafeAreaPageViewModel with _$AddSafeAreaPageViewModel;
+class AddSafeAreaPageViewModel = _AddSafeAreaPageViewModel
+    with _$AddSafeAreaPageViewModel;
 
-
-abstract class _AddSafeAreaPageViewModel with Store{
+abstract class _AddSafeAreaPageViewModel with Store {
   final mainVM = instance<MainViewModel>();
   final _appSettings = instance<AppSettings>();
   final messageInformer = MessageInformer();
@@ -53,7 +51,6 @@ abstract class _AddSafeAreaPageViewModel with Store{
   @observable
   bool isShow = false;
 
-
   Marker? _marker;
 
   @observable
@@ -63,7 +60,6 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   @observable
   Set<Circle> circles = {};
-
 
   // @observable
   // AlertRadio selected = AlertRadio.none;
@@ -76,7 +72,6 @@ abstract class _AddSafeAreaPageViewModel with Store{
 
   @observable
   bool isLoader = false;
-
 
   @observable
   String locationAddress = "";
@@ -96,17 +91,13 @@ abstract class _AddSafeAreaPageViewModel with Store{
   @observable
   bool valuefirst = false;
 
-
   @observable
   bool valuesecond = false;
 
   @action
   onNameChanged(String value) {
     locationName = value;
-
   }
-
-
 
   // @action
   // onRadioSelected(AlertRadio? selectedValue) {
@@ -116,36 +107,29 @@ abstract class _AddSafeAreaPageViewModel with Store{
   //   }
   // }
 
-
   @action
   onRetry(AlertAction? action) {}
 
-
-  _AddSafeAreaPageViewModel(this.data){
+  _AddSafeAreaPageViewModel(this.data) {
     mainVM.getCurrentLocation();
-
   }
 
-
-
-
-
   @action
-  setupCircle(LatLong coordinate){
+  setupCircle(LatLong coordinate) {
     Set<Circle> getCircles = {};
-    _circle = Circle(circleId: CircleId("${coordinate.hashCode}"),
-     center:  LatLng(coordinate.lat, coordinate.lng),
-     radius: radius,
-     fillColor:Colors.green.withOpacity(0.1),
-     strokeWidth: 2,
-     strokeColor: Colors.black45
-    );
+    _circle = Circle(
+        circleId: CircleId("${coordinate.hashCode}"),
+        center: LatLng(coordinate.lat, coordinate.lng),
+        radius: radius,
+        fillColor: Colors.green.withOpacity(0.1),
+        strokeWidth: 2,
+        strokeColor: Colors.black45);
     getCircles.add(_circle!);
     circles = getCircles;
   }
 
   @action
-  setupMarker(LatLong coordinate) async{
+  setupMarker(LatLong coordinate) async {
     Set<Marker> getMarkers = {};
     _marker = Marker(
       anchor: const Offset(0.5, 0.5),
@@ -154,92 +138,85 @@ abstract class _AddSafeAreaPageViewModel with Store{
       consumeTapEvents: false,
       draggable: true,
       onTap: onNext,
-      icon:  BitmapDescriptor.defaultMarker,
+      icon: BitmapDescriptor.defaultMarker,
     );
-    if(_marker != null){
+    if (_marker != null) {
       getMarkers.add(_marker!);
       getLocationName(coordinate);
       markers = getMarkers;
       setupCircle(coordinate);
     }
-
   }
-
-
-
 
   @action
   onNext() async {
     isShow = !isShow;
   }
 
-
   @action
   getLocationName(LatLong coordinate) async {
-   double Longitude = coordinate.lng;
-   double Latitude  =  coordinate.lat;
-   isLoader = true;
-   var response = await add_safe_area_use_case.fetchAddress( Latitude,Longitude);
-   if(response is Success){
-    var data = response.data;
-    isLoader = false;
-    switch (data != null && data.status) {
-      case true:
-        if(data != null){
-
-          locationAddress = data.locationDetails;
-        }
+    double Longitude = coordinate.lng;
+    double Latitude = coordinate.lat;
+    isLoader = true;
+    var response =
+        await add_safe_area_use_case.fetchAddress(Latitude, Longitude);
+    if (response is Success) {
+      var data = response.data;
+      isLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          if (data != null) {
+            locationAddress = data.locationDetails;
+          }
+      }
     }
-   }
   }
 
   @action
-  setRadius(double r){
-    radius=r;
+  setRadius(double r) {
+    radius = r;
   }
 
-
   @action
-  onCheckFirst(bool? value){
-    if(value != null){
+  onCheckFirst(bool? value) {
+    if (value != null) {
       valuefirst = value;
     }
   }
 
   @action
-  onCheckSecond(bool? value){
-    if(value != null){
+  onCheckSecond(bool? value) {
+    if (value != null) {
       valuesecond = value;
     }
   }
 
-
   @action
-  addNow() async{
-    var Latitude  =  _marker?.position.latitude;
-    var Longitude = _marker?.position.longitude;
+  addNow() async {
+    var latitude = _marker?.position.latitude;
+    var longitude = _marker?.position.longitude;
     uploadingLoader = true;
     var userId = _appSettings.userId;
     var smartCardId = data!.smartCardId;
     var response = await add_safe_area_use_case.uploadLocationDetails(
-       userId,
-       smartCardId,
-       Longitude!,
-       Latitude!,
-       locationName,
-       locationAddress,
-       valuefirst ,
-       valuesecond,
-       radius);
+        userId,
+        smartCardId,
+        latitude!,
+        longitude!,
+        locationName,
+        locationAddress,
+        valuefirst,
+        valuesecond,
+        radius);
     if (response is Success) {
       var data = response.data;
       uploadingLoader = false;
       switch (data != null && data.status) {
         case true:
-          if(data!.isSaved){
-            MyUtils.toastMessage("Submitted Details");
-           _navigator.popAndNavigateTo(Routes.dashboard);
-          }else{
+          if (data!.isSaved) {
+            MyUtils.toastMessage(data.message);
+            _navigator.popAndNavigateTo(Routes.dashboard);
+          } else {
             dialogManager.initErrorData(AlertData(
                 StringProvider.error,
                 null,
@@ -254,11 +231,10 @@ abstract class _AddSafeAreaPageViewModel with Store{
           break;
         default:
       }
-    }else if(response is Error){
+    } else if (response is Error) {
       uploadingLoader = false;
     }
   }
-
 
   CameraPosition initialCameraPosition() {
     if (mainVM.currentLocation != null) {
@@ -271,7 +247,4 @@ abstract class _AddSafeAreaPageViewModel with Store{
       return Constants.defaultCameraPosition;
     }
   }
-
-
 }
-

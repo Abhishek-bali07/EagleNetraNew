@@ -112,7 +112,7 @@ abstract class _SafeAreaPageViewModel with Store{
   }
 
 
-  onAddSafeareaSection(){
-    _navigator.navigateTo(Routes.addsafearea);
+  onAddSafeareaSection(ShortDetails arg){
+    _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
 }

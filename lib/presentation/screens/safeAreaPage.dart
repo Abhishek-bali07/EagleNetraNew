@@ -67,7 +67,9 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.SilverChalice,
         foregroundColor: AppColors.Black,
-        onPressed: _vm.onAddSafeareaSection,
+        onPressed: (){
+          _vm.onAddSafeareaSection(_vm.data);
+        },
         child: Icon(Icons.add),
       ),
       body: SafeArea(
