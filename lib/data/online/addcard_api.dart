@@ -6,6 +6,7 @@ import 'package:retrofit/http.dart';
 import '../../core/common/api_route.dart';
 import '../../core/domain/response/add_card_response.dart';
 import '../../core/domain/response/required_profile_details_reponse.dart';
+import '../../core/domain/response/short_profile_response.dart';
 part 'addcard_api.g.dart';
 
 @RestApi()
@@ -32,7 +33,7 @@ abstract class AddcardApi{
 
 
   @GET("${ApiRoutes.parent}/user/{userId}/show")
-  Future<FetchProfileDetailsResponse> getUserDetails(
+  Future<ShortProfileResponse> getUserDetails(
         @Path("userId") String userId
       );
 

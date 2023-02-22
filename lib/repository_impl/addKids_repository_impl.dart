@@ -8,6 +8,7 @@ import 'package:eagle_netra/utils/api_client_configuration.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 
 import '../core/domain/response/required_profile_details_reponse.dart';
+import '../core/domain/response/short_profile_response.dart';
 import '../core/repository/addKids_repository.dart';
 import '../data/online/addcard_api.dart';
 
@@ -48,10 +49,10 @@ class AddKidsUseCaseImpl implements AddCardRepository{
   }
 
   @override
-  Future<Resource<FetchProfileDetailsResponse>> getProfileInittialData(String userId) async {
+  Future<Resource<ShortProfileResponse>> getProfileInittialData(String userId) async {
   return _addcardApi
       .getUserDetails(userId)
-      .handleResponse<FetchProfileDetailsResponse>();
+      .handleResponse<ShortProfileResponse>();
 
     // await Future.delayed(const Duration(seconds: 2));
     // return Success(FetchProfileDetailsResponse(

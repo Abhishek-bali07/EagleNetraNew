@@ -12,6 +12,7 @@ import '../../core/common/constants.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
+import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../utils/dialog_manager.dart';
@@ -31,6 +32,9 @@ abstract class _DashBoardPageViewModel with Store{
   final dialogManager = DialogManager();
   final _navigator = instance<NavigationService>();
   final dashboard_page_use_case = instance<DashboardPageRepository>();
+
+
+  ShortDetails? data;
 
   Marker? _marker;
 
@@ -144,9 +148,10 @@ abstract class _DashBoardPageViewModel with Store{
 
   @action
   initialData() async {
-  var userId = _appSettings.userId;
+  // var userId = _appSettings.userId;
+  var smartCardId = data!.smartCardId;
   isVisible  = true;
-  var response = await dashboard_page_use_case.fetchPosition(userId);
+  var response = await dashboard_page_use_case.fetchPosition(smartCardId);
   if(response is Success){
       var data = response.data;
       isVisible = false;
@@ -159,6 +164,8 @@ abstract class _DashBoardPageViewModel with Store{
           }
       }
     }
+  }else if(response is Error){
+    MyUtils.toastMessage(response.message ?? "");
   }
 }
 
@@ -173,22 +180,22 @@ abstract class _DashBoardPageViewModel with Store{
     // api call
     // response get
     // open bottom sheet
-  var userId =_appSettings.userId;
+  //var userId =_appSettings.userId;
   isLoader = true;
-  var response = await dashboard_page_use_case.deviceData(posId,userId);
+  var response = await dashboard_page_use_case.deviceData(posId);
   if(response is Success){
     var data = response.data;
     isLoader = false;
     switch(data != null && data.status){
       case true:
-        kidName = data!.name;
-        currentDate = data.devicedate;
-        currentTime = data.devicetime;
-        image = data.image;
-        battery = data.batteryperformance;
-        deviceCondition = data.condition;
-        locationAddress = data.devicelocation;
-        callingNumber = data.phone;
+        kidName = data!.data.name;
+        currentDate = data.data.devicedate;
+        currentTime = data.data.devicetime;
+        image = data.data.image;
+        battery = data.data.batteryperformance;
+        deviceCondition = data.data.condition;
+        locationAddress = data.data.devicelocation;
+        callingNumber = data.data.phone;
         openBottomSheet();
 
         break;

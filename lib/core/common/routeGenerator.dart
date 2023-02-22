@@ -38,8 +38,9 @@ class RouteGenerator {
       case Routes.registration:
         return ScreenTransitions.rightToLeftTransition(const RegistrationPage());
       
-      case Routes.dashboard: 
-        return ScreenTransitions.rightToLeftTransition(const DashboardPage());
+      case Routes.dashboard:
+        var arg = routeSettings.arguments as ShortDetails;
+        return ScreenTransitions.rightToLeftTransition(DashboardPage(arguments: arg));
 
 
       case Routes.mykids:

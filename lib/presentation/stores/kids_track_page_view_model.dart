@@ -133,9 +133,10 @@ abstract class _KidsTrackPageViewModel with Store {
       switch (data != null && data.status) {
         case true:
           for (var element in data!.latlongData) {
+            onSelectDate(element.postionalTime);
             await setupMarker(
-                element.latLong, element.posId, element.postionalTime);
-            tmp.add(element.postionalTime);
+                element.latLong, element.posId, date);
+            //tmp.add(element.postionalTime);
           }
           markers = _backupMakers.toSet();
           process = tmp;

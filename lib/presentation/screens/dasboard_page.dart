@@ -10,6 +10,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../core/common/dialog_state.dart';
 import '../../core/common/lat_long.dart';
+import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/image_assets.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../helpers_impl/error_dialog_impl.dart';
@@ -19,7 +20,8 @@ import '../stores/dashboard_page_view_model.dart';
 import 'device_details_page.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  ShortDetails arguments;
+  DashboardPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();

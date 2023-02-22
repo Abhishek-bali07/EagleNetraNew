@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'addcard_api.dart';
+part of 'dashboard_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'addcard_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _AddcardApi implements AddcardApi {
-  _AddcardApi(
+class _DashBoardPageApi implements DashBoardPageApi {
+  _DashBoardPageApi(
     this._dio, {
     this.baseUrl,
   });
@@ -17,80 +17,6 @@ class _AddcardApi implements AddcardApi {
   final Dio _dio;
 
   String? baseUrl;
-
-  @override
-  Future<AddCardResponse> addCardDetails(
-    userId,
-    kidname,
-    deviceId,
-    cardNumber,
-    addCls,
-    age,
-    image,
-    number1,
-    number2,
-    number3,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry(
-      'name',
-      kidname,
-    ));
-    _data.fields.add(MapEntry(
-      'device_id',
-      deviceId,
-    ));
-    _data.fields.add(MapEntry(
-      'card_number',
-      cardNumber,
-    ));
-    _data.fields.add(MapEntry(
-      'class',
-      addCls,
-    ));
-    _data.fields.add(MapEntry(
-      'age',
-      age,
-    ));
-    _data.files.add(MapEntry(
-      'profile_image',
-      MultipartFile.fromFileSync(
-        image.path,
-        filename: image.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.fields.add(MapEntry(
-      'number1',
-      number1,
-    ));
-    _data.fields.add(MapEntry(
-      'number2',
-      number2,
-    ));
-    _data.fields.add(MapEntry(
-      'number3',
-      number3,
-    ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<AddCardResponse>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-      contentType: 'application/x-www-form-urlencoded',
-    )
-            .compose(
-              _dio.options,
-              '/eagle_netra_api/smartcard/${userId}/insert',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AddCardResponse.fromJson(_result.data!);
-    return value;
-  }
 
   @override
   Future<ShortProfileResponse> getUserDetails(userId) async {
@@ -112,6 +38,52 @@ class _AddcardApi implements AddcardApi {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ShortProfileResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<LatLongResponse> selectivePosition(smartCardId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<LatLongResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/eagle_netra_api/smartcard/${smartCardId}/location/history',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LatLongResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<KidDeviceResponse> selectivePositionDetails(posId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'posId': posId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<KidDeviceResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/eagle_netra_api/device/details',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = KidDeviceResponse.fromJson(_result.data!);
     return value;
   }
 

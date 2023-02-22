@@ -152,7 +152,7 @@ abstract class _AddKidViewModel with Store{
       gettingLoader = false;
       switch(data != null && data.status){
         case true:
-          userMobileNumber = data!.data.number;
+          userMobileNumber = data!.shortprofile.mobile;
           break;
         default:
           dialogManager.initErrorData(AlertData(

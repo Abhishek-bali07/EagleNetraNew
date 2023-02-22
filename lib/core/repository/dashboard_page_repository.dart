@@ -8,8 +8,8 @@ abstract class DashboardPageRepository{
 
   Future<Resource<ShortProfileResponse>> fetchUser(String userId);
 
-  Future<Resource<LatLongResponse>> fetchPosition(String userId);
+  Future<Resource<LatLongResponse>> fetchPosition(String smartCardId);
   
   
-  Future<Resource<KidDeviceResponse>> deviceData(String posId, String userId);
+  Future<Resource<KidDeviceResponse>> deviceData(String posId);
 }

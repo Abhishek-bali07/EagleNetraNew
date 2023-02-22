@@ -1,8 +1,12 @@
+
 class LatLong {
   double lat;
   double lng;
 
-  LatLong({required this.lat, required this.lng});
+  LatLong({
+    required this.lat,
+    required this.lng
+  });
 
   factory LatLong.fromJson(Map<String, dynamic> json) => LatLong(
     lat: json["lat"].toDouble(),
