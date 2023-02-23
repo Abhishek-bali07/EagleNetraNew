@@ -86,7 +86,7 @@ abstract class _SafeAreaPageViewModel with Store{
     }
   }
 
-
+  @action
   switcherData(AreaDetails safeArea, {Function(bool)? changedState}) async {
     dataLoader = true;
     var safeAreaId = safeArea.safeAreaId;
@@ -101,6 +101,9 @@ abstract class _SafeAreaPageViewModel with Store{
             changedState?.call(data.isActivated);
           }
       }
+
+    }
+    else if(response is Error){
 
     }
   }

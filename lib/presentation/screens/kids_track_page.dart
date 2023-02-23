@@ -36,8 +36,6 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
   int index = 0;
-  TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay.now();
 
   int _processIndex = 3;
 
@@ -84,6 +82,11 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
           ));
         }
       }),
+      reaction((p0) => [_viewm.startTime, _viewm.endTime, _viewm.date], (p0) {
+        // if(p0.first.isNotEmpty || p0[1].isNotEmpty || p0[2].isNotEmpty) {
+        //   _viewm.initialData();
+        // }
+      })
     ];
   }
 
@@ -141,8 +144,11 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
         Expanded(
           flex: 1,
           child: InkWell(
+
             onTap: _viewm.openDatePicker,
             child: Container(
+
+
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
@@ -161,8 +167,10 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                 child: Row(
                   children: [
                     Expanded(flex: 2, child: Padding(
-                      padding: const EdgeInsets.only(left:8.0,top: 5.0),
-                      child: Text("Date:"),
+                      padding: const EdgeInsets.only(left:8.0,top: 4.0),
+                      child: Text("Date:", style:  TextStyle(
+                        fontWeight: FontWeight.w700,fontSize: 18.sp
+                      ),),
                     )),
                     Expanded(
                       flex: 7,
@@ -198,14 +206,14 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
           ),
         ),
 
-        Expanded(
-          flex: 1,
-          child: Observer(
-            builder: (BuildContext context) {
-              return Visibility(
-                visible: _viewm.date.isNotEmpty ? true : false,
-                replacement: SizedBox.shrink(),
-                child:Container(
+        Observer(
+          builder: (BuildContext context) {
+            return Visibility(
+              visible: _viewm.date.isNotEmpty ? true : false,
+              replacement: SizedBox.shrink(),
+              child:Expanded(
+                flex: 1,
+                child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -247,10 +255,8 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                               TimeRangePicker.show(
                                 context: context,
                                 unSelectedEmpty: true,
-                                startTime: TimeOfDay(
-                                    hour: _startTime.hour, minute: _startTime.minute),
-                                endTime: TimeOfDay(
-                                    hour: _endTime.hour, minute: _endTime.minute),
+                                startTime: _viewm.sTimeDisplay,
+                                endTime: _viewm.eTimeDisplay,
                                 onSubmitted: (TimeRangeValue value) {
                                   setState(() {
                                     if(value.startTime != null) {
@@ -260,7 +266,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                                       _viewm.rangeEnd(context, value.endTime!);
                                     }
                                     /*_startTime = value.startTime!;
-                                            _endTime = value.endTime!;*/
+                                              _endTime = value.endTime!;*/
                                   });
                                 },
                               );
@@ -278,12 +284,12 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
         Expanded(
-          flex: 8,
+          flex: 7,
           child: Observer(builder: (BuildContext context) {
             return GoogleMap(
               initialCameraPosition: _viewm.initialCameraPosition(),
@@ -297,121 +303,126 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
             );
           }),
         ),
-        Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Observer(
-                builder: (context) => Timeline.tileBuilder(
-                  theme: TimelineThemeData(
-                    direction: Axis.horizontal,
-                    connectorTheme: const ConnectorThemeData(
-                      space: 15.0,
-                      thickness: 3.0,
+        Visibility(
+          visible: _viewm.startTime.isNotEmpty ? true : false,
+          replacement: SizedBox.shrink(),
+          child: Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Observer(
+                  builder: (context) => Timeline.tileBuilder(
+                    theme: TimelineThemeData(
+                      direction: Axis.horizontal,
+                      connectorTheme: const ConnectorThemeData(
+                        space: 15.0,
+                        thickness: 3.0,
+                      ),
                     ),
-                  ),
-                  builder: TimelineTileBuilder.connected(
-                    connectionDirection: ConnectionDirection.before,
-                    itemExtentBuilder: (_, __) =>
-                    MediaQuery.of(context).size.width /
-                        _viewm.process.length,
-                    contentsBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          _viewm.process[index],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: getColor(index),
+                    builder: TimelineTileBuilder.connected(
+                      connectionDirection: ConnectionDirection.before,
+                      itemExtentBuilder: (_, __) =>
+                      MediaQuery.of(context).size.width /
+                          _viewm.process.length,
+                      contentsBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            _viewm.process[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: getColor(index),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    indicatorBuilder: (_, index) {
-                      var color;
-                      var child;
-                      if (index <= _processIndex) {
-                        color = completeColor;
-                        child = const Icon(
-                          Icons.timer,
-                          color: Colors.white,
-                          size: 15.0,
                         );
-                      } else {
-                        color = completeColor;
-                        child = const Icon(
-                          Icons.timer,
-                          color: Colors.white,
-                          size: 15.0,
-                        );
-                      }
-
-                      if (index <= _processIndex) {
-                        return Stack(
-                          children: [
-                            CustomPaint(
-                              size: Size(20.0, 20.0),
-                            ),
-                            DotIndicator(
-                              size: 20.0,
-                              color: color,
-                              child: child,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Stack(
-                          children: [
-                            CustomPaint(
-                              size: Size(20.0, 20.0),
-                            ),
-                            DotIndicator(
-                              size: 20.0,
-                              color: color,
-                              child: child,
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                    connectorBuilder: (_, index, type) {
-                      if (index > 0) {
-                        if (index == _processIndex) {
-                          final prevColor = getColor(index - 1);
-                          final color = getColor(index);
-                          List<Color> gradientColors;
-                          if (type == ConnectorType.start) {
-                            gradientColors = [
-                              Color.lerp(prevColor, color, 0.5)!,
-                              color
-                            ];
-                          } else {
-                            gradientColors = [
-                              prevColor,
-                              Color.lerp(prevColor, color, 0.5)!
-                            ];
-                          }
-                          return DecoratedLineConnector(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: gradientColors,
-                              ),
-                            ),
+                      },
+                      indicatorBuilder: (_, index) {
+                        var color;
+                        var child;
+                        if (index <= _processIndex) {
+                          color = completeColor;
+                          child = const Icon(
+                            Icons.timer,
+                            color: Colors.white,
+                            size: 15.0,
                           );
                         } else {
-                          return SolidLineConnector(
-                            color: getColor(index),
+                          color = completeColor;
+                          child = const Icon(
+                            Icons.timer,
+                            color: Colors.white,
+                            size: 15.0,
                           );
                         }
-                      } else {
-                        return null;
-                      }
-                    },
-                    itemCount: _viewm.process.length,
+
+                        if (index <= _processIndex) {
+                          return Stack(
+                            children: [
+                              CustomPaint(
+                                size: Size(20.0, 20.0),
+                              ),
+                              DotIndicator(
+                                size: 20.0,
+                                color: color,
+                                child: child,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Stack(
+                            children: [
+                              CustomPaint(
+                                size: Size(20.0, 20.0),
+                              ),
+                              DotIndicator(
+                                size: 20.0,
+                                color: color,
+                                child: child,
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                      connectorBuilder: (_, index, type) {
+                        if (index > 0) {
+                          if (index == _processIndex) {
+                            final prevColor = getColor(index - 1);
+                            final color = getColor(index);
+                            List<Color> gradientColors;
+                            if (type == ConnectorType.start) {
+                              gradientColors = [
+                                Color.lerp(prevColor, color, 0.5)!,
+                                color
+                              ];
+                            } else {
+                              gradientColors = [
+                                prevColor,
+                                Color.lerp(prevColor, color, 0.5)!
+                              ];
+                            }
+                            return DecoratedLineConnector(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: gradientColors,
+                                ),
+                              ),
+                            );
+                          } else {
+                            return SolidLineConnector(
+                              color: getColor(index),
+                            );
+                          }
+                        } else {
+                          return null;
+                        }
+                      },
+                      itemCount: _viewm.process.length,
+                    ),
                   ),
                 ),
-              ),
-            )),
+              )
+          ),
+        ),
       ],
     );
   }

@@ -131,7 +131,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 5.0, left: 8.0),
-                    child: Text("${widget.arguments.clsName}"),
+                    child: Text("Class:${widget.arguments.clsName}"),
                   ),
 
 
@@ -255,7 +255,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Alert on:${_vm.safeAreaList[index].alertOn}"),
-                          Text("Radious:${_vm.safeAreaList[index].radius}"),
+                          Text("Radius:${_vm.safeAreaList[index].radius}"),
                         ],
                       ),
                     ),

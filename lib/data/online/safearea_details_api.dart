@@ -12,15 +12,33 @@ abstract class SafeAreaDetailsApi{
   factory SafeAreaDetailsApi(Dio dio, {String? baseUrl}) = _SafeAreaDetailsApi;
 
 
-  @GET("${ApiRoutes.parent}/user/{userId}/kid/safe_area")
+
+  @GET("${ApiRoutes.parent}/user/{userId}/{smartCardId}/safearea/show")
   Future<SafeareaResponse> getSafeAreaDetails(
       @Path("userId") String userId,
-      @Query("smart_card_id") String smartCardId,
+      @Path("smartCardId") String smartCardId,
       );
 
 
   @POST("${ApiRoutes.parent}/user/safearea/status")
-  Future<ActivateSwitchResponse> getToggle(
-      @Query("safeAreaId") String safeAreaId,
-      );
+  @FormUrlEncoded()
+    Future<ActivateSwitchResponse> getToggle(
+        @Field("safeAreaId") String safeAreaId,
+        );
+
+
+  // @POST("${ApiRoutes.parent}/user/safearea/{safeAreaId}/status")
+  // Future<ActivateSwitchResponse> getToggle(
+  //     @Path("safeAreaId") String safeAreaId,
+  //     );
+
+  //
+  // @GET("${ApiRoutes.parent}/user/{userId}/kid/safe_area")
+  // Future<SafeareaResponse> getSafeAreaDetails(
+  //     @Path("userId") String userId,
+  //     @Query("smart_card_id") String smartCardId,
+  //     );
+  //
+  //
+
 }

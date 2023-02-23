@@ -121,6 +121,16 @@ mixin _$SafeAreaPageViewModel on _SafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$switcherDataAsyncAction =
+      AsyncAction('_SafeAreaPageViewModel.switcherData', context: context);
+
+  @override
+  Future switcherData(AreaDetails safeArea,
+      {dynamic Function(bool)? changedState}) {
+    return _$switcherDataAsyncAction
+        .run(() => super.switcherData(safeArea, changedState: changedState));
+  }
+
   @override
   String toString() {
     return '''

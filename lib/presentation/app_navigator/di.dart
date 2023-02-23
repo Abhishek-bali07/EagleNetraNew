@@ -99,9 +99,9 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<DashboardPageRepository>(() => DashboardPageUseCaseImpl(dio));
 
-  instance.registerLazySingleton<KidsHistoryRepository>(() => KidsHistoryRepositoryImpl());
+  instance.registerLazySingleton<KidsHistoryRepository>(() => KidsHistoryRepositoryImpl(dio));
 
-  instance.registerLazySingleton<KidsTrackRepository>(() => KidsTrackRepositoryImpl());
+  instance.registerLazySingleton<KidsTrackRepository>(() => KidsTrackRepositoryImpl(dio));
 
   instance.registerLazySingleton<AccessManagementRepository>(() => AddAccessManagementUseCaseImpl());
 

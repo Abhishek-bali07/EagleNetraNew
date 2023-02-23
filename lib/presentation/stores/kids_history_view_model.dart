@@ -62,10 +62,8 @@ abstract class _KidsHistoryViewModel with Store{
 
   getInitialData() async{
     isLoading = true;
-    // var userId = _appSettings.userId;
-    var userId = "1";
-    var deviceId = "1423";
-    var response = await _kidUseCase.kidsHistoryInfo(userId, deviceId);
+    var userId = _appSettings.userId;
+    var response = await _kidUseCase.kidsHistoryInfo(userId);
     if (response is Success) {
       var data = response.data;
       isLoading = false;

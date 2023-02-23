@@ -22,7 +22,7 @@ class LatLongResponse extends BusinessObject {
   factory LatLongResponse.fromJson(Map<String, dynamic> json) => LatLongResponse(
     status: json["status"],
     message: json["message"],
-    latlongData: List<KidPosition>.from(json["latlongData"].map((x) => KidPosition.fromJson(x))),
+    latlongData: json["latlongData"] != null ? List<KidPosition>.from(json["latlongData"].map((e) => KidPosition.fromJson(e))) : <KidPosition>[],
   );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +46,7 @@ class KidPosition {
   factory KidPosition.fromJson(Map<String, dynamic> json) => KidPosition(
     posId: json["posId"],
     postionalTime: DateTime.parse(json["postionalTime"]),
-    latLong: LatLong.fromJson(json["latLong "]),
+    latLong: LatLong.fromJson(json["latLong"]),
   );
 
   Map<String, dynamic> toJson() => {

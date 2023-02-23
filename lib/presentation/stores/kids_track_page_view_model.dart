@@ -34,7 +34,7 @@ abstract class _KidsTrackPageViewModel with Store {
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
 
-  ShortDetails data;
+  ShortDetails? data;
 
   bool _isVisible = true;
 
@@ -50,16 +50,19 @@ abstract class _KidsTrackPageViewModel with Store {
   bool datesSelectedListLoader = false;
 
   @observable
-  String date = "2023-02-03";
+  String date = "";
 
   @observable
   String time = "";
 
   @observable
-  String startTime = "00:00";
+  String startTime = "";
+
+  TimeOfDay sTimeDisplay = TimeOfDay.now();
+  TimeOfDay eTimeDisplay = TimeOfDay.now();
 
   @observable
-  String endTime = "11:00";
+  String endTime = "";
 
 
   @observable
@@ -73,13 +76,17 @@ abstract class _KidsTrackPageViewModel with Store {
 
   @action
   rangeStart(BuildContext context, TimeOfDay timeOfDay) {
+    sTimeDisplay = timeOfDay;
     startTime = GetDateState.getStartTimeRange(context, timeOfDay);
+    debugPrint("startTime $startTime");
   }
 
 
   @action
   rangeEnd(BuildContext context, TimeOfDay timeOfDay) {
+    eTimeDisplay = timeOfDay;
     endTime = GetDateState.getStartTimeRange(context, timeOfDay);
+    debugPrint("endTime $endTime");
   }
 
 
@@ -110,6 +117,7 @@ abstract class _KidsTrackPageViewModel with Store {
   @action
   onSelectStartTime(TimeOfDay selectedstarttime) {
     startTime = "${selectedstarttime.hour}:${selectedstarttime.minute}";
+    debugPrint("startTime $startTime");
   }
 
   @action
@@ -120,12 +128,10 @@ abstract class _KidsTrackPageViewModel with Store {
 
   @action
   initialData() async {
-    //var userId = _appSettings.userId();
-    var userId = "1";
-    var smartCardId = data.smartCardId;
+    var smartCardId = data!.smartCardId;
     isVisible = true;
     var response = await kids_track_use_case.fetchPositions(
-        smartCardId, date, userId, startTime, endTime);
+        smartCardId, date, startTime, endTime);
     if (response is Success) {
       var data = response.data;
       isVisible = false;
