@@ -1,6 +1,10 @@
 import 'dart:developer';
 
+import 'package:eagle_netra/core/helpers/image_assets.dart';
+import 'package:eagle_netra/presentation/ui/app_text_style.dart';
+import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,6 +27,7 @@ const todoColor = Color(0xffd1d2d7);
 
 class KidsTrackPage extends StatefulWidget {
   ShortDetails arguments;
+
   KidsTrackPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -30,7 +35,6 @@ class KidsTrackPage extends StatefulWidget {
 }
 
 class _KidsTrackPageState extends State<KidsTrackPage> {
-
   GoogleMapController? _controller;
   late final KidsTrackPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
@@ -51,7 +55,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
-    _viewm.initialData();
+     _viewm.initialData();
   }
 
   @override
@@ -82,11 +86,11 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
           ));
         }
       }),
-      reaction((p0) => [_viewm.startTime, _viewm.endTime, _viewm.date], (p0) {
-        // if(p0.first.isNotEmpty || p0[1].isNotEmpty || p0[2].isNotEmpty) {
-        //   _viewm.initialData();
-        // }
-      })
+      // reaction((p0) => [_viewm.startTime, _viewm.endTime, _viewm.date], (p0) {
+      //   if (p0.first.isNotEmpty && p0[1].isNotEmpty && p0[2].isNotEmpty) {
+      //        _viewm.initialData();
+      //   }
+      // })
     ];
   }
 
@@ -116,16 +120,16 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                 builder: (BuildContext context) {
                   return _viewm.image.isNotEmpty
                       ? CircleAvatar(
-                    radius: 0.06.sw,
-                    backgroundColor: AppColors.lightGray,
-                    foregroundImage: NetworkImage(_viewm.image),
-                  )
+                          radius: 0.06.sw,
+                          backgroundColor: AppColors.lightGray,
+                          foregroundImage: NetworkImage(_viewm.image),
+                        )
                       : CircleAvatar(
-                    radius: 0.06.sw,
-                    // backgroundColor:
-                    //     AppColors.drawerPrimary,
-                    child: SvgPicture.asset("assets/images/boy.svg"),
-                  );
+                          radius: 0.06.sw,
+                          // backgroundColor:
+                          //     AppColors.drawerPrimary,
+                          child: SvgPicture.asset("assets/images/boy.svg"),
+                        );
                 },
               ))
         ],
@@ -141,18 +145,15 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
   Widget _lowerSideContent() {
     return Column(
       children: [
-        Expanded(
-          flex: 1,
+        Material(
           child: InkWell(
-
             onTap: _viewm.openDatePicker,
             child: Container(
-
-
+              padding:
+                  EdgeInsets.symmetric(horizontal: 0.05.sw, vertical: 0.05.sw),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius:
-                  const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   border: Border.all(color: AppColors.White),
                   boxShadow: const [
                     BoxShadow(
@@ -161,130 +162,132 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                         spreadRadius: 0,
                         offset: Offset(0, 0))
                   ]),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: 0.05.sw, horizontal: 0.05.sw),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2, child: Padding(
-                      padding: const EdgeInsets.only(left:8.0,top: 4.0),
-                      child: Text("Date:", style:  TextStyle(
-                        fontWeight: FontWeight.w700,fontSize: 18.sp
-                      ),),
-                    )),
-                    Expanded(
-                      flex: 7,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Observer(builder: (BuildContext context) {
-                              return Padding(
-                                padding: const EdgeInsets.only(left:8.0,top: 5.0),
-                                child: Text(_viewm.date,
-                                    style: TextStyle(
-                                        color: AppColors.Black,
-                                        fontSize: 16.sp)),
-                              );
-                            })
-                            /**/
-                          ],
-                        ),
-                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Date:",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 18.sp),
                     ),
-                    const Expanded(
-                        flex: 1,
-                        child: Icon(
-                          Icons.date_range,
-                          color: Colors.black38,
-                        )),
-                  ],
-                ),
+                  ).padding(insets: EdgeInsets.only(right: 0.03.sw)),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Observer(
+                          builder: (BuildContext context) => Text(_viewm.date,
+                              style: TextStyle(
+                                  color: AppColors.Black, fontSize: 18.sp))),
+                    ),
+                  ),
+                  SvgPicture.asset(ImageAssets.calendar),
+                ],
               ),
             ),
           ),
         ),
-
+        const Divider(
+          height: 1,
+        ),
         Observer(
           builder: (BuildContext context) {
-            return Visibility(
-              visible: _viewm.date.isNotEmpty ? true : false,
-              replacement: SizedBox.shrink(),
-              child:Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: AppColors.White),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Color(0x1a000000),
-                            blurRadius: 20,
-                            spreadRadius: 0,
-                            offset: Offset(0, 0))
-                      ]),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex:2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "StartTime: ${_viewm.startTime}",
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 0.05.sw),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "EndTime: ${_viewm.endTime}",
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              TimeRangePicker.show(
-                                context: context,
-                                unSelectedEmpty: true,
-                                startTime: _viewm.sTimeDisplay,
-                                endTime: _viewm.eTimeDisplay,
-                                onSubmitted: (TimeRangeValue value) {
-                                  setState(() {
-                                    if(value.startTime != null) {
-                                      _viewm.rangeStart(context, value.startTime!);
-                                    }
-                                    if(value.endTime != null) {
-                                      _viewm.rangeEnd(context, value.endTime!);
-                                    }
-                                    /*_startTime = value.startTime!;
-                                              _endTime = value.endTime!;*/
-                                  });
-                                },
-                              );
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 5.0),
-                              child: Icon(
-                                Icons.timer,
-                                color: Colors.black38,
+            return AnimatedCrossFade(
+              crossFadeState: _viewm.date.isNotEmpty
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 400),
+              firstChild: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 0.05.sw, vertical: 0.02.sw),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(color: AppColors.White),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color(0x1a000000),
+                          blurRadius: 20,
+                          spreadRadius: 0,
+                          offset: Offset(0, 0))
+                    ]),
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Row(
+                          children: [
+                            Text(
+                              "Form:",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 18.sp),
+                            ).padding(insets: EdgeInsets.only(right: 0.03.sw)),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                _viewm.startTime,
                               ),
                             ),
-                          ),
-                        ),
-                      ],
+                            SizedBox(width: 0.03.sw),
+                            Text(
+                              "To:",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 18.sp),
+                            ).padding(insets: EdgeInsets.only(right: 0.03.sw)),
+                            Text(
+                              _viewm.endTime,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                TimeRangePicker.show(
+                                  context: context,
+                                  unSelectedEmpty: true,
+                                  startTime: _viewm.sTimeDisplay,
+                                  endTime: _viewm.eTimeDisplay,
+                                  autoAdjust: false,
+                                  onStartTimeChange: (time) {
+                                    _viewm.rangeStart(
+                                        context, time);
+                                  },
+                                  onEndTimeChange: (time) {
+                                    _viewm.rangeEnd(
+                                        context, time);
+                                  },
+                                  onSubmitted: (TimeRangeValue value) {  },
+                                );
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: Icon(
+                                  Icons.timer,
+                                  color: Colors.black38,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Observer(
+                      builder: (BuildContext context) {
+                        return ElevatedButton(
+                            onPressed: _viewm.enableBtn
+                                ? () {
+                                    _viewm.initialData();
+                                  }
+                                : null,
+                            child: _viewm.isVisible
+                                ? const CircularProgressIndicator(
+                                    color: Colors.red,
+                                  )
+                                : Text("Submit"));
+                      },
                     ),
-                  ),
+                  ],
                 ),
               ),
+              secondChild: const SizedBox.shrink(),
+              alignment: Alignment.center,
             );
           },
         ),
@@ -299,12 +302,12 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
               onMapCreated: onMapCreated,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              markers:_viewm.markers,
+              markers: _viewm.markers,
             );
           }),
         ),
         Visibility(
-          visible: _viewm.startTime.isNotEmpty ? true : false,
+          visible: _viewm.enableBtn ? true : false,
           replacement: SizedBox.shrink(),
           child: Expanded(
               flex: 1,
@@ -322,7 +325,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                     builder: TimelineTileBuilder.connected(
                       connectionDirection: ConnectionDirection.before,
                       itemExtentBuilder: (_, __) =>
-                      MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.width /
                           _viewm.process.length,
                       contentsBuilder: (context, index) {
                         return Padding(
@@ -420,8 +423,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                     ),
                   ),
                 ),
-              )
-          ),
+              )),
         ),
       ],
     );

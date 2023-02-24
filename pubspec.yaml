@@ -70,6 +70,7 @@ dependencies:
   timelines: ^0.1.0
   timeline_tile: ^2.0.0
   simple_time_range_picker: ^0.0.5
+  flutter_animated_button: ^2.0.3
 
 
 

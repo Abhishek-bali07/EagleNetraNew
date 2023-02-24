@@ -46,6 +46,7 @@ abstract class _KidsTrackPageViewModel with Store {
 
   List<Marker> _backupMakers = [];
 
+
   @observable
   bool datesSelectedListLoader = false;
 
@@ -68,6 +69,9 @@ abstract class _KidsTrackPageViewModel with Store {
   @observable
   String image = "";
 
+  @observable
+  bool enableBtn = false;
+
 
   @action
   currentDate() {
@@ -79,6 +83,8 @@ abstract class _KidsTrackPageViewModel with Store {
     sTimeDisplay = timeOfDay;
     startTime = GetDateState.getStartTimeRange(context, timeOfDay);
     debugPrint("startTime $startTime");
+    validateBtn();
+
   }
 
 
@@ -87,6 +93,7 @@ abstract class _KidsTrackPageViewModel with Store {
     eTimeDisplay = timeOfDay;
     endTime = GetDateState.getStartTimeRange(context, timeOfDay);
     debugPrint("endTime $endTime");
+    validateBtn();
   }
 
 
@@ -96,6 +103,7 @@ abstract class _KidsTrackPageViewModel with Store {
 
   _KidsTrackPageViewModel(this.data) {
     mainVM.getCurrentLocation();
+
     //onSelectDate;
   }
 
@@ -111,6 +119,7 @@ abstract class _KidsTrackPageViewModel with Store {
     } else {
       currentDate();
     }
+    validateBtn();
   }
 
 
@@ -118,11 +127,13 @@ abstract class _KidsTrackPageViewModel with Store {
   onSelectStartTime(TimeOfDay selectedstarttime) {
     startTime = "${selectedstarttime.hour}:${selectedstarttime.minute}";
     debugPrint("startTime $startTime");
+
   }
 
   @action
   onSelectEndTime(TimeOfDay selectedendtime) {
     endTime = "${selectedendtime.hour}:${selectedendtime.minute}";
+
   }
 
 
@@ -142,7 +153,7 @@ abstract class _KidsTrackPageViewModel with Store {
             onSelectDate(element.postionalTime);
             await setupMarker(
                 element.latLong, element.posId, date);
-            //tmp.add(element.postionalTime);
+            tmp.add(date);
           }
           markers = _backupMakers.toSet();
           process = tmp;
@@ -161,6 +172,7 @@ abstract class _KidsTrackPageViewModel with Store {
       draggable: false,
       icon: BitmapDescriptor.defaultMarker,
     );
+    _backupMakers = [];
     _backupMakers.add(marker);
   }
 
@@ -183,6 +195,18 @@ abstract class _KidsTrackPageViewModel with Store {
       return Constants.defaultCameraPosition;
     }
   }
+
+
+ @action
+ validateBtn() async{
+    if(date.isNotEmpty && startTime.isNotEmpty && endTime.isNotEmpty){
+      enableBtn = true;
+
+    }else{
+      enableBtn = false;
+    }
+ }
+
 
 
 }

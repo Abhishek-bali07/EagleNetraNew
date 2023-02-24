@@ -108,6 +108,10 @@ abstract class _SafeAreaPageViewModel with Store{
     }
   }
 
+
+
+
+
   onError(AlertAction? action) {
     if (action == AlertAction.kidShortInfo) {
      initialData();

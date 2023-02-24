@@ -139,6 +139,22 @@ mixin _$KidsTrackPageViewModel on _KidsTrackPageViewModel, Store {
     });
   }
 
+  late final _$enableBtnAtom =
+      Atom(name: '_KidsTrackPageViewModel.enableBtn', context: context);
+
+  @override
+  bool get enableBtn {
+    _$enableBtnAtom.reportRead();
+    return super.enableBtn;
+  }
+
+  @override
+  set enableBtn(bool value) {
+    _$enableBtnAtom.reportWrite(value, super.enableBtn, () {
+      super.enableBtn = value;
+    });
+  }
+
   late final _$isVisibleAtom =
       Atom(name: '_KidsTrackPageViewModel.isVisible', context: context);
 
@@ -170,6 +186,14 @@ mixin _$KidsTrackPageViewModel on _KidsTrackPageViewModel, Store {
   Future setupMarker(LatLong coordinate, String posId, String positionalTime) {
     return _$setupMarkerAsyncAction
         .run(() => super.setupMarker(coordinate, posId, positionalTime));
+  }
+
+  late final _$validateBtnAsyncAction =
+      AsyncAction('_KidsTrackPageViewModel.validateBtn', context: context);
+
+  @override
+  Future validateBtn() {
+    return _$validateBtnAsyncAction.run(() => super.validateBtn());
   }
 
   late final _$_KidsTrackPageViewModelActionController =
@@ -252,6 +276,7 @@ time: ${time},
 startTime: ${startTime},
 endTime: ${endTime},
 image: ${image},
+enableBtn: ${enableBtn},
 isVisible: ${isVisible}
     ''';
   }

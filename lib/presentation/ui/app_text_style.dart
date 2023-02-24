@@ -61,6 +61,12 @@ class AppTextStyle {
       fontSize: 12.sp,
       color: AppColors.Black);
 
+  static var btnFieldStyle = TextStyle(
+      fontFamily: AppFonts.poppins,
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: AppColors.White);
+
 
   static var btnTextStyleWhite = TextStyle(
       fontFamily: AppFonts.poppins,
