@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             //navigatorKey: instance<NavigationService>().navigatorKey,
             navigatorKey: alice.getNavigatorKey(),
             //initialRoute: Routes.splash,
-            initialRoute: Routes.kidsHistory  ,
+            initialRoute: Routes.management,
             onGenerateRoute: RouteGenerator.getRoute);
       });
   }

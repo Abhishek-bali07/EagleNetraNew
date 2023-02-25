@@ -49,4 +49,6 @@ class ImageAssets{
   static const contact= "assets/images/Contacts.svg";
 
   static const calendar = "assets/images/calendar.svg";
+
+  static const clock = "assets/images/clock.svg";
 }

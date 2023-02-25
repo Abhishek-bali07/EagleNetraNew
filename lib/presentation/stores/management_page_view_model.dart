@@ -51,8 +51,7 @@ abstract class _ManagementViewModel with Store{
 
   getInitialData() async{
     isLoading = true;
-    //var userId = _appSettings.userId();
-    var userId = "1";
+    var userId = _appSettings.userId;
     var response = await _managementUseCase.ManagementHistoryInfo(userId);
     if (response is Success) {
       var data = response.data;

@@ -55,7 +55,7 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
-     _viewm.initialData();
+    _viewm.initialData();
   }
 
   @override
@@ -248,21 +248,18 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
                                   endTime: _viewm.eTimeDisplay,
                                   autoAdjust: false,
                                   onStartTimeChange: (time) {
-                                    _viewm.rangeStart(
-                                        context, time);
+                                    _viewm.rangeStart(context, time);
                                   },
                                   onEndTimeChange: (time) {
-                                    _viewm.rangeEnd(
-                                        context, time);
+                                    _viewm.rangeEnd(context, time);
                                   },
-                                  onSubmitted: (TimeRangeValue value) {  },
+                                  onSubmitted: (TimeRangeValue value) {},
                                 );
                               },
-                              child: const Padding(
-                                padding: EdgeInsets.only(right: 8.0),
-                                child: Icon(
-                                  Icons.timer,
-                                  color: Colors.black38,
+                              child:  Padding(
+                                padding: EdgeInsets.only(left: 18.0),
+                                child: SvgPicture.asset(ImageAssets.clock,
+                                        width: 15.0,height: 30.0,
                                 ),
                               ),
                             ),
@@ -306,124 +303,142 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
             );
           }),
         ),
-        Visibility(
-          visible: _viewm.enableBtn ? true : false,
-          replacement: SizedBox.shrink(),
-          child: Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Observer(
-                  builder: (context) => Timeline.tileBuilder(
-                    theme: TimelineThemeData(
-                      direction: Axis.horizontal,
-                      connectorTheme: const ConnectorThemeData(
-                        space: 15.0,
-                        thickness: 3.0,
-                      ),
-                    ),
-                    builder: TimelineTileBuilder.connected(
-                      connectionDirection: ConnectionDirection.before,
-                      itemExtentBuilder: (_, __) =>
-                          MediaQuery.of(context).size.width /
-                          _viewm.process.length,
-                      contentsBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            _viewm.process[index],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: getColor(index),
-                            ),
+        Observer(
+          builder: (BuildContext context) {
+            return Visibility(
+              visible: _viewm.enableBtn ? true : false,
+              replacement: SizedBox.shrink(),
+              child: Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Observer(
+                      builder: (context) => Timeline.tileBuilder(
+                        theme: TimelineThemeData(
+                          direction: Axis.horizontal,
+                          connectorTheme: const ConnectorThemeData(
+                            space: 15.0,
+                            thickness: 3.0,
                           ),
-                        );
-                      },
-                      indicatorBuilder: (_, index) {
-                        var color;
-                        var child;
-                        if (index <= _processIndex) {
-                          color = completeColor;
-                          child = const Icon(
-                            Icons.timer,
-                            color: Colors.white,
-                            size: 15.0,
-                          );
-                        } else {
-                          color = completeColor;
-                          child = const Icon(
-                            Icons.timer,
-                            color: Colors.white,
-                            size: 15.0,
-                          );
-                        }
-
-                        if (index <= _processIndex) {
-                          return Stack(
-                            children: [
-                              CustomPaint(
-                                size: Size(20.0, 20.0),
-                              ),
-                              DotIndicator(
-                                size: 20.0,
-                                color: color,
-                                child: child,
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Stack(
-                            children: [
-                              CustomPaint(
-                                size: Size(20.0, 20.0),
-                              ),
-                              DotIndicator(
-                                size: 20.0,
-                                color: color,
-                                child: child,
-                              ),
-                            ],
-                          );
-                        }
-                      },
-                      connectorBuilder: (_, index, type) {
-                        if (index > 0) {
-                          if (index == _processIndex) {
-                            final prevColor = getColor(index - 1);
-                            final color = getColor(index);
-                            List<Color> gradientColors;
-                            if (type == ConnectorType.start) {
-                              gradientColors = [
-                                Color.lerp(prevColor, color, 0.5)!,
-                                color
-                              ];
-                            } else {
-                              gradientColors = [
-                                prevColor,
-                                Color.lerp(prevColor, color, 0.5)!
-                              ];
-                            }
-                            return DecoratedLineConnector(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: gradientColors,
+                        ),
+                        builder: TimelineTileBuilder.connected(
+                          connectionDirection: ConnectionDirection.before,
+                          itemExtentBuilder: (_, __) =>
+                              MediaQuery.of(context).size.width /
+                              _viewm.process.length,
+                          contentsBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                _controller!.animateCamera(
+                                    CameraUpdate.newCameraPosition(
+                                        CameraPosition(
+                                            target: _viewm.markers
+                                                .toList()[index]
+                                                .position,
+                                            zoom: 17)
+                                        //17 is new zoom level
+                                        ));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 5.0),
+                                child: Text(
+                                  _viewm.process[index],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: getColor(index),
+                                  ),
                                 ),
                               ),
                             );
-                          } else {
-                            return SolidLineConnector(
-                              color: getColor(index),
-                            );
-                          }
-                        } else {
-                          return null;
-                        }
-                      },
-                      itemCount: _viewm.process.length,
+                          },
+                          indicatorBuilder: (_, index) {
+                            var color;
+                            var child;
+                            if (index <= _processIndex) {
+                              color = completeColor;
+                              child = const Icon(
+                                Icons.timer,
+                                color: Colors.blue,
+                                size: 15.0,
+                              );
+                            } else {
+                              color = completeColor;
+                              child = const Icon(
+                                Icons.timer,
+                                color: Colors.blue,
+                                size: 15.0,
+                              );
+                            }
+
+                            if (index <= _processIndex) {
+                              return Stack(
+                                children: [
+                                  CustomPaint(
+                                    size: Size(20.0, 20.0),
+                                  ),
+                                  DotIndicator(
+                                    size: 20.0,
+                                    color: color,
+                                    child: child,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Stack(
+                                children: [
+                                  CustomPaint(
+                                    size: Size(20.0, 20.0),
+                                  ),
+                                  DotIndicator(
+                                    size: 20.0,
+                                    color: color,
+                                    child: child,
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                          connectorBuilder: (_, index, type) {
+                            if (index > 0) {
+                              if (index == _processIndex) {
+                                final prevColor = getColor(index - 1);
+                                final color = getColor(index);
+                                List<Color> gradientColors;
+                                if (type == ConnectorType.start) {
+                                  gradientColors = [
+                                    Color.lerp(prevColor, color, 0.5)!,
+                                    color
+                                  ];
+                                } else {
+                                  gradientColors = [
+                                    prevColor,
+                                    Color.lerp(prevColor, color, 0.5)!
+                                  ];
+                                }
+                                return DecoratedLineConnector(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: gradientColors,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return SolidLineConnector(
+                                  color: getColor(index),
+                                );
+                              }
+                            } else {
+                              return null;
+                            }
+                          },
+                          itemCount: _viewm.process.length,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )),
+                  )
+              ),
+            );
+          },
         ),
       ],
     );

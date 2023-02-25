@@ -150,13 +150,13 @@ abstract class _KidsTrackPageViewModel with Store {
       switch (data != null && data.status) {
         case true:
           for (var element in data!.latlongData) {
-            onSelectDate(element.postionalTime);
-            await setupMarker(
-                element.latLong, element.posId, date);
-            tmp.add(date);
+            await setupMarker(element.latLong, element.posId, date);
+            tmp.add("${element.postionalTime.hour}:${element.postionalTime.minute}");
           }
+
+
           markers = _backupMakers.toSet();
-          process = tmp;
+          process = tmp.reversed.toList();
           break;
       }
     }
@@ -172,7 +172,7 @@ abstract class _KidsTrackPageViewModel with Store {
       draggable: false,
       icon: BitmapDescriptor.defaultMarker,
     );
-    _backupMakers = [];
+    //_backupMakers = [];
     _backupMakers.add(marker);
   }
 

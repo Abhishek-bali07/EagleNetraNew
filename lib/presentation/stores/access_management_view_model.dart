@@ -90,8 +90,7 @@ abstract class _AccessManagementViewModel with Store{
   @action
   submitAccessDetails() async{
     submitting = true;
-    var userId = "1";
-    //var userId = _appSettings.userId;
+    var userId = _appSettings.userId;
     var response = await add_access_management_use_case.addAccess(
         userId,
         name,

@@ -81,7 +81,6 @@ class _ManagementAccessPageState extends State<ManagementAccessPage> {
     return Column(
       children: [
         Expanded(
-          flex: 10,
           child: Container(
             color: Colors.white,
             child: Observer(
@@ -118,89 +117,78 @@ class _ManagementAccessPageState extends State<ManagementAccessPage> {
 
 
   Widget listItem(int index){
-    return Container(
-
-      padding: EdgeInsets.symmetric(
-        vertical: 0.02.sw,
-      ),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-          boxShadow: [
-            BoxShadow(
-                color: Color(0x1a000000),
-                blurRadius: 20,
-                spreadRadius: 0,
-                offset: Offset(0, 10))
-          ]),
+    return InkWell(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
-        child: Column(
-          children: [
-            Observer(
-              builder: (BuildContext context) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 0.60.sw,
+          decoration: const BoxDecoration(
+              color: Colors.white70,
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0x1a000000),
+                    blurRadius: 20,
+                    spreadRadius: 0,
+                    offset: Offset(0, 10))
+              ]),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 0.03.sw,),
+            child: Column(
+              children: [
+                Observer(
+                  builder: (BuildContext context) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Observer(
-                              builder: (BuildContext context) {
-                                return _viewModel.image.isNotEmpty
-                                    ? CircleAvatar(
-                                  radius: 0.08.sw,
-                                  backgroundColor: AppColors.lightGray,
-                                  foregroundImage:
-                                  NetworkImage(_viewModel.image),
-                                )
-                                    : CircleAvatar(
-                                  radius: 0.07.sw,
-                                  // backgroundColor:
-                                  //     AppColors.drawerPrimary,
-                                  child: SvgPicture.asset("assets/images/lady.svg"),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Observer(
+                                builder: (BuildContext context) {
+                                  return  _viewModel.managementHistory[index].image.isNotEmpty
+                                      ? CircleAvatar(
+                                    radius: 0.08.sw,
+                                    backgroundColor: AppColors.lightGray,
+                                    foregroundImage:
+                                    NetworkImage(_viewModel.image),
+                                  )
+                                      : CircleAvatar(
+                                    radius: 0.07.sw,
+                                    // backgroundColor:
+                                    //     AppColors.drawerPrimary,
+                                    child: SvgPicture.asset("assets/images/lady.svg"),
 
 
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex:2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(top: 6.0, left: 8.0),
-                                child: _viewModel.managementHistory[index].name
+                            SizedBox(width: 0.01.sw),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                _viewModel.managementHistory[index].name
                                     .text(AppTextStyle.headingTextStyle),
-                              ),
-                              SizedBox(height: 0.01.sw),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(left: 8.0),
-                                child: _viewModel.managementHistory[index].relationName
+                                SizedBox(height: 0.01.sw),
+                                _viewModel.managementHistory[index].relationName
                                     .text(AppTextStyle.mandatoryFieldStyle),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+
+                          ],
                         ),
 
                       ],
-                    ),
-
-                  ],
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
