@@ -20,8 +20,8 @@ import '../stores/dashboard_page_view_model.dart';
 import 'device_details_page.dart';
 
 class DashboardPage extends StatefulWidget {
-  ShortDetails arguments;
-  DashboardPage({Key? key, required this.arguments}) : super(key: key);
+  // ShortDetails arguments;
+  DashboardPage({Key? key}) : super(key: key);
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -199,7 +199,7 @@ class _DashboardPageState extends State<DashboardPage> {
               leading: SvgPicture.asset(ImageAssets.contact),
               title: Text("Subscription"),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, Routes.subscription);
               },
             ),
             ListTile(

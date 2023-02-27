@@ -20,7 +20,7 @@ abstract class DashBoardPageApi{
 
   @GET("${ApiRoutes.parent}/smartcard/{smartCardId}/location/history")
   Future<LatLongResponse> selectivePosition(
-      @Path("smartCardId") String smartCardId
+      @Path("userId") String userId
       );
   
   

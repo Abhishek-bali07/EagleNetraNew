@@ -7,6 +7,7 @@ import 'package:eagle_netra/core/common/alert_option.dart';
 import 'package:eagle_netra/core/common/app_settings.dart';
 import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/mobile_number_code.dart';
+import 'package:eagle_netra/core/domain/response/kid_short_info_response.dart';
 import 'package:eagle_netra/core/helpers/navigation_service.dart';
 import 'package:eagle_netra/core/helpers/string_provider.dart';
 import 'package:eagle_netra/core/repository/mobile_input_repository.dart';
@@ -134,13 +135,13 @@ abstract class _MobileInputViewModel  with Store {
         case true:
           if(data!.isVerified){
             _appSettings.saveUserId(data.userId);
+            debugPrint(data.userStatus);
             if(data.userStatus == UserStatus.registered.value){
-                 _navigator.navigateTo(Routes.dashboard);
+                 _navigator.navigateTo(Routes.dashboard, arguments: data.details);
                } else{
                      verifyLoader = false;
                      _navigator.navigateTo(Routes.registration);
                }
-
           }
           else{
             // verifyLoader = false;

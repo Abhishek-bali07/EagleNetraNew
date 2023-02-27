@@ -34,7 +34,7 @@ abstract class _DashBoardPageViewModel with Store{
   final dashboard_page_use_case = instance<DashboardPageRepository>();
 
 
-  ShortDetails? data;
+  // ShortDetails? data;
 
   Marker? _marker;
 
@@ -148,10 +148,9 @@ abstract class _DashBoardPageViewModel with Store{
 
   @action
   initialData() async {
-  // var userId = _appSettings.userId;
-  var smartCardId = data!.smartCardId;
-  isVisible  = true;
-  var response = await dashboard_page_use_case.fetchPosition(smartCardId);
+   var userId = _appSettings.userId;
+   isVisible  = true;
+  var response = await dashboard_page_use_case.fetchPosition(userId);
   if(response is Success){
       var data = response.data;
       isVisible = false;
@@ -159,8 +158,8 @@ abstract class _DashBoardPageViewModel with Store{
       case true:
         if(data != null){
         // markerPosition = data.latlongData;
-          for (var element in data.latlongData) {
-           await setupMarker(element.latLong,element.posId);
+          for (var element in data.shortDetails) {
+           await setupMarker(element.latLongData);
           }
       }
     }
@@ -197,7 +196,6 @@ abstract class _DashBoardPageViewModel with Store{
         locationAddress = data.data.devicelocation;
         callingNumber = data.data.phone;
         openBottomSheet();
-
         break;
       default:
     }

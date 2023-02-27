@@ -4,6 +4,7 @@ import '../../core/common/alert_action.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
+import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/domain/response/subscription_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
@@ -23,6 +24,7 @@ abstract class _SubscriptionPageViewModel with Store{
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
 
+  // ShortDetails? data;
 
   @observable
   List<SubscriptionDetails> subscrptionHistory = [];
@@ -57,8 +59,9 @@ abstract class _SubscriptionPageViewModel with Store{
   @action
   getInitialData() async {
     isLoading = true;
-    var userId = _appSettings.userId;
-    var response = await _subscriptionUseCase.subscriptionInfo(userId);
+    var smartCardId = "1";
+    //var smartCardId = data!.smartCardId;
+    var response = await _subscriptionUseCase.subscriptionInfo(smartCardId);
     if(response is Success){
       var data = response.data;
       isLoading = false;

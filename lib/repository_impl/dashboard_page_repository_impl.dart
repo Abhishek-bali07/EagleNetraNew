@@ -9,6 +9,7 @@ import 'package:eagle_netra/utils/extensions.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../core/common/lat_long.dart';
+import '../core/domain/response/kid_details_response.dart';
 import '../core/repository/dashboard_page_repository.dart';
 import '../data/online/dashboard_api.dart';
 import '../utils/api_client_configuration.dart';
@@ -24,10 +25,10 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
 
 
   @override
-  Future<Resource<LatLongResponse>> fetchPosition(String smartCardId) async {
+  Future<Resource<ManagementShortInfoResponse>> fetchPosition(String userId) async {
     return _dashBoardPageApi
-        .selectivePosition(smartCardId)
-        .handleResponse<LatLongResponse>();
+        .selectivePosition(userId)
+        .handleResponse<ManagementShortInfoResponse>();
     // await Future.delayed(const Duration(seconds: 2));
     // return Success(LatLongResponse(
     //     status: true,

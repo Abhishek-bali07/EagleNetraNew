@@ -39,8 +39,7 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const RegistrationPage());
       
       case Routes.dashboard:
-        var arg = routeSettings.arguments as ShortDetails;
-        return ScreenTransitions.rightToLeftTransition(DashboardPage(arguments: arg));
+        return ScreenTransitions.rightToLeftTransition(DashboardPage());
 
 
       case Routes.mykids:
@@ -80,7 +79,7 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const ManagementAccessPage());
 
       case Routes.subscription:
-        return ScreenTransitions.rightToLeftTransition( const SubscriptionPage());
+       return ScreenTransitions.rightToLeftTransition(SubscriptionPage());
 
 
       case Routes.support:

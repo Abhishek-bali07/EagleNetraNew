@@ -6,7 +6,7 @@ import '../core/repository/subscription_repository.dart';
 
 class SubscriptionRepositoryImpl implements SubscriptionRepository{
   @override
-  Future<Resource<SubscriptionInfoResponse>> subscriptionInfo(String userId) async {
+  Future<Resource<SubscriptionInfoResponse>> subscriptionInfo(String smartCardId) async {
     await Future.delayed(const Duration(seconds: 2));
     return Success(SubscriptionInfoResponse(
         status: true, message: "Success", subscriptionDetails: List.generate(2, (index) => SubscriptionDetails(
