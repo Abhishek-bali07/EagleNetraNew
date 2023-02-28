@@ -28,15 +28,26 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
-        height: 0.30.sh,
+        height: 0.40.sh,
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Padding(
+              padding: EdgeInsets.all(0.04.sw),
+              child: Container(
+                height: 0.02.sw,
+                width: 0.10.sh,
+                decoration: BoxDecoration(
+                    color: AppColors.drawerPrimary,
+                    borderRadius: BorderRadius.circular(20.r)),
+              ),
+            ),
             const Text("OTP has been sent to your mobile number"),
             widget.number.text(AppTextStyle.enterNumberStyle),
             SizedBox(

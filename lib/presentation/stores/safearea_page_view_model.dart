@@ -5,6 +5,7 @@ import '../../core/common/alert_action.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/domain/response/safe_area_response.dart';
 import '../../core/helpers/navigation_service.dart';
@@ -86,7 +87,7 @@ abstract class _SafeAreaPageViewModel with Store{
     }
   }
 
-  @action
+
   switcherData(AreaDetails safeArea, {Function(bool)? changedState}) async {
     dataLoader = true;
     var safeAreaId = safeArea.safeAreaId;

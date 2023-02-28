@@ -28,7 +28,7 @@ class IntroThree extends StatelessWidget {
       child: FittedBox(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.10.sw),
-          child: Image.asset("${Global.baseUrl}${ImageAssets.screenthree}"),
+          child: Image.asset(ImageAssets.screenthree),
         ),
       ),
     );

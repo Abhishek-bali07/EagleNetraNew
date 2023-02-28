@@ -25,10 +25,10 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
 
 
   @override
-  Future<Resource<ManagementShortInfoResponse>> fetchPosition(String userId) async {
+  Future<Resource<KidDetailsInfoResponse>> fetchPosition(String userId) async {
     return _dashBoardPageApi
         .selectivePosition(userId)
-        .handleResponse<ManagementShortInfoResponse>();
+        .handleResponse<KidDetailsInfoResponse>();
     // await Future.delayed(const Duration(seconds: 2));
     // return Success(LatLongResponse(
     //     status: true,

@@ -51,6 +51,12 @@ class _MobileInputState extends State<MobileInput> {
       reaction((p0) => vm.isShow, (p0) async {
       if(p0 == true){
         await showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.r),
+                    topRight: Radius.circular(30.r))),
+            useRootNavigator: true,
+            isScrollControlled: true,
             context: context,
             builder: (BuildContext context) {
               return VerifyOtpPage(

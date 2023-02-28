@@ -5,6 +5,7 @@ import 'package:eagle_netra/presentation/stores/slider_view_model.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobx/mobx.dart';
 
@@ -59,15 +60,15 @@ class _SliderPageState extends State<SliderPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SliderData.sliderData[i].image),
-                        SizedBox(
-                          //height: 50,
-                          //height: 12,
-                            height: getGapInImageAndTitle()
-                        ),
+                        Image.asset(SliderData.sliderData[i].image, width: 300,height: 400,).padding(insets: EdgeInsets.only(top: 0.03.sw)),
+                        // SizedBox(
+                        //   //height: 50,
+                        //   //height: 12,
+                        //     height: getGapInImageAndTitle()
+                        // ),
                         Text(
                           SliderData.sliderData[i].title,
                           style: TextStyle(
@@ -79,7 +80,7 @@ class _SliderPageState extends State<SliderPage> {
                         Text(
                           SliderData.sliderData[i].message,
                           textAlign: TextAlign.center,
-                        )
+                        ).padding(insets: EdgeInsets.symmetric(vertical: 0.02.sw, horizontal: 0.05.sw))
                       ],
                     ),
                   ),

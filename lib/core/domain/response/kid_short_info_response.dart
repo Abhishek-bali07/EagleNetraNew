@@ -56,7 +56,7 @@ class ShortDetails {
     clsName: json["clsName"],
     image: json["image"],
     activateFrom: json["activateFrom"],
-    deviceId: json["device_id"],
+    deviceId: json["deviceId"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -66,7 +66,7 @@ class ShortDetails {
     "clsName": clsName,
     "image": image,
     "activateFrom": activateFrom,
-    "device_id": deviceId,
+    "deviceId": deviceId,
   };
 }
 

@@ -20,19 +20,18 @@ import '../app_navigator/di.dart';
 import '../app_navigator/routes.dart';
 import 'main_view_model.dart';
 
-
 part 'dashboard_page_view_model.g.dart';
 
-class DashBoardPageViewModel = _DashBoardPageViewModel with _$DashBoardPageViewModel;
+class DashBoardPageViewModel = _DashBoardPageViewModel
+    with _$DashBoardPageViewModel;
 
-abstract class _DashBoardPageViewModel with Store{
+abstract class _DashBoardPageViewModel with Store {
   final mainVM = instance<MainViewModel>();
   final _appSettings = instance<AppSettings>();
   final messageInformer = MessageInformer();
   final dialogManager = DialogManager();
   final _navigator = instance<NavigationService>();
   final dashboard_page_use_case = instance<DashboardPageRepository>();
-
 
   // ShortDetails? data;
 
@@ -43,7 +42,6 @@ abstract class _DashBoardPageViewModel with Store{
 
   @observable
   String userName = "";
-
 
   @observable
   String userEmail = "";
@@ -72,10 +70,8 @@ abstract class _DashBoardPageViewModel with Store{
   @observable
   String currentDate = "";
 
-
   @observable
   String callingNumber = "";
-
 
   @observable
   String currentTime = "";
@@ -86,22 +82,18 @@ abstract class _DashBoardPageViewModel with Store{
   @observable
   String deviceCondition = "";
 
-
   @observable
   String image = "";
-
 
   @observable
   File? selectedImage;
 
-
   @observable
   String locationAddress = "";
 
-  _DashBoardPageViewModel(){
+  _DashBoardPageViewModel() {
     getDrawerData();
     initialData();
-
   }
 
   @action
@@ -111,17 +103,15 @@ abstract class _DashBoardPageViewModel with Store{
     //   "assets/images/boy.svg",
     // );
     var marker = Marker(
-      markerId: MarkerId("${coordinate.hashCode}"),
-      position: LatLng(coordinate.lat, coordinate.lng),
-      consumeTapEvents: true,
-      draggable: false,
-      icon:BitmapDescriptor.defaultMarker,
-      onTap:(){
-        onNext(posId);
-      }
-    );
+        markerId: MarkerId("${coordinate.hashCode}"),
+        position: LatLng(coordinate.lat, coordinate.lng),
+        consumeTapEvents: true,
+        draggable: false,
+        icon: BitmapDescriptor.defaultMarker,
+        onTap: () {
+          onNext(posId);
+        });
     markers.add(marker);
-
   }
 
   @action
@@ -140,37 +130,36 @@ abstract class _DashBoardPageViewModel with Store{
           break;
         default:
       }
-    } else if (response is Error) {
-
-      }
+    } else if (response is Error) {}
   }
-
 
   @action
   initialData() async {
-   var userId = _appSettings.userId;
-   isVisible  = true;
-  var response = await dashboard_page_use_case.fetchPosition(userId);
-  if(response is Success){
+    var userId = _appSettings.userId;
+    isVisible = true;
+    var response = await dashboard_page_use_case.fetchPosition(userId);
+    if (response is Success) {
       var data = response.data;
       isVisible = false;
-      switch(data != null && data.status){
-      case true:
-        if(data != null){
-        // markerPosition = data.latlongData;
-          for (var element in data.shortDetails) {
-           await setupMarker(element.latLongData);
+      switch (data != null && data.status) {
+        case true:
+          if (data != null) {
+            // markerPosition = data.latlongData;
+            for (var element in data.shortDetails) {
+              if (element.latLongDetails != null) {
+                await setupMarker(element.latLongDetails!.latLong,
+                    element.latLongDetails!.posId);
+              }
+            }
           }
       }
+    } else if (response is Error) {
+      MyUtils.toastMessage(response.message ?? "");
     }
-  }else if(response is Error){
-    MyUtils.toastMessage(response.message ?? "");
   }
-}
-
 
   @action
-  openBottomSheet() async{
+  openBottomSheet() async {
     isShow = !isShow;
   }
 
@@ -179,31 +168,30 @@ abstract class _DashBoardPageViewModel with Store{
     // api call
     // response get
     // open bottom sheet
-  //var userId =_appSettings.userId;
-  isLoader = true;
-  var response = await dashboard_page_use_case.deviceData(posId);
-  if(response is Success){
-    var data = response.data;
-    isLoader = false;
-    switch(data != null && data.status){
-      case true:
-        kidName = data!.data.name;
-        currentDate = data.data.devicedate;
-        currentTime = data.data.devicetime;
-        image = data.data.image;
-        battery = data.data.batteryperformance;
-        deviceCondition = data.data.condition;
-        locationAddress = data.data.devicelocation;
-        callingNumber = data.data.phone;
-        openBottomSheet();
-        break;
-      default:
+    //var userId =_appSettings.userId;
+    isLoader = true;
+    var response = await dashboard_page_use_case.deviceData(posId);
+    if (response is Success) {
+      var data = response.data;
+      isLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          kidName = data!.data.name;
+          currentDate = data.data.devicedate;
+          currentTime = data.data.devicetime;
+          image = data.data.image;
+          battery = data.data.batteryperformance;
+          deviceCondition = data.data.condition;
+          locationAddress = data.data.devicelocation;
+          callingNumber = data.data.phone;
+          openBottomSheet();
+          break;
+        default:
+      }
+    } else if (response is Error) {
+      MyUtils.toastMessage(response.message ?? "");
     }
-  }else if(response is Error){
-    MyUtils.toastMessage(response.message ?? "");
   }
-  }
-
 
   CameraPosition initialCameraPosition() {
     if (mainVM.currentLocation != null) {
@@ -217,9 +205,6 @@ abstract class _DashBoardPageViewModel with Store{
     }
   }
 
-
-
   @action
   onRetry(AlertAction? action) {}
-
 }

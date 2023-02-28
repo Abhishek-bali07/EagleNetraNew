@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobx/mobx.dart';
 import 'package:switch_button/switch_button.dart';
 import '../../core/common/dialog_state.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/image_assets.dart';
 import '../stores/safearea_page_view_model.dart';

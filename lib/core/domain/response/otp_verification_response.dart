@@ -19,6 +19,7 @@ import 'dart:convert';
 
 import 'package:eagle_netra/core/domain/response/business_object.dart';
 
+import 'kid_details_response.dart';
 import 'kid_short_info_response.dart';
 
 OtpVerificationResponse otpVerificationResponseFromJson(String str) => OtpVerificationResponse.fromJson(json.decode(str));
@@ -40,7 +41,7 @@ class OtpVerificationResponse extends BusinessObject {
   final String message;
   final String userId;
   final bool isVerified;
-  List<ShortDetails> details;
+  List<ShortDetails>? details;
 
   factory OtpVerificationResponse.fromJson(Map<String, dynamic> json) => OtpVerificationResponse(
     status: json["status"],
@@ -48,7 +49,7 @@ class OtpVerificationResponse extends BusinessObject {
     message: json["message"],
     userId: json["userId"],
     isVerified: json["isVerified"],
-    details: List<ShortDetails>.from(json["shortDetails"].map((x) => ShortDetails.fromJson(x))),
+    details: json["details"] != null ? List<ShortDetails>.from(json["details"].map((x) => ShortDetails.fromJson(x))) :null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +58,6 @@ class OtpVerificationResponse extends BusinessObject {
     "message": message,
     "userId": userId,
     "isVerified": isVerified,
-    "details": List<dynamic>.from(details.map((x) => x.toJson())),
+    "details": List<dynamic>.from(details!.map((x) => x.toJson())),
   };
 }

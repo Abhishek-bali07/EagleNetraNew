@@ -1,3 +1,4 @@
+import 'package:eagle_netra/core/domain/response/kid_short_info_response.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/dialog_state.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/helpers/image_assets.dart';
 import '../../utils/dialog_controller.dart';
 
@@ -14,7 +16,8 @@ import '../ui/app_text_style.dart';
 import '../ui/theme.dart';
 
 class SubscriptionPage extends StatefulWidget {
-  const SubscriptionPage({Key? key}) : super(key: key);
+  ShortDetails arguments;
+  SubscriptionPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   State<SubscriptionPage> createState() => _SubscriptionPageState();
@@ -29,7 +32,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   @override
   void initState() {
-    _viewModel = SubscriptionPageViewModel();
+    _viewModel = SubscriptionPageViewModel(widget.arguments);
     super.initState();
 
     _disposers = [

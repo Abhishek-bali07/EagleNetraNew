@@ -37,7 +37,9 @@ class AppTextStyle {
       fontSize: 30.sp,
       fontWeight: FontWeight.normal,
       decoration: TextDecoration.none,
-      color: AppColors.Acadia);
+      color: AppColors.Acadia,
+  );
+
 
 
   static TextStyle userNameStyle = TextStyle(

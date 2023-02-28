@@ -13,6 +13,7 @@ import 'package:mobx/mobx.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../core/common/dialog_state.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../utils/app_date_picker.dart';
 

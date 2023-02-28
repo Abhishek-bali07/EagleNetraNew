@@ -1,15 +1,15 @@
 import 'dart:convert';
 
+import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/core/domain/response/business_object.dart';
 
-import '../../common/lat_long.dart';
 
-ManagementShortInfoResponse managementShortInfoResponseFromJson(String str) => ManagementShortInfoResponse.fromJson(json.decode(str));
+KidDetailsInfoResponse kidDetailsInfoResponseFromJson(String str) => KidDetailsInfoResponse.fromJson(json.decode(str));
 
-String managementShortInfoResponseToJson(ManagementShortInfoResponse data) => json.encode(data.toJson());
+String kidDetailsInfoResponseToJson(KidDetailsInfoResponse data) => json.encode(data.toJson());
 
-class ManagementShortInfoResponse  extends BusinessObject{
-  ManagementShortInfoResponse({
+class KidDetailsInfoResponse  extends BusinessObject{
+  KidDetailsInfoResponse({
     required this.status,
     required this.message,
     required this.shortDetails,
@@ -19,7 +19,7 @@ class ManagementShortInfoResponse  extends BusinessObject{
   final String message;
   final List<ShortDetail> shortDetails;
 
-  factory ManagementShortInfoResponse.fromJson(Map<String, dynamic> json) => ManagementShortInfoResponse(
+  factory KidDetailsInfoResponse.fromJson(Map<String, dynamic> json) => KidDetailsInfoResponse(
     status: json["status"],
     message: json["message"],
     shortDetails: List<ShortDetail>.from(json["shortDetails"].map((x) => ShortDetail.fromJson(x))),
@@ -32,7 +32,7 @@ class ManagementShortInfoResponse  extends BusinessObject{
   };
 }
 
-class ShortDetail{
+class ShortDetail {
   ShortDetail({
     required this.smartCardId,
     required this.name,
@@ -41,7 +41,7 @@ class ShortDetail{
     required this.image,
     required this.activateFrom,
     required this.deviceId,
-    required this.latLongData,
+    required this.latLongDetails,
   });
 
   final String smartCardId;
@@ -51,7 +51,7 @@ class ShortDetail{
   final String image;
   final DateTime activateFrom;
   final String deviceId;
-  final List<KidPosition> latLongData;
+  final Kposition? latLongDetails;
 
   factory ShortDetail.fromJson(Map<String, dynamic> json) => ShortDetail(
     smartCardId: json["smartCardId"],
@@ -61,7 +61,7 @@ class ShortDetail{
     image: json["image"],
     activateFrom: DateTime.parse(json["activateFrom"]),
     deviceId: json["deviceId"],
-    latLongData: List<KidPosition>.from(json["latLongData"].map((x) => KidPosition.fromJson(x))),
+    latLongDetails: json["latLong"] != null ? Kposition.fromJson(json["latLong"]) : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -72,30 +72,30 @@ class ShortDetail{
     "image": image,
     "activateFrom": activateFrom.toIso8601String(),
     "deviceId": deviceId,
-    "latLongData": List<dynamic>.from(latLongData.map((x) => x.toJson())),
+    "latLong": latLongDetails,
   };
 }
 
-class KidPosition {
-  KidPosition({
-    required this.posId,
+class Kposition {
+  Kposition({
     required this.postionalTime,
+    required this.posId,
     required this.latLong,
   });
 
+  final DateTime postionalTime;
   final String posId;
-  final String postionalTime;
   final LatLong latLong;
 
-  factory KidPosition.fromJson(Map<String, dynamic> json) => KidPosition(
+  factory Kposition.fromJson(Map<String, dynamic> json) => Kposition(
+    postionalTime: DateTime.parse(json["postionalTime"]),
     posId: json["posId"],
-    postionalTime: json["postionalTime"],
     latLong: LatLong.fromJson(json["latLong"]),
   );
 
   Map<String, dynamic> toJson() => {
+    "postionalTime": postionalTime.toIso8601String(),
     "posId": posId,
-    "postionalTime": postionalTime,
     "latLong": latLong.toJson(),
   };
 }

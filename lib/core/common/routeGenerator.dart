@@ -19,6 +19,7 @@ import '../../presentation/screens/registration_page.dart';
 import '../../presentation/screens/safeAreaPage.dart';
 import '../../presentation/screens/subscription_page.dart';
 import '../../presentation/screens/support.dart';
+
 import '../domain/response/kid_short_info_response.dart';
 
 class RouteGenerator {
@@ -79,7 +80,8 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const ManagementAccessPage());
 
       case Routes.subscription:
-       return ScreenTransitions.rightToLeftTransition(SubscriptionPage());
+        var arg = routeSettings.arguments as ShortDetails;
+       return ScreenTransitions.rightToLeftTransition(SubscriptionPage(arguments: arg));
 
 
       case Routes.support:

@@ -19,7 +19,7 @@ class SliderData{
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio sit amet."
     ),
     SliderData(
-        ImageAssets.screenthree,
+        ImageAssets.screenthree       ,
         "Geo Fencing",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio sit amet."
     ),

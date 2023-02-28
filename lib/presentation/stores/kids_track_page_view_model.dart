@@ -14,6 +14,7 @@ import '../../core/common/lat_long.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/position.dart';
 import '../../core/common/response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/repository/kids_track_repository.dart';

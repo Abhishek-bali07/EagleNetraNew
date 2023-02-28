@@ -17,6 +17,7 @@ import '../../core/common/response.dart';
 import '../../core/common/service.dart';
 import '../../core/common/track_alert_button.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';

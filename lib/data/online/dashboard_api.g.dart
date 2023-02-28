@@ -42,9 +42,9 @@ class _DashBoardPageApi implements DashBoardPageApi {
   }
 
   @override
-  Future<LatLongResponse> selectivePosition(smartCardId) async {
+  Future<LatLongResponse> selectivePosition(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'userId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
@@ -55,7 +55,7 @@ class _DashBoardPageApi implements DashBoardPageApi {
     )
             .compose(
               _dio.options,
-              '/eagle_netra_api/smartcard/${smartCardId}/location/history',
+              '/eagle_netra_api/eagle/getKidsDetails',
               queryParameters: queryParameters,
               data: _data,
             )

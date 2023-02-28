@@ -8,6 +8,7 @@ import '../../core/common/app_settings.dart';
 import '../../core/common/data_state.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';

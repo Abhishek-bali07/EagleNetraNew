@@ -18,11 +18,15 @@ abstract class DashBoardPageApi{
       );
 
 
-  @GET("${ApiRoutes.parent}/smartcard/{smartCardId}/location/history")
-  Future<LatLongResponse> selectivePosition(
-      @Path("userId") String userId
-      );
-  
+  // @GET("${ApiRoutes.parent}/smartcard/{smartCardId}/location/history")
+  // Future<LatLongResponse> selectivePosition(
+  //     @Path("userId") String userId,
+  //     );
+
+   @GET("${ApiRoutes.parent}/eagle/getKidsDetails")
+   Future<LatLongResponse> selectivePosition(
+    @Query("userId") String userId,
+   );
   
   @GET("${ApiRoutes.parent}/device/details")
   Future<KidDeviceResponse> selectivePositionDetails(
