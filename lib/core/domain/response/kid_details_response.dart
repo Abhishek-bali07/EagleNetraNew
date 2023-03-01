@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+
 import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/core/domain/response/business_object.dart';
+
+import 'kid_position_response.dart';
 
 
 KidDetailsInfoResponse kidDetailsInfoResponseFromJson(String str) => KidDetailsInfoResponse.fromJson(json.decode(str));
@@ -32,7 +35,7 @@ class KidDetailsInfoResponse  extends BusinessObject{
   };
 }
 
-class ShortDetail {
+class ShortDetail{
   ShortDetail({
     required this.smartCardId,
     required this.name,
@@ -99,3 +102,4 @@ class Kposition {
     "latLong": latLong.toJson(),
   };
 }
+

@@ -1,4 +1,3 @@
-
 class LatLong {
   double lat;
   double lng;

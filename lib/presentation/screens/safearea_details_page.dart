@@ -52,6 +52,16 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
+                padding: EdgeInsets.all(0.04.sw),
+                child: Container(
+                  height: 0.02.sw,
+                  width: 0.10.sh,
+                  decoration: BoxDecoration(
+                      color: AppColors.Gray,
+                      borderRadius: BorderRadius.circular(20.r)),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (value) {

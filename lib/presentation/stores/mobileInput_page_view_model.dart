@@ -52,6 +52,10 @@ abstract class _MobileInputViewModel  with Store {
   bool reSendingOtpLoader = false;
 
 
+  @observable
+  bool dividerVisibility = false;
+
+
 
   @observable
   String mobileNumber = "";
@@ -124,28 +128,22 @@ abstract class _MobileInputViewModel  with Store {
 
   @action
   verifyOtp() async{
-    verifyLoader = true;
+   verifyLoader = true;
    var number = mobileNumber.replaceAll("-", "");
     var otp = onOtp;
     var response = await _mobinputrepo.verifyOtp(number, otp);
     if(response is Success){
       var data = response.data;
-      verifyLoader = false;
       switch (data != null && data.status) {
         case true:
           if(data!.isVerified){
             _appSettings.saveUserId(data.userId);
-            debugPrint(data.userStatus);
             if(data.userStatus == UserStatus.registered.value){
                  _navigator.navigateTo(Routes.dashboard, arguments: data.details);
                } else{
                      verifyLoader = false;
-                     _navigator.navigateTo(Routes.registration);
+                     _navigator.navigatorKey.currentState?.popAndPushNamed(Routes.registration);
                }
-          }
-          else{
-            // verifyLoader = false;
-            // _navigator.navigateTo(Routes.registration);
           }
           break;
         default:
@@ -164,7 +162,7 @@ abstract class _MobileInputViewModel  with Store {
     }else if (response is Error) {
       verifyLoader = false;
       dialogManager.initErrorData(AlertData(
-          StringProvider.notmatched,
+          StringProvider.error,
           null,
           StringProvider.appId,
           response.message ?? "",
@@ -220,6 +218,8 @@ abstract class _MobileInputViewModel  with Store {
       }
     }
   }
+
+
 
 
 

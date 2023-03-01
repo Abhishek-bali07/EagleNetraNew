@@ -20,7 +20,7 @@ class SafeareaResponse extends BusinessObject {
   factory SafeareaResponse.fromJson(Map<String, dynamic> json) => SafeareaResponse(
     status: json["status"],
     message: json["message"],
-    areaDetails:json["areaDetails"] != null? List<AreaDetails>.from(json["areaDetails"].map((x) => AreaDetails.fromJson(x))): null,
+    areaDetails:json["areaDetails"] != null ? List<AreaDetails>.from(json["areaDetails"].map((x) => AreaDetails.fromJson(x))): null,
   );
 
 

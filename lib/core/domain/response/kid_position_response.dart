@@ -24,4 +24,5 @@ class  KidPosition{
     required this.latLong,
     required this.postionalTime,
   });
+
 }

@@ -53,6 +53,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
             SizedBox(
                 width: 0.90.sw,
                 child: Pinput(
+                  autofocus: true,
                   defaultPinTheme: PinTheme(
                     width: 65.w,
                     height: 65.h,
