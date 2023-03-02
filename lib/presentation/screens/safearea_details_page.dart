@@ -42,6 +42,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: 1.50.sh,
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),
@@ -64,6 +65,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  autofocus: true,
                   onChanged: (value) {
                     widget.parentVM.onNameChanged(value);
                   },

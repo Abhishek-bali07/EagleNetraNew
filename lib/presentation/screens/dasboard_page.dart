@@ -33,10 +33,9 @@ class _DashboardPageState extends State<DashboardPage> {
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
 
-
-
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
+
   }
 
 
@@ -64,19 +63,26 @@ class _DashboardPageState extends State<DashboardPage> {
       reaction((p0) => _viewm.isShow, (p0) async {
         if(p0 ==  true){
           await showModalBottomSheet(
-          constraints: BoxConstraints(
-            minHeight: 0.30.sh,
-            maxHeight: 0.30.sh,
-          ),
-          context: context,
+              context: context,
           shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.r),
+                      topRight: Radius.circular(30.r))),
           builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
-
           _viewm.openBottomSheet();
         }
-      })
+      }),
+      // reaction((p0) => _viewm.dialogManager.currentState, (p0) {
+      //   if (p0 == DialogState.displaying) {
+      //     _dialogController.show(
+      //       _viewm.dialogManager.data!,
+      //       p0,
+      //       positive: _viewm.logout,
+      //       negative: _viewm.closeLogoutDialog,
+      //       close: _viewm.dialogManager.closeDialog,
+      //     );
+      //   }
+      // }),
     ];
   }
 
@@ -121,18 +127,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-
-            Expanded(flex: 8, child: _lowerSideContent())
-          ],
-        ),
+        child: _lowerSideContent(),
       ),
 
 
       drawer: Drawer(
-
         child: ListView(
 
           // Important: Remove any padding from the ListView.
@@ -144,12 +143,22 @@ class _DashboardPageState extends State<DashboardPage> {
               decoration: const BoxDecoration(
                 color: AppColors.drawerPrimary,
               ),
-              currentAccountPicture: const CircleAvatar(
-                backgroundColor: Colors.orange,
-                child: Text(
-                  "A",
-                  style: TextStyle(fontSize: 40.0),
-                ),
+              currentAccountPicture: Observer(
+                builder: (BuildContext context) {
+                   return _viewm.image.isNotEmpty
+                   ? CircleAvatar(
+                     backgroundColor: AppColors.lightGray,
+                     foregroundImage: NetworkImage(_viewm.image),
+                  ): CircleAvatar(
+
+                     // backgroundColor:
+                     //     AppColors.drawerPrimary,
+                     child: SvgPicture.asset("assets/images/lady.svg"),
+
+
+                   );
+                },
+
               ),
             ),
             ListTile(
@@ -214,7 +223,8 @@ class _DashboardPageState extends State<DashboardPage> {
               leading: SvgPicture.asset(ImageAssets.logout),
               title: Text("Logout"),
               onTap: () {
-                Navigator.pop(context);
+
+               //Navigator.pop(context);
               },
             ),
           ],
@@ -235,6 +245,7 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [
         Observer( builder: (BuildContext context) {
           return GoogleMap(
+            key: ValueKey(_viewm.isVisible),
             initialCameraPosition: _viewm.initialCameraPosition(),
             zoomControlsEnabled: true,
             scrollGesturesEnabled: true,

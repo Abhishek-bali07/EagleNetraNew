@@ -29,6 +29,15 @@ abstract class _DialogManager with Store {
   @observable
   DialogState _datePicker = DialogState.notDisplaying;
 
+
+  @observable
+  DialogState _bottomSheet = DialogState.notDisplaying;
+
+  @computed
+  DialogState get bottomSheetState => _bottomSheet;
+
+
+
   @computed
   DialogState get datePickerState => _datePicker;
 

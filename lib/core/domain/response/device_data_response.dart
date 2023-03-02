@@ -15,12 +15,12 @@ class KidDeviceResponse extends BusinessObject{
 
   final bool status;
   final String message;
-  final Data data;
+  final DeviceDetail data;
 
   factory KidDeviceResponse.fromJson(Map<String, dynamic> json) => KidDeviceResponse(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
+    data: DeviceDetail.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,8 +30,8 @@ class KidDeviceResponse extends BusinessObject{
   };
 }
 
-class Data {
-  Data({
+class DeviceDetail {
+  DeviceDetail({
     required this.name,
     required this.image,
     required this.phone,
@@ -51,7 +51,7 @@ class Data {
   final String batteryperformance;
   final String condition;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DeviceDetail.fromJson(Map<String, dynamic> json) => DeviceDetail(
     name: json["name"],
     image: json["image"],
     phone: json["phone"],

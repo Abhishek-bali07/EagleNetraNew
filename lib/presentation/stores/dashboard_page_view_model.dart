@@ -7,13 +7,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/alert_action.dart';
+import '../../core/common/alert_behaviour.dart';
+import '../../core/common/alert_data.dart';
+import '../../core/common/alert_option.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/constants.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
+import '../../core/common/user_account_status.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
+import '../../core/helpers/string_provider.dart';
 import '../../core/repository/dashboard_page_repository.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
@@ -93,7 +98,7 @@ abstract class _DashBoardPageViewModel with Store {
 
   _DashBoardPageViewModel() {
     getDrawerData();
-    initialData();
+   initialData();
   }
 
   @action
@@ -102,6 +107,8 @@ abstract class _DashBoardPageViewModel with Store {
     //   const ImageConfiguration(),
     //   "assets/images/boy.svg",
     // );
+
+
     var marker = Marker(
         markerId: MarkerId("${coordinate.hashCode}"),
         position: LatLng(coordinate.lat, coordinate.lng),
@@ -145,6 +152,7 @@ abstract class _DashBoardPageViewModel with Store {
         case true:
           if (data != null) {
             // markerPosition = data.latlongData;
+            markers.clear();
             for (var element in data.shortDetails) {
               if (element.latLongDetails != null) {
                 await setupMarker(element.latLongDetails!.latLong,
@@ -207,4 +215,34 @@ abstract class _DashBoardPageViewModel with Store {
 
   @action
   onRetry(AlertAction? action) {}
+
+
+
+  // onLogout() {
+  //   dialogManager.initData(AlertData(
+  //       StringProvider.appName,
+  //       null,
+  //       StringProvider.appId,
+  //       StringProvider.areYouReallyWantToLogout,
+  //       StringProvider.Yes,
+  //       null,
+  //       null,
+  //       AlertBehaviour(option: AlertOption.none, action: AlertAction.logout)));
+  // }
+  //
+  // logout(AlertAction? action) {
+  //   if (action == AlertAction.logout) {
+  //     _appSettings.login(false);
+  //     _appSettings.saveUserId("");
+  //     _appSettings.setAccountStatus(UserAccountStatus.accountUnknown.status);
+  //     _navigator.popAndNavigateTo(Routes.splash);
+  //
+  //   }
+  // }
+  //
+  // closeLogoutDialog(AlertAction? action) {
+  //   if (action == AlertAction.logout) {
+  //     dialogManager.closeDialog();
+  //   }
+  // }
 }

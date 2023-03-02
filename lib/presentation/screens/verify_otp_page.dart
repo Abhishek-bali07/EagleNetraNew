@@ -30,7 +30,8 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
   Widget build(BuildContext context) {
 
     return Container(
-        height: 0.40.sh,
+        height: 0.55.sh,
+
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),

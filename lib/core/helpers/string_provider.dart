@@ -18,6 +18,8 @@ class StringProvider{
 
   static var ok = "OK";
 
+  static var Yes = "Yes";
+
   static var cancel = "CANCEL";
 
   static const notYet = "Not yet";
@@ -28,6 +30,7 @@ class StringProvider{
   
   static const thisFieldIsMandatory = "*This field is mandatory.";
 
+  static var areYouReallyWantToLogout = "Are you really want to Logout ?";
 
   static const mobileNumber = "Mobile Number";
 

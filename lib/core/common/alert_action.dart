@@ -5,6 +5,7 @@ enum AlertAction {
   locationServiceDisable,
   enableGps,
   uploadlocation,
+  logout,
   none,
 
 }

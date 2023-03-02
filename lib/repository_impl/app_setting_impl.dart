@@ -28,6 +28,17 @@ class AppSettingsImpl extends AppSettings {
     return sharedPreferences.getBool(Constants.intro_done_key) ?? false;
   }
 
+
+  @override
+  bool isLogin() {
+    return sharedPreferences.getBool(Constants.login) ?? false;
+  }
+
+  @override
+  login(bool value) {
+    sharedPreferences.setBool(Constants.login, value);
+  }
+
   @override
   String numberCode() {
     return sharedPreferences.getString(Constants.countrycode) ?? "";
@@ -51,6 +62,17 @@ class AppSettingsImpl extends AppSettings {
   @override
   bool sliderDone() {
     return sharedPreferences.getBool(Constants.intro_done_key) ?? false;
+  }
+
+
+  @override
+  String accountStatus() {
+    return sharedPreferences.getString(Constants.accountStatus) ?? "";
+  }
+
+  @override
+  setAccountStatus(String status) {
+    sharedPreferences.setString(Constants.accountStatus, status);
   }
 
 

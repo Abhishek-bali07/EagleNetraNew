@@ -89,6 +89,22 @@ mixin _$MobileInputViewModel on _MobileInputViewModel, Store {
     });
   }
 
+  late final _$dividerVisibilityAtom =
+      Atom(name: '_MobileInputViewModel.dividerVisibility', context: context);
+
+  @override
+  bool get dividerVisibility {
+    _$dividerVisibilityAtom.reportRead();
+    return super.dividerVisibility;
+  }
+
+  @override
+  set dividerVisibility(bool value) {
+    _$dividerVisibilityAtom.reportWrite(value, super.dividerVisibility, () {
+      super.dividerVisibility = value;
+    });
+  }
+
   late final _$mobileNumberAtom =
       Atom(name: '_MobileInputViewModel.mobileNumber', context: context);
 
@@ -229,6 +245,7 @@ sendingLoader: ${sendingLoader},
 isShow: ${isShow},
 verifyLoader: ${verifyLoader},
 reSendingOtpLoader: ${reSendingOtpLoader},
+dividerVisibility: ${dividerVisibility},
 mobileNumber: ${mobileNumber},
 onOtp: ${onOtp},
 enableBtn: ${enableBtn},

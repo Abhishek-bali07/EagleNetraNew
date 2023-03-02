@@ -45,11 +45,11 @@ var _navigator = instance<NavigationService>();
 
       @action
       onGetStarted(){
-        saveIntroDone();
+        saveSliderDone();
         _navigator.navigatorKey.currentState?.popAndPushNamed(Routes.mobileinput);
       }
 
-      void saveIntroDone() {
+      void saveSliderDone() {
         _appSettings.saveSliderDone(true);
       }
 }

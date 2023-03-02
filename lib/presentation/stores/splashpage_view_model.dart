@@ -28,9 +28,9 @@ part 'splashpage_view_model.g.dart';
 class SplashViewModel = _SplashViewModel with _$SplashViewModel;
 
 
-abstract class _SplashViewModel with Store, CheckInternet{
+abstract class _SplashViewModel with Store, CheckInternet {
   final _navigator = instance<NavigationService>();
-  final  _splashrepo = instance<SplashRepository>();
+  final _splashrepo = instance<SplashRepository>();
   final _appSettings = instance<AppSettings>();
   final dialogManager = DialogManager();
 
@@ -78,28 +78,32 @@ abstract class _SplashViewModel with Store, CheckInternet{
   }
 
 
-
-
   @action
   _getBaseUrl() async {
     var response = await _splashrepo.getBaseUrl();
-    if(response is Success){
+    if (response is Success) {
       var data = response.data;
-      switch(data != null && data.status){
+      switch (data != null && data.status) {
         case true:
           _appSettings.setBaseUrl(data!.baseUrl);
+          var userId = _appSettings.userId;
+          // if (userId != null && userId != "") {
+          //   _navigator.navigatorKey.currentState?.popAndPushNamed(
+          //       Routes.dashboard);
+          //   return;
+          // }
+          // if (_appSettings.sliderDone()) {
+          //   _navigator.navigatorKey.currentState?.popAndPushNamed(
+          //       Routes.mobileinput);
+          //   return;
+          // }
           _navigator.navigatorKey.currentState?.pushNamed(Routes.slider);
-          
+
           break;
         default:
       }
     }
   }
-
-
-
-
-
 
 
   @action
@@ -128,5 +132,5 @@ abstract class _SplashViewModel with Store, CheckInternet{
     }
   }
 
-}
 
+}

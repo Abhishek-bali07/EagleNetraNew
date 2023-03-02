@@ -29,6 +29,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: 0.40.sh,
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),
@@ -37,9 +38,20 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
               children: [
+                Padding(
+                  padding: EdgeInsets.all(0.04.sw),
+                  child: Container(
+                    height: 0.02.sw,
+                    width: 0.10.sh,
+                    decoration: BoxDecoration(
+                        color: AppColors.drawerPrimary,
+                        borderRadius: BorderRadius.circular(20.r)),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+
                     Expanded(child: CircleAvatar()),
                     SizedBox(width: 0.02.sw),
                     Expanded(
@@ -49,7 +61,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(widget.parentViewModel.kidName,style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                          Text(widget.parentViewModel.currentDate),
+                          Text("${(widget.parentViewModel.currentDate)}"),
                         ],
                       ),
                     ),

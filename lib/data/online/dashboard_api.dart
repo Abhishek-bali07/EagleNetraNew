@@ -3,6 +3,7 @@ import 'package:retrofit/http.dart';
 
 import '../../core/common/api_route.dart';
 import '../../core/domain/response/device_data_response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/lat_long_response.dart';
 import '../../core/domain/response/required_profile_details_reponse.dart';
 import '../../core/domain/response/short_profile_response.dart';
@@ -24,7 +25,7 @@ abstract class DashBoardPageApi{
   //     );
 
    @GET("${ApiRoutes.parent}/eagle/getKidsDetails")
-   Future<LatLongResponse> selectivePosition(
+   Future<KidDetailsInfoResponse> selectivePosition(
     @Query("userId") String userId,
    );
   

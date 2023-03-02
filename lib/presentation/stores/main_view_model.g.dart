@@ -42,14 +42,6 @@ mixin _$MainViewModel on _IMainViewModel, Store {
     });
   }
 
-  late final _$getIntroPageDataAsyncAction =
-      AsyncAction('_IMainViewModel.getIntroPageData', context: context);
-
-  @override
-  Future getIntroPageData() {
-    return _$getIntroPageDataAsyncAction.run(() => super.getIntroPageData());
-  }
-
   late final _$getCurrentLocationAsyncAction =
       AsyncAction('_IMainViewModel.getCurrentLocation', context: context);
 

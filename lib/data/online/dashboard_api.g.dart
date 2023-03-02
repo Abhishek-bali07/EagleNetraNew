@@ -42,13 +42,13 @@ class _DashBoardPageApi implements DashBoardPageApi {
   }
 
   @override
-  Future<LatLongResponse> selectivePosition(userId) async {
+  Future<KidDetailsInfoResponse> selectivePosition(userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'userId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<LatLongResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<KidDetailsInfoResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -60,7 +60,7 @@ class _DashBoardPageApi implements DashBoardPageApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LatLongResponse.fromJson(_result.data!);
+    final value = KidDetailsInfoResponse.fromJson(_result.data!);
     return value;
   }
 

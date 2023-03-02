@@ -30,17 +30,26 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
         .selectivePosition(userId)
         .handleResponse<KidDetailsInfoResponse>();
     // await Future.delayed(const Duration(seconds: 2));
-    // return Success(LatLongResponse(
-    //     status: true,
-    //     message: "Success",
-    //     latlongData: List.generate(1, (index) => KidPosition(
-    //         posId: "1", latLong:LatLong(lat: 22.63355, lng:  88.35533), postionalTime: DateTime.parse("2022-12-27 16:10:51")
+    // return Success(
+    //     KidDetailsInfoResponse(
+    //       status: true,
+    //       message: "Success",
+    //       shortDetails: List.generate(2, (index) => ShortDetail(
+    //           smartCardId: "bbbbb225",
+    //           name: "Sk Rohan",
+    //           age: "15",
+    //           clsName: "8",
+    //           image: "image",
+    //           activateFrom: DateTime.parse("2022-12-27 16:10:51"),
+    //           deviceId: "4425",
+    //           latLongDetails: Kposition(
+    //               postionalTime: DateTime.parse("2022-12-27 16:10:51"), posId: "12", latLong: LatLong(lat: 22.882219, lng:  88.014420))
+    //
+    //       )),
+    //
     //
     //     )
-    //
-    //     ),
-    //
-    // ));
+    // );
   }
 
   @override

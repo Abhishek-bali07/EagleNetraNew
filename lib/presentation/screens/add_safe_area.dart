@@ -59,17 +59,12 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
       reaction((p0) => _vm.isShow, (p0) async {
         if (p0 == true) {
           await showModalBottomSheet(
-
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.r),
             topRight: Radius.circular(30.r))),
-            constraints: BoxConstraints(
-              minHeight: 0.40.sh,
-              maxHeight: 0.40.sh,
-            ),
-              context: context,
-              builder: (context) => SafeAreaDetailsPage(parentVM: _vm));
+            context: context,
+            builder: (context) => SafeAreaDetailsPage(parentVM: _vm));
           _vm.onNext();
         }
       }),

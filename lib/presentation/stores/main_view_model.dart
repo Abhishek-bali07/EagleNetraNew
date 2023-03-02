@@ -22,9 +22,11 @@ import '../../core/common/alert_data.dart';
 import '../../core/common/alert_option.dart';
 import '../../core/common/gps_status.dart';
 import '../../core/common/location_permission_status.dart';
+import '../../core/common/user_account_status.dart';
 import '../../core/helpers/string_provider.dart';
 import '../../core/repository/kid_live_location_repository.dart';
 import '../../helpers_impl/app_location_service.dart';
+import '../../utils/api_client_configuration.dart';
 
 
 part 'main_view_model.g.dart';
@@ -46,31 +48,14 @@ abstract class _IMainViewModel with Store {
 
   List<IntroData> introPageData = [];
 
-  @action
-  getIntroPageData() async{
-    // gettingIntroDataLoader =  true;
-    // var response = await _repository.getIntroPageData();
-    // if(response is Success){
-    //   var data = response.data;
-    //   switch (data != null && data.status) {
-    //     case true:
-    //       var introDataResponse = data!.responses.first;
-    //       gettingIntroDataLoader = false;
-    //       if (introDataResponse is IntroDataResponse) {
-    //         if (introDataResponse.status) {
-    //           _prefs.introComplete(true);
-    //           introPageData = introDataResponse.introData;
-    //
-    //         }
-    //       }
-    //   }
-    // }
-  }
+
 
   @observable
   Position? currentLocation;
 
   StreamSubscription? locationStreamDisposer;
+
+
 
   @action
   getCurrentLocation() async {

@@ -5,6 +5,11 @@ class Constants {
   static const appVersion = "AppVersion";
   static const baseUrl = "BASE_URL";
   static const userId = "user_id";
+
+  static const login = "Login";
+  static const accountStatus = "AccountStatus";
+
+
   static const intro_done_key = "INTRO_DONE";
   static const countrycode = "countrycode";
   static const enterYourName = "Enter your name";
