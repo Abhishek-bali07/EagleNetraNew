@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../core/common/alert_action.dart';
@@ -25,10 +26,10 @@ abstract class _SubscriptionPageViewModel with Store{
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
 
-   ShortDetails? data;
+   ShortDetail? data;
 
   @observable
-  List<SubscriptionDetails> subscrptionHistory = [];
+  List<ShortDetail> subscrptionHistory = [];
 
   @observable
   bool isLoading = false;
@@ -68,11 +69,12 @@ abstract class _SubscriptionPageViewModel with Store{
       isLoading = false;
       switch(data != null && data.status){
         case true:
-          if(data!.subscriptionDetails.isEmpty){
+          if(data!.shortDetails.isEmpty){
             Rmessage = data.message;
             subscrptionHistory = [];
           }else{
-            subscrptionHistory = data.subscriptionDetails;
+            subscrptionHistory = data.shortDetails;
+            debugPrint("$subscrptionHistory");
           }
       }
     } else if(response is Error){

@@ -35,7 +35,7 @@ abstract class _KidsTrackPageViewModel with Store {
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
 
-  ShortDetails? data;
+  ShortDetail? data;
 
   bool _isVisible = true;
 

@@ -20,6 +20,8 @@ class StringProvider{
 
   static var Yes = "Yes";
 
+  static var expiryDate = "Expiry Date";
+
   static var cancel = "CANCEL";
 
   static const notYet = "Not yet";

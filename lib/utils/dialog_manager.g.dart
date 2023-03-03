@@ -30,6 +30,13 @@ mixin _$DialogManager on _DialogManager, Store {
           Computed<DialogState>(() => super.filePickerState,
               name: '_DialogManager.filePickerState'))
       .value;
+  Computed<DialogState>? _$bottomSheetStateComputed;
+
+  @override
+  DialogState get bottomSheetState => (_$bottomSheetStateComputed ??=
+          Computed<DialogState>(() => super.bottomSheetState,
+              name: '_DialogManager.bottomSheetState'))
+      .value;
   Computed<DialogState>? _$datePickerStateComputed;
 
   @override
@@ -99,6 +106,22 @@ mixin _$DialogManager on _DialogManager, Store {
   set _datePicker(DialogState value) {
     _$_datePickerAtom.reportWrite(value, super._datePicker, () {
       super._datePicker = value;
+    });
+  }
+
+  late final _$_bottomSheetAtom =
+      Atom(name: '_DialogManager._bottomSheet', context: context);
+
+  @override
+  DialogState get _bottomSheet {
+    _$_bottomSheetAtom.reportRead();
+    return super._bottomSheet;
+  }
+
+  @override
+  set _bottomSheet(DialogState value) {
+    _$_bottomSheetAtom.reportWrite(value, super._bottomSheet, () {
+      super._bottomSheet = value;
     });
   }
 
@@ -234,6 +257,7 @@ errorData: ${errorData},
 currentState: ${currentState},
 currentErrorState: ${currentErrorState},
 filePickerState: ${filePickerState},
+bottomSheetState: ${bottomSheetState},
 datePickerState: ${datePickerState}
     ''';
   }

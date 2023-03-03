@@ -1,6 +1,13 @@
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
+
 import 'package:eagle_netra/core/helpers/image_assets.dart';
 import 'package:eagle_netra/presentation/ui/app_text_style.dart';
 import 'package:eagle_netra/utils/extensions.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +30,7 @@ class _KidsPageState extends State<KidsPage> {
   late final KidsPageViewModel _viewModel;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
+
 
   @override
   void initState() {
@@ -75,7 +83,7 @@ class _KidsPageState extends State<KidsPage> {
     return Column(
       children: [
         Expanded(
-          flex: 10,
+          flex: 1,
           child: Container(
             color: Colors.white,
             child: Observer(builder: (BuildContext context) {
@@ -140,29 +148,26 @@ class _KidsPageState extends State<KidsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Observer(
-                                builder: (BuildContext context) {
-                                  return _viewModel.image.isNotEmpty
-                                      ? CircleAvatar(
-                                          radius: 0.08.sw,
-                                          backgroundColor: AppColors.lightGray,
-                                          foregroundImage:
-                                              NetworkImage(_viewModel.image),
-                                        )
-                                      : CircleAvatar(
-                                          radius: 0.08.sw,
-                                          // backgroundColor:
-                                          //     AppColors.drawerPrimary,
-                                          child: SvgPicture.asset("assets/images/boy.svg"),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Observer(
+                              builder: (BuildContext context) {
+                                return _viewModel.kidHistory[index].image!.isNotEmpty
+                                    ? CircleAvatar(
+                                  radius: 0.08.sw,
+                                  backgroundColor: AppColors.lightGray,
+                                  foregroundImage:
+                                  NetworkImage(_viewModel.image),
+                                )
+                                    : CircleAvatar(
+                                  radius: 0.08.sw,
+                                  // backgroundColor:
+                                  //     AppColors.drawerPrimary,
+                                  child: SvgPicture.asset("assets/images/boy.svg"),
 
 
-                                        );
-                                },
-                              ),
+                                );
+                              },
                             ),
                           ),
                           Column(
@@ -184,7 +189,7 @@ class _KidsPageState extends State<KidsPage> {
                                     padding: const EdgeInsets.only(
                                         top: 5.0, left: 8.0),
                                     child: Text(
-                                        _viewModel.kidHistory[index].clsName),
+                                        "Class:${_viewModel.kidHistory[index].clsName}"),
                                   ),
                                    SizedBox(width: 0.01.sw),
                                   const SizedBox(
@@ -200,14 +205,14 @@ class _KidsPageState extends State<KidsPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 5.0, left: 8.0),
-                                    child: Text(_viewModel.kidHistory[index].age),
+                                    child: Text("Age:${_viewModel.kidHistory[index].age}"),
                                   ),
                                 ],
                               ),
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 150.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: SvgPicture.asset(ImageAssets.home),
                           ),
                         ],
@@ -219,10 +224,10 @@ class _KidsPageState extends State<KidsPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("ID Active form : 1st Jan 2022",
+                              children:  [
+                                Text("ID Active form :${_viewModel.onSelectedDate(_viewModel.kidHistory[index].activateFrom)}",
                                     style: TextStyle(fontSize: 12)),
-                                Text("ID Expire on : 1st Jan 2022",
+                                Text("ID Expire on : ${_viewModel.onSelectedDate(_viewModel.kidHistory[index].expireDate)}",
                                     style: TextStyle(fontSize: 12)),
                               ]),
                         ),

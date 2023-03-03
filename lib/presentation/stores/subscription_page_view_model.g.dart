@@ -13,13 +13,13 @@ mixin _$SubscriptionPageViewModel on _SubscriptionPageViewModel, Store {
       name: '_SubscriptionPageViewModel.subscrptionHistory', context: context);
 
   @override
-  List<SubscriptionDetails> get subscrptionHistory {
+  List<ShortDetail> get subscrptionHistory {
     _$subscrptionHistoryAtom.reportRead();
     return super.subscrptionHistory;
   }
 
   @override
-  set subscrptionHistory(List<SubscriptionDetails> value) {
+  set subscrptionHistory(List<ShortDetail> value) {
     _$subscrptionHistoryAtom.reportWrite(value, super.subscrptionHistory, () {
       super.subscrptionHistory = value;
     });

@@ -5,6 +5,7 @@ import 'package:eagle_netra/core/domain/response/kid_short_info_response.dart';
 import 'package:eagle_netra/utils/api_client_configuration.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 
+import '../core/domain/response/kid_details_response.dart';
 import '../core/repository/kid_repository.dart';
 import '../data/online/kid_details_api.dart';
 
@@ -19,10 +20,10 @@ class KidRepositoryImpl implements KidAccountRepository{
   }
 
   @override
-  Future<Resource<KidShortInfoResponse>> kidShortInfo(String userId) async {
+  Future<Resource<KidDetailsInfoResponse>> kidShortInfo(String userId) async {
     return _kidDetailsApi
         .getKidDetails(userId)
-        .handleResponse<KidShortInfoResponse>();
+        .handleResponse<KidDetailsInfoResponse>();
     // await Future.delayed(const Duration(seconds: 2));
     // return Success(
     //   KidShortInfoResponse(
@@ -42,3 +43,4 @@ class KidRepositoryImpl implements KidAccountRepository{
   }
 
 }
+

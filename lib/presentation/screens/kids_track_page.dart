@@ -27,7 +27,7 @@ const inProgressColor = Color(0xff5ec792);
 const todoColor = Color(0xffd1d2d7);
 
 class KidsTrackPage extends StatefulWidget {
-  ShortDetails arguments;
+  ShortDetail arguments;
 
   KidsTrackPage({Key? key, required this.arguments}) : super(key: key);
 

@@ -16,6 +16,7 @@ import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
 import '../../core/common/user_account_status.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
+import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
@@ -39,6 +40,9 @@ abstract class _DashBoardPageViewModel with Store {
   final dashboard_page_use_case = instance<DashboardPageRepository>();
 
   // ShortDetails? data;
+
+  @observable
+  List<ShortDetail> detailHistory = [];
 
   Marker? _marker;
 
@@ -103,12 +107,6 @@ abstract class _DashBoardPageViewModel with Store {
 
   @action
   setupMarker(LatLong coordinate, String posId) async {
-    // BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-    //   const ImageConfiguration(),
-    //   "assets/images/boy.svg",
-    // );
-
-
     var marker = Marker(
         markerId: MarkerId("${coordinate.hashCode}"),
         position: LatLng(coordinate.lat, coordinate.lng),
@@ -153,6 +151,7 @@ abstract class _DashBoardPageViewModel with Store {
           if (data != null) {
             // markerPosition = data.latlongData;
             markers.clear();
+            detailHistory = data.shortDetails;
             for (var element in data.shortDetails) {
               if (element.latLongDetails != null) {
                 await setupMarker(element.latLongDetails!.latLong,
@@ -216,6 +215,14 @@ abstract class _DashBoardPageViewModel with Store {
   @action
   onRetry(AlertAction? action) {}
 
+  onSafeareaSection(ShortDetail arg){
+    _navigator.navigateTo(Routes.safearea, arguments: arg);
+  }
+
+
+  onSubscriptionSection(ShortDetail arg){
+    _navigator.navigateTo(Routes.subscription, arguments: arg);
+  }
 
 
   // onLogout() {

@@ -16,7 +16,7 @@ import '../stores/add_safe_area_view_model.dart';
 import '../ui/theme.dart';
 
 class AddSafeaAreaPage extends StatefulWidget {
-  ShortDetails arguments;
+  ShortDetail arguments;
   AddSafeaAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override

@@ -28,6 +28,10 @@ class KidDetailsInfoResponse  extends BusinessObject{
     shortDetails: List<ShortDetail>.from(json["shortDetails"].map((x) => ShortDetail.fromJson(x))),
   );
 
+
+
+
+
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
@@ -43,6 +47,8 @@ class ShortDetail{
     required this.clsName,
     required this.image,
     required this.activateFrom,
+    required this.expireDate,
+    required this.rechargeAmount,
     required this.deviceId,
     required this.latLongDetails,
   });
@@ -53,6 +59,8 @@ class ShortDetail{
   final String clsName;
   final String image;
   final DateTime activateFrom;
+  final DateTime expireDate;
+  final String rechargeAmount;
   final String deviceId;
   final Kposition? latLongDetails;
 
@@ -63,6 +71,8 @@ class ShortDetail{
     clsName: json["clsName"],
     image: json["image"],
     activateFrom: DateTime.parse(json["activateFrom"]),
+    expireDate: DateTime.parse(json["expireDate"]),
+    rechargeAmount: json["rechargeAmount"],
     deviceId: json["deviceId"],
     latLongDetails: json["latLong"] != null ? Kposition.fromJson(json["latLong"]) : null,
   );
@@ -74,6 +84,8 @@ class ShortDetail{
     "clsName": clsName,
     "image": image,
     "activateFrom": activateFrom.toIso8601String(),
+    "expireDate": expireDate.toIso8601String(),
+    "rechargeAmount": rechargeAmount,
     "deviceId": deviceId,
     "latLong": latLongDetails,
   };

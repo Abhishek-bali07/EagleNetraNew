@@ -20,6 +20,7 @@ import '../../presentation/screens/safeAreaPage.dart';
 import '../../presentation/screens/subscription_page.dart';
 import '../../presentation/screens/support.dart';
 
+import '../domain/response/kid_details_response.dart';
 import '../domain/response/kid_short_info_response.dart';
 
 class RouteGenerator {
@@ -51,14 +52,14 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const AddKidScreen());
 
       case Routes.kidPage:
-        return ScreenTransitions.rightToLeftTransition(const KidsPage());
+        return ScreenTransitions.rightToLeftTransition(KidsPage());
 
       case Routes.safearea:
-        var arg = routeSettings.arguments as ShortDetails;
+        var arg = routeSettings.arguments as ShortDetail;
         return ScreenTransitions.rightToLeftTransition(SafeAreaPage(arguments: arg));
 
       case Routes.addsafearea:
-       var arg = routeSettings.arguments as ShortDetails;
+       var arg = routeSettings.arguments as ShortDetail;
        return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments: arg));
 
       case Routes.kidsHistory:
@@ -66,7 +67,7 @@ class RouteGenerator {
 
 
       case Routes.kidstrack:
-        var arg = routeSettings.arguments as ShortDetails;
+        var arg = routeSettings.arguments as ShortDetail;
         print("$arg");
         return ScreenTransitions.rightToLeftTransition(KidsTrackPage(arguments: arg));
 
@@ -80,7 +81,7 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(const ManagementAccessPage());
 
       case Routes.subscription:
-        var arg = routeSettings.arguments as ShortDetails;
+        var arg = routeSettings.arguments as ShortDetail;
        return ScreenTransitions.rightToLeftTransition(SubscriptionPage(arguments: arg));
 
 

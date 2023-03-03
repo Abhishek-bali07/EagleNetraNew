@@ -13,13 +13,13 @@ mixin _$KidsHistoryViewModel on _KidsHistoryViewModel, Store {
       Atom(name: '_KidsHistoryViewModel.kidHistory', context: context);
 
   @override
-  List<ShortDetails> get kidHistory {
+  List<ShortDetail> get kidHistory {
     _$kidHistoryAtom.reportRead();
     return super.kidHistory;
   }
 
   @override
-  set kidHistory(List<ShortDetails> value) {
+  set kidHistory(List<ShortDetail> value) {
     _$kidHistoryAtom.reportWrite(value, super.kidHistory, () {
       super.kidHistory = value;
     });

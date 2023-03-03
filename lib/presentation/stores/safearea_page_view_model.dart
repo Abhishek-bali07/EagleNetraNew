@@ -26,7 +26,7 @@ abstract class _SafeAreaPageViewModel with Store{
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
 
-  ShortDetails data;
+  ShortDetail data;
 
  // _SafeAreaPageViewModel(this.data);
 
@@ -120,7 +120,7 @@ abstract class _SafeAreaPageViewModel with Store{
   }
 
 
-  onAddSafeareaSection(ShortDetails arg){
+  onAddSafeareaSection(ShortDetail arg){
     _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
 }

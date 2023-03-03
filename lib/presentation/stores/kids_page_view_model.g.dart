@@ -13,13 +13,13 @@ mixin _$KidsPageViewModel on _KidsPageViewModel, Store {
       Atom(name: '_KidsPageViewModel.kidHistory', context: context);
 
   @override
-  List<ShortDetails> get kidHistory {
+  List<ShortDetail> get kidHistory {
     _$kidHistoryAtom.reportRead();
     return super.kidHistory;
   }
 
   @override
-  set kidHistory(List<ShortDetails> value) {
+  set kidHistory(List<ShortDetail> value) {
     _$kidHistoryAtom.reportWrite(value, super.kidHistory, () {
       super.kidHistory = value;
     });
@@ -127,6 +127,20 @@ mixin _$KidsPageViewModel on _KidsPageViewModel, Store {
   @override
   Future getInitialData() {
     return _$getInitialDataAsyncAction.run(() => super.getInitialData());
+  }
+
+  late final _$_KidsPageViewModelActionController =
+      ActionController(name: '_KidsPageViewModel', context: context);
+
+  @override
+  dynamic onSelectedDate(DateTime? selected) {
+    final _$actionInfo = _$_KidsPageViewModelActionController.startAction(
+        name: '_KidsPageViewModel.onSelectedDate');
+    try {
+      return super.onSelectedDate(selected);
+    } finally {
+      _$_KidsPageViewModelActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

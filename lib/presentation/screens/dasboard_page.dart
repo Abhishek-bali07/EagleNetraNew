@@ -179,9 +179,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.safearea),
               title: Text(" Safe Area"),
-              onTap:(){
-               Navigator.pushNamed(context, Routes.safearea);
-              },
+              onTap:() => _viewm.onSafeareaSection(_viewm.detailHistory.first)
             ),
             ListTile(
               leading: SvgPicture.asset(ImageAssets.sos),
@@ -207,9 +205,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.contact),
               title: Text("Subscription"),
-              onTap: () {
-                Navigator.pushNamed(context, Routes.subscription);
-              },
+              onTap: () => _viewm.onSubscriptionSection(_viewm.detailHistory.first)
             ),
             ListTile(
               leading: SvgPicture.asset(ImageAssets.support),

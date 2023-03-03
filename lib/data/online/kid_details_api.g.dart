@@ -19,13 +19,13 @@ class _KidDetailsApi implements KidDetailsApi {
   String? baseUrl;
 
   @override
-  Future<KidShortInfoResponse> getKidDetails(userId) async {
+  Future<KidDetailsInfoResponse> getKidDetails(userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<KidShortInfoResponse>(Options(
+        _setStreamType<KidDetailsInfoResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -37,7 +37,7 @@ class _KidDetailsApi implements KidDetailsApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = KidShortInfoResponse.fromJson(_result.data!);
+    final value = KidDetailsInfoResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import '../../core/common/alert_action.dart';
@@ -11,6 +12,7 @@ import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
 import '../../core/repository/kid_repository.dart';
+import '../../helpers_impl/date_time_helper.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
 import '../app_navigator/routes.dart';
@@ -26,9 +28,10 @@ abstract class _KidsPageViewModel with Store{
   final _appSettings = instance<AppSettings>();
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
+  final _dateTimeHelper = DateTimeHelper();
 
   @observable
-  List<ShortDetails> kidHistory = [];
+  List<ShortDetail> kidHistory = [];
 
 
   @observable
@@ -51,6 +54,16 @@ abstract class _KidsPageViewModel with Store{
 
   @observable
   DataState loading = DataState.NORMAL;
+
+
+  @action
+  onSelectedDate(DateTime? selected) {
+    if (selected != null) {
+     return "${selected.day} ${_dateTimeHelper.getMonthName(selected.month)}, ${selected.year}";
+    } else {
+      return StringProvider.expiryDate;
+    }
+  }
 
 
   _KidsPageViewModel() {
@@ -84,13 +97,13 @@ abstract class _KidsPageViewModel with Store{
 
 
   onError(AlertAction? action) {
-    if (action == AlertAction.kidShortInfo) {
+    if (action == AlertAction.kidDetailInfo) {
       getInitialData();
     }
   }
 
 
-  onSafeareaSection(ShortDetails arg){
+  onSafeareaSection(ShortDetail arg){
     _navigator.navigateTo(Routes.safearea, arguments: arg);
   }
 

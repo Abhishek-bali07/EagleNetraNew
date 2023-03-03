@@ -31,7 +31,7 @@ abstract class _KidsHistoryViewModel with Store{
   final msgInformer = MessageInformer();
 
   @observable
-  List<ShortDetails> kidHistory = [];
+  List<ShortDetail> kidHistory = [];
 
   @observable
   bool isLoading = false;
@@ -91,7 +91,7 @@ abstract class _KidsHistoryViewModel with Store{
 
 
 
-  onNext(ShortDetails arg){
+  onNext(ShortDetail arg){
     debugPrint("ShortDetails $arg");
     _navigator.navigatorKey.currentState?.pushNamed(Routes.kidstrack, arguments: arg);
   }

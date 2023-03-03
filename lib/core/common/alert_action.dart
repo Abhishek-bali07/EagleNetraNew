@@ -1,5 +1,6 @@
 enum AlertAction {
   kidShortInfo,
+  kidDetailInfo,
   accessShortInfo,
   locationPermissionRationale,
   locationServiceDisable,

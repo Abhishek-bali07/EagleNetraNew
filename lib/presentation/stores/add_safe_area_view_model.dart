@@ -41,7 +41,7 @@ abstract class _AddSafeAreaPageViewModel with Store {
   final _navigator = instance<NavigationService>();
   final add_safe_area_use_case = instance<SafeAreaDetailsRepository>();
 
-  ShortDetails? data;
+  ShortDetail? data;
 
   @observable
   bool gettingDataLoader = false;

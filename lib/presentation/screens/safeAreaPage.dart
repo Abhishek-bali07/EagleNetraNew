@@ -15,7 +15,7 @@ import '../stores/safearea_page_view_model.dart';
 import '../ui/app_text_style.dart';
 
 class SafeAreaPage extends StatefulWidget {
-  ShortDetails arguments;
+  ShortDetail arguments;
   SafeAreaPage({Key? key,required this.arguments}) : super(key: key);
 
   @override

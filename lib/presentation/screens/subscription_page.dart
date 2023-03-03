@@ -16,7 +16,7 @@ import '../ui/app_text_style.dart';
 import '../ui/theme.dart';
 
 class SubscriptionPage extends StatefulWidget {
-  ShortDetails arguments;
+  ShortDetail arguments;
   SubscriptionPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -190,11 +190,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                       padding: const EdgeInsets.only(
                                           top: 5.0, left: 8.0),
                                       child: Text(
-                                          _viewModel.subscrptionHistory[index].clsname),
+                                       "Class:${_viewModel.subscrptionHistory[index].clsName}"),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 5.0, left: 8.0),
+                                          top: 5.0, left: 5.0),
                                       child: Text("(Age:${_viewModel.subscrptionHistory[index].age})"),
                                     ),
                                   ],
@@ -210,7 +210,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 child: Column(
                             children: [
                                       Text("Expiring On"),
-                                      Text(_viewModel.subscrptionHistory[index].expiredOn)
+                                      Text("${_viewModel.subscrptionHistory[index].expireDate}")
                             ],
                           ),
                               ))
@@ -226,7 +226,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children:  [
                                 Text("Recharge Now"),
-                                Text("₹${_viewModel.subscrptionHistory[index].recharegeAmount}",
+                                Text("₹${_viewModel.subscrptionHistory[index].rechargeAmount}",
                                     style: TextStyle(fontSize: 12)),
 
                               ]),

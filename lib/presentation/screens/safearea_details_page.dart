@@ -42,7 +42,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: 1.50.sh,
+        height: MediaQuery.of(context).size.height * 0.90,
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),
