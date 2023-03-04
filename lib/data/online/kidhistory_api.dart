@@ -10,9 +10,9 @@ part 'kidhistory_api.g.dart';
 abstract  class  KidHistoryApi{
   factory KidHistoryApi(Dio dio, {String? baseUrl}) = _KidHistoryApi;
 
-  @GET("${ApiRoutes.parent}/smartcard/{userId}/show")
+  @GET("${ApiRoutes.parent}/eagle/getKidsDetails")
   Future<KidDetailsInfoResponse> getKids(
-      @Path("userId") String userId
+      @Query("userId") String userId
       );
 
 

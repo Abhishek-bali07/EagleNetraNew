@@ -95,4 +95,9 @@ abstract class _KidsHistoryViewModel with Store{
     debugPrint("ShortDetails $arg");
     _navigator.navigatorKey.currentState?.pushNamed(Routes.kidstrack, arguments: arg);
   }
+
+  backToPrevious(){
+    // _navigator.popAndNavigateTo(Routes.dashboard);
+    _navigator.pop();
+  }
 }

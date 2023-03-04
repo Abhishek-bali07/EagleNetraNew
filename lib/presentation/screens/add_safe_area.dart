@@ -1,3 +1,4 @@
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/presentation/screens/safearea_details_page.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
       reaction((p0) => _vm.isShow, (p0) async {
         if (p0 == true) {
           await showModalBottomSheet(
+            isScrollControlled: true,
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.r),
@@ -88,7 +90,9 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _vm.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: Text("Add SafeArea"),

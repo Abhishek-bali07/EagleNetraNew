@@ -17,6 +17,8 @@ class ImageAssets {
 
   static const bell = "assets/images/bellicon.svg";
 
+  static const dashboard = "assets/images/dashboard.svg";
+
   static const eagle = "assets/images/navicon.svg";
 
   static const home = "assets/images/home.svg";

@@ -56,7 +56,7 @@ class RouteGenerator {
 
       case Routes.safearea:
         var arg = routeSettings.arguments as ShortDetail;
-        return ScreenTransitions.rightToLeftTransition(SafeAreaPage(arguments: arg));
+        return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments: arg));
 
       case Routes.addsafearea:
        var arg = routeSettings.arguments as ShortDetail;

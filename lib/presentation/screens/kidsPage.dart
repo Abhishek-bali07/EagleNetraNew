@@ -64,7 +64,9 @@ class _KidsPageState extends State<KidsPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _viewModel.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: Text("MyKids"),
@@ -212,7 +214,7 @@ class _KidsPageState extends State<KidsPage> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: const EdgeInsets.only(left: 100.0),
                             child: SvgPicture.asset(ImageAssets.home),
                           ),
                         ],

@@ -169,6 +169,22 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$imageAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.image', context: context);
+
+  @override
+  String get image {
+    _$imageAtom.reportRead();
+    return super.image;
+  }
+
+  @override
+  set image(String value) {
+    _$imageAtom.reportWrite(value, super.image, () {
+      super.image = value;
+    });
+  }
+
   late final _$radiusAtom =
       Atom(name: '_AddSafeAreaPageViewModel.radius', context: context);
 
@@ -333,6 +349,7 @@ uploadingLoader: ${uploadingLoader},
 isLoader: ${isLoader},
 locationAddress: ${locationAddress},
 locationName: ${locationName},
+image: ${image},
 radius: ${radius},
 valuefirst: ${valuefirst},
 valuesecond: ${valuesecond}

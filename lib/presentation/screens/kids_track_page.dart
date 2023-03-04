@@ -110,7 +110,9 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _viewm.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text("Kid(s) History"),

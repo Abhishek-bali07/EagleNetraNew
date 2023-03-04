@@ -146,6 +146,20 @@ mixin _$SubscriptionPageViewModel on _SubscriptionPageViewModel, Store {
     return _$getInitialDataAsyncAction.run(() => super.getInitialData());
   }
 
+  late final _$_SubscriptionPageViewModelActionController =
+      ActionController(name: '_SubscriptionPageViewModel', context: context);
+
+  @override
+  dynamic onSelectedDate(DateTime? selected) {
+    final _$actionInfo = _$_SubscriptionPageViewModelActionController
+        .startAction(name: '_SubscriptionPageViewModel.onSelectedDate');
+    try {
+      return super.onSelectedDate(selected);
+    } finally {
+      _$_SubscriptionPageViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

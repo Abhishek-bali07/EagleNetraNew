@@ -87,16 +87,16 @@ abstract class _SplashViewModel with Store, CheckInternet {
         case true:
           _appSettings.setBaseUrl(data!.baseUrl);
           var userId = _appSettings.userId;
-          // if (userId != null && userId != "") {
-          //   _navigator.navigatorKey.currentState?.popAndPushNamed(
-          //       Routes.dashboard);
-          //   return;
-          // }
-          // if (_appSettings.sliderDone()) {
-          //   _navigator.navigatorKey.currentState?.popAndPushNamed(
-          //       Routes.mobileinput);
-          //   return;
-          // }
+          if (userId != null && userId != "") {
+            _navigator.navigatorKey.currentState?.popAndPushNamed(
+                Routes.dashboard);
+            return;
+          }
+          if (_appSettings.sliderDone()) {
+            _navigator.navigatorKey.currentState?.popAndPushNamed(
+                Routes.mobileinput);
+            return;
+          }
           _navigator.navigatorKey.currentState?.pushNamed(Routes.slider);
 
           break;

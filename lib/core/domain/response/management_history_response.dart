@@ -20,7 +20,7 @@ class ManagementShortInfoResponse extends BusinessObject{
   factory ManagementShortInfoResponse.fromJson(Map<String, dynamic> json) => ManagementShortInfoResponse(
     status: json["status"],
     message: json["message"],
-    accessDetails: List<AccessDetails>.from(json["accessDetails"].map((x) => AccessDetails.fromJson(x))),
+    accessDetails: json["accessDetails"] != null ? List<AccessDetails>.from(json["accessDetails"].map((x) => AccessDetails.fromJson(x))) : [],
   );
 
   Map<String, dynamic> toJson() => {

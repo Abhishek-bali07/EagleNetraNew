@@ -125,6 +125,7 @@ class _DashboardPageState extends State<DashboardPage> {
             icon: Icon(Icons.notifications,size: 40,color: AppColors.drawerPrimary, ),
           ),
         ],
+        bottom: ,
       ),
       body: SafeArea(
         child: _lowerSideContent(),
@@ -138,7 +139,9 @@ class _DashboardPageState extends State<DashboardPage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
              UserAccountsDrawerHeader(
-              accountName: Observer(builder: (context) => Text(_viewm.userName)),
+              accountName: Observer(builder: (context) => Text(_viewm.userName,style: TextStyle(
+                fontWeight: FontWeight.bold,fontSize: 25.sp
+              ),)),
               accountEmail: Observer(builder: (context) => Text(_viewm.userEmail)),
               decoration: const BoxDecoration(
                 color: AppColors.drawerPrimary,
@@ -162,7 +165,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
+              leading:SvgPicture.asset(ImageAssets.dashboard,height: 25.sp,),
               title: Text("Dashboard "),
               onTap: () {
                 Navigator.pop(context);
@@ -170,45 +173,45 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
 
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.mykids),
+              leading: SvgPicture.asset(ImageAssets.mykids,height: 25.sp),
               title: Text("My Kids"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidPage);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.safearea),
+              leading: SvgPicture.asset(ImageAssets.safearea,height: 25.sp),
               title: Text(" Safe Area"),
               onTap:() => _viewm.onSafeareaSection(_viewm.detailHistory.first)
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.sos),
+              leading: SvgPicture.asset(ImageAssets.sos,height: 25.sp),
               title: Text("SOS Numbers"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.contact),
+              leading: SvgPicture.asset(ImageAssets.contact,height: 25.sp),
               title: Text("History"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidsHistory);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.access),
+              leading: SvgPicture.asset(ImageAssets.access,height: 25.sp),
               title: Text("Access"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.management);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.contact),
+              leading: SvgPicture.asset(ImageAssets.contact,height: 25.sp),
               title: Text("Subscription"),
               onTap: () => _viewm.onSubscriptionSection(_viewm.detailHistory.first)
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.support),
+              leading: SvgPicture.asset(ImageAssets.support,height: 25.sp),
               title: Text("Support "),
               onTap: () {
                 Navigator.pushNamed(context, Routes.support);
@@ -216,7 +219,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
 
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.logout),
+              leading: SvgPicture.asset(ImageAssets.logout,height: 25.sp),
               title: Text("Logout"),
               onTap: () {
 
@@ -226,6 +229,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
       ),
+
 
     );
 

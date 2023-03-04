@@ -50,17 +50,19 @@ class _KidsHistoryState extends State<KidsHistory> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _viewModel.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text("Kid(s) History"),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.SilverChalice,
-        foregroundColor: AppColors.Black,
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: AppColors.SilverChalice,
+      //   foregroundColor: AppColors.Black,
+      //   onPressed: () {},
+      //   child: Icon(Icons.add),
+      // ),
       body:SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -118,20 +120,44 @@ class _KidsHistoryState extends State<KidsHistory> {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-          vertical: 0.02.sw,
+         horizontal: 0.02.sw
         ),
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            boxShadow: [
-              BoxShadow(
-                  color: Color(0x1a000000),
-                  blurRadius: 20,
-                  spreadRadius: 0,
-                  offset: Offset(0, 10))
-            ]),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey.shade300,
+            width: 8,
+          ), //Border.all
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              offset: const Offset(
+                5.0,
+                5.0,
+              ), //Offset
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ), //BoxShadow
+            BoxShadow(
+              color: Colors.white,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ), //BoxShadow
+          ],
+        ),
+        // decoration: const BoxDecoration(
+        //     color: Colors.white,
+        //     borderRadius: BorderRadius.all(Radius.circular(15)),
+        //     boxShadow: [
+        //       BoxShadow(
+        //           color: Color(0x1a000000),
+        //           blurRadius: 20,
+        //           spreadRadius: 0,
+        //           offset: Offset(0, 10))
+        //     ]),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.03.sw, horizontal: 0.03.sw),
+          padding: EdgeInsets.symmetric( horizontal: 0.03.sw),
           child: Column(
             children: [
               Observer(
@@ -143,7 +169,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Observer(
@@ -153,7 +179,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                                     radius: 0.08.sw,
                                     backgroundColor: AppColors.lightGray,
                                     foregroundImage:
-                                    NetworkImage(_viewModel.image),
+                                    NetworkImage(_viewModel.kidHistory[index].image),
                                   )
                                       : CircleAvatar(
                                     radius: 0.08.sw,
@@ -168,7 +194,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                             ),
                           ),
                           Expanded(
-                            flex:2,
+                            flex:8,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -188,7 +214,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                                       padding: const EdgeInsets.only(
                                           top: 5.0, left: 8.0),
                                       child: Text(
-                                          _viewModel.kidHistory[index].clsName),
+                                          "Class:${_viewModel.kidHistory[index].clsName}"),
                                     ),
 
 

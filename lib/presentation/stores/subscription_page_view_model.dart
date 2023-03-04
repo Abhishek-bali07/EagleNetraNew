@@ -11,8 +11,10 @@ import '../../core/domain/response/subscription_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
 import '../../core/repository/subscription_repository.dart';
+import '../../helpers_impl/date_time_helper.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
+import '../app_navigator/routes.dart';
 
 part 'subscription_page_view_model.g.dart';
 
@@ -25,6 +27,7 @@ abstract class _SubscriptionPageViewModel with Store{
   final _appSettings = instance<AppSettings>();
   final dialogManager = DialogManager();
   final msgInformer = MessageInformer();
+  final _dateTimeHelper = DateTimeHelper();
 
    ShortDetail? data;
 
@@ -53,6 +56,17 @@ abstract class _SubscriptionPageViewModel with Store{
 
   @observable
   String expireDate = "";
+
+
+  @action
+  onSelectedDate(DateTime? selected) {
+    if (selected != null) {
+      return "${selected.day}-${selected.month}-${selected.year}";
+    } else {
+      return StringProvider.expiryDate;
+    }
+  }
+
 
   _SubscriptionPageViewModel(this.data) {
     getInitialData();
@@ -87,5 +101,12 @@ abstract class _SubscriptionPageViewModel with Store{
       getInitialData();
     }
   }
+
+
+  backToPrevious(){
+    //_navigator.popAndNavigateTo(Routes.dashboard);
+    _navigator.pop();
+  }
+
 
 }

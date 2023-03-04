@@ -16,6 +16,7 @@ abstract class _SupportPageViewModel with Store{
 
 
   backToPrevious(){
-    _navigator.popAndNavigateTo(Routes.dashboard);
+   _navigator.pop();
+    // _navigator.popAndNavigateTo(Routes.dashboard);
   }
 }

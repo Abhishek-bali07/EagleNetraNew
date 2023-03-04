@@ -21,7 +21,7 @@ class _KidDetailsApi implements KidDetailsApi {
   @override
   Future<KidDetailsInfoResponse> getKidDetails(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'userId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -32,7 +32,7 @@ class _KidDetailsApi implements KidDetailsApi {
     )
             .compose(
               _dio.options,
-              '/eagle_netra_api/smartcard/${userId}/show',
+              '/eagle_netra_api/eagle/getKidsDetails',
               queryParameters: queryParameters,
               data: _data,
             )

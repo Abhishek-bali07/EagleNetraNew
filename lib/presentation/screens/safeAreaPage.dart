@@ -60,7 +60,9 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _vm.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: Text("SafeArea"),
@@ -100,7 +102,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                   radius: 0.06.sw,
                   backgroundColor: AppColors.lightGray,
                   foregroundImage:
-                  NetworkImage(_vm.image),
+                  NetworkImage(widget.arguments.image),
                 )
                     : CircleAvatar(
                   radius: 0.06.sw,

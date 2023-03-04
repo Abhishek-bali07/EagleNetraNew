@@ -80,11 +80,8 @@ abstract class _AddSafeAreaPageViewModel with Store {
   @observable
   String locationName = "";
 
-  // @observable
-  // String userId = "1ab";
-  // //
-  // @observable
-  // String kidId = "333";
+  @observable
+  String image = "";
 
   @observable
   double radius = 500;
@@ -247,5 +244,10 @@ abstract class _AddSafeAreaPageViewModel with Store {
     } else {
       return Constants.defaultCameraPosition;
     }
+  }
+
+  backToPrevious(){
+    // _navigator.popAndNavigateTo(Routes.safearea);
+    _navigator.pop();
   }
 }

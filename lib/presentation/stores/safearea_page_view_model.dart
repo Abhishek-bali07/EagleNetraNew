@@ -123,4 +123,9 @@ abstract class _SafeAreaPageViewModel with Store{
   onAddSafeareaSection(ShortDetail arg){
     _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
+
+  backToPrevious(){
+    //_navigator.popAndNavigateTo(Routes.kidPage);
+    _navigator.pop();
+  }
 }

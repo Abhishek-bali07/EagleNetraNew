@@ -20,6 +20,7 @@ import '../../core/helpers/navigation_service.dart';
 import '../../core/repository/kids_track_repository.dart';
 import '../../utils/dialog_manager.dart';
 import '../app_navigator/di.dart';
+import '../app_navigator/routes.dart';
 import 'main_view_model.dart';
 
 
@@ -207,6 +208,11 @@ abstract class _KidsTrackPageViewModel with Store {
       enableBtn = false;
     }
  }
+
+  backToPrevious(){
+    // _navigator.popAndNavigateTo(Routes.kidsHistory);
+    _navigator.pop();
+  }
 
 
 

@@ -63,7 +63,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         centerTitle: true,
         backgroundColor: AppColors.appBlack,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _viewModel.backToPrevious();
+          },
           icon: Icon(Icons.arrow_back),
         ),
         title: Text("Device Subscription"),
@@ -150,7 +152,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Observer(
                                 builder: (BuildContext context) {
-                                  return _viewModel.image.isNotEmpty
+                                  return _viewModel.subscrptionHistory[index].image.isNotEmpty
                                       ? CircleAvatar(
                                     radius: 0.08.sw,
                                     backgroundColor: AppColors.lightGray,
@@ -209,8 +211,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 padding: const EdgeInsets.only(top: 4.0),
                                 child: Column(
                             children: [
-                                      Text("Expiring On"),
-                                      Text("${_viewModel.subscrptionHistory[index].expireDate}")
+                                      Text("Expiring On",
+                                        style: TextStyle(
+                                        fontWeight: FontWeight.w400
+                                      ),
+                                      ),
+                                  SizedBox(height: 0.01.sw),
+                                      Text("${_viewModel.onSelectedDate(_viewModel.subscrptionHistory[index].expireDate)}")
                             ],
                           ),
                               ))
@@ -225,7 +232,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children:  [
-                                Text("Recharge Now"),
+                                Text("Recharge Now", style: TextStyle(
+                                    fontWeight: FontWeight.w400
+                                ),),
                                 Text("₹${_viewModel.subscrptionHistory[index].rechargeAmount}",
                                     style: TextStyle(fontSize: 12)),
 

@@ -40,9 +40,10 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height * 0.90,
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        height: 0.40.sh,
         decoration: BoxDecoration(
           color: AppColors.White,
           borderRadius: BorderRadius.circular(18.r),
@@ -50,7 +51,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: EdgeInsets.all(0.04.sw),
@@ -65,7 +66,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  autofocus: true,
+                  //autofocus: true,
                   onChanged: (value) {
                     widget.parentVM.onNameChanged(value);
                   },
@@ -88,14 +89,14 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Observer(
-                    builder: (context) =>
-                        widget.parentVM.locationAddress != null
-                            ?  Center(child: Text(widget.parentVM.locationAddress))
-                            : const SizedBox.shrink(),
-                  ),
+                padding: const EdgeInsets.all(15.0),
+                child: Observer(
+                  builder: (context) =>
+                  widget.parentVM.locationAddress != null
+                      ?  Center(child: Text(widget.parentVM.locationAddress))
+                      : const SizedBox.shrink(),
                 ),
+              ),
 
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, right: 10.0),
@@ -152,20 +153,20 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                       child: Observer(
                         builder: (BuildContext context) {
                           return ElevatedButton(
-                          onPressed: widget.parentVM.addNow,
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(20, 40),
-                              backgroundColor: AppColors.greenPrimary,
-                              textStyle: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                          child: widget.parentVM.uploadingLoader
-                              ? const CircularProgressIndicator(
-                            color: Colors.black,
-                          )
-                              : Text(
+                              onPressed: widget.parentVM.addNow,
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(20, 40),
+                                  backgroundColor: AppColors.greenPrimary,
+                                  textStyle: const TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold)),
+                              child: widget.parentVM.uploadingLoader
+                                  ? const CircularProgressIndicator(
+                                color: Colors.black,
+                              )
+                                  : Text(
                                   "Add Now", style: TextStyle(fontSize: 14.sp))
-                        );
-                      },
+                          );
+                        },
 
                       ),
                     )
@@ -177,6 +178,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                 child: Slider(
                   //label:'${widget.parentVM.radius.round()}',
                   value: widget.parentVM.radius,
+                  activeColor: AppColors.drawerPrimary,
                   onChanged: (double value) {
                     setState(() {
                       widget.parentVM.setRadius(value);
@@ -194,9 +196,9 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                      Text("Radius:${widget.parentVM.radius.toInt()}m",style: TextStyle(
+                    Text("Radius:${widget.parentVM.radius.toInt()}m",style: TextStyle(
                         fontWeight: FontWeight.bold
-                      ),)
+                    ),)
                   ],
                 ),
               )

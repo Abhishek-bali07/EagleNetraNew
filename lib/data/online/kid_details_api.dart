@@ -10,8 +10,8 @@ part 'kid_details_api.g.dart';
 abstract class KidDetailsApi{
   factory KidDetailsApi(Dio dio, {String? baseUrl}) = _KidDetailsApi;
 
-  @GET("${ApiRoutes.parent}/smartcard/{userId}/show")
+  @GET("${ApiRoutes.parent}/eagle/getKidsDetails")
   Future<KidDetailsInfoResponse> getKidDetails(
-      @Path("userId") String userId,
+      @Query("userId") String userId,
       );
 }

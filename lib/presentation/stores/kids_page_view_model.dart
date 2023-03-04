@@ -108,4 +108,9 @@ abstract class _KidsPageViewModel with Store{
   }
 
 
+  backToPrevious(){
+    _navigator.popAndNavigateTo(Routes.dashboard);
+  }
+
+
 }
