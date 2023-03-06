@@ -121,11 +121,11 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
               padding: const EdgeInsets.only(right: 15.0),
               child: Observer(
                 builder: (BuildContext context) {
-                  return _viewm.image.isNotEmpty
+                  return _viewm.data!.image.isNotEmpty
                       ? CircleAvatar(
                           radius: 0.06.sw,
                           backgroundColor: AppColors.lightGray,
-                          foregroundImage: NetworkImage(_viewm.image),
+                          foregroundImage: NetworkImage(_viewm.data!.image),
                         )
                       : CircleAvatar(
                           radius: 0.06.sw,

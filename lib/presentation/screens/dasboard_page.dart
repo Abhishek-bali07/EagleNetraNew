@@ -35,22 +35,20 @@ class _DashboardPageState extends State<DashboardPage> {
 
   onMapCreated(GoogleMapController controller) {
     _controller = controller;
-
   }
 
-
   @override
-  void initState(){
+  void initState() {
     _dialogController =
         DialogController(dialog: ErrorDialogImpl(buildContext: context));
     _viewm = DashBoardPageViewModel();
-
     super.initState();
     _disposers = [
       reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
         if (p0 == DialogState.displaying) {
           _dialogController.show(_viewm.dialogManager.errorData!, p0,
-              close: _viewm.dialogManager.closeErrorDialog, positive: _viewm.onRetry);
+              close: _viewm.dialogManager.closeErrorDialog,
+              positive: _viewm.onRetry);
         }
       }),
       reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
@@ -61,14 +59,14 @@ class _DashboardPageState extends State<DashboardPage> {
         }
       }),
       reaction((p0) => _viewm.isShow, (p0) async {
-        if(p0 ==  true){
+        if (p0 == true) {
           await showModalBottomSheet(
               context: context,
-          shape: RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.r),
                       topRight: Radius.circular(30.r))),
-          builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
+              builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
           _viewm.openBottomSheet();
         }
       }),
@@ -85,7 +83,6 @@ class _DashboardPageState extends State<DashboardPage> {
       // }),
     ];
   }
-
 
   @override
   void dispose() {
@@ -106,166 +103,157 @@ class _DashboardPageState extends State<DashboardPage> {
         leading: Builder(
           builder: (context) => IconButton(
             onPressed: () {
-              if(!Scaffold.of(context).isDrawerOpen) {
+              if (!Scaffold.of(context).isDrawerOpen) {
                 Scaffold.of(context).openDrawer();
               }
             },
-            icon: Icon(Icons.menu,size: 40,color: AppColors.drawerPrimary,),
+            icon: Icon(
+              Icons.menu,
+              size: 40,
+              color: AppColors.drawerPrimary,
+            ),
           ),
         ),
         title: Container(
           width: 50,
           child: Image.asset(ImageAssets.logo),
         ),
-
         actions: [
-
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications,size: 40,color: AppColors.drawerPrimary, ),
+            icon: Icon(
+              Icons.notifications,
+              size: 40,
+              color: AppColors.drawerPrimary,
+            ),
           ),
         ],
-        bottom: ,
       ),
       body: SafeArea(
         child: _lowerSideContent(),
       ),
-
-
       drawer: Drawer(
         child: ListView(
-
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-             UserAccountsDrawerHeader(
-              accountName: Observer(builder: (context) => Text(_viewm.userName,style: TextStyle(
-                fontWeight: FontWeight.bold,fontSize: 25.sp
-              ),)),
-              accountEmail: Observer(builder: (context) => Text(_viewm.userEmail)),
+            UserAccountsDrawerHeader(
+              accountName: Observer(
+                  builder: (context) => Text(
+                        _viewm.userName,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25.sp),
+                      )),
+              accountEmail:
+                  Observer(builder: (context) => Text(_viewm.userEmail)),
               decoration: const BoxDecoration(
                 color: AppColors.drawerPrimary,
               ),
               currentAccountPicture: Observer(
                 builder: (BuildContext context) {
-                   return _viewm.image.isNotEmpty
-                   ? CircleAvatar(
-                     backgroundColor: AppColors.lightGray,
-                     foregroundImage: NetworkImage(_viewm.image),
-                  ): CircleAvatar(
-
-                     // backgroundColor:
-                     //     AppColors.drawerPrimary,
-                     child: SvgPicture.asset("assets/images/lady.svg"),
-
-
-                   );
+                  return _viewm.userImage.isNotEmpty
+                      ? CircleAvatar(
+                          backgroundColor: AppColors.lightGray,
+                          foregroundImage: NetworkImage(_viewm.userImage),
+                        )
+                      : CircleAvatar(
+                          child: SvgPicture.asset("assets/images/lady.svg"),
+                        );
                 },
-
               ),
             ),
             ListTile(
-              leading:SvgPicture.asset(ImageAssets.dashboard,height: 25.sp,),
-              title: Text("Dashboard "),
+              leading: SvgPicture.asset(
+                ImageAssets.dashboard,
+                height: 25.sp,
+              ),
+              title: const Text("Dashboard "),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
-
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.mykids,height: 25.sp),
-              title: Text("My Kids"),
+              leading: SvgPicture.asset(ImageAssets.mykids, height: 25.sp),
+              title: const Text("My Kids"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidPage);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.safearea,height: 25.sp),
-              title: Text(" Safe Area"),
-              onTap:() => _viewm.onSafeareaSection(_viewm.detailHistory.first)
-            ),
+                leading: SvgPicture.asset(ImageAssets.safearea, height: 25.sp),
+                title: const Text("Safe Area"),
+                onTap: () =>
+                    _viewm.onSafeareaSection(_viewm.detailHistory.first)),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.sos,height: 25.sp),
-              title: Text("SOS Numbers"),
+              leading: SvgPicture.asset(ImageAssets.sos, height: 25.sp),
+              title: const Text("SOS Numbers"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.contact,height: 25.sp),
-              title: Text("History"),
+              leading: SvgPicture.asset(ImageAssets.contact, height: 25.sp),
+              title: const Text("History"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.kidsHistory);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.access,height: 25.sp),
-              title: Text("Access"),
+              leading: SvgPicture.asset(ImageAssets.access, height: 25.sp),
+              title: const Text("Access"),
               onTap: () {
                 Navigator.pushNamed(context, Routes.management);
               },
             ),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.contact,height: 25.sp),
-              title: Text("Subscription"),
-              onTap: () => _viewm.onSubscriptionSection(_viewm.detailHistory.first)
-            ),
+                leading: SvgPicture.asset(ImageAssets.contact, height: 25.sp),
+                title: const Text("Subscription"),
+                onTap: () =>
+                    _viewm.onSubscriptionSection(_viewm.detailHistory.first)),
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.support,height: 25.sp),
-              title: Text("Support "),
+              leading: SvgPicture.asset(ImageAssets.support, height: 25.sp),
+              title: const Text("Support "),
               onTap: () {
                 Navigator.pushNamed(context, Routes.support);
               },
             ),
-
             ListTile(
-              leading: SvgPicture.asset(ImageAssets.logout,height: 25.sp),
-              title: Text("Logout"),
-              onTap: () {
-
-               //Navigator.pop(context);
-              },
+                leading: SvgPicture.asset(ImageAssets.logout, height: 25.sp),
+                title: const Text("Logout"),
+                onTap: _viewm.isTap ? null : _viewm.onLogout
             ),
           ],
         ),
       ),
-
-
     );
-
   }
-
-
-
 
   @override
   Widget _lowerSideContent() {
     return Align(
       child: Stack(
         children: [
-        Observer( builder: (BuildContext context) {
-          return GoogleMap(
-            key: ValueKey(_viewm.isVisible),
-            initialCameraPosition: _viewm.initialCameraPosition(),
-            zoomControlsEnabled: true,
-            scrollGesturesEnabled: true,
-            indoorViewEnabled: true,
-            onMapCreated: onMapCreated,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            markers:_viewm.markers,
-            // onLongPress: (latlng) {
-            //   _viewm.setupMarker(
-            //       LatLong(lat: latlng.latitude, lng: latlng.longitude));
-            //   // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
-            // },
-          );
-        }
-        ),
-      ],),
+          Observer(builder: (BuildContext context) {
+            return GoogleMap(
+
+              key: ValueKey(_viewm.isVisible),
+              initialCameraPosition: _viewm.initialCameraPosition(),
+              zoomControlsEnabled: true,
+              scrollGesturesEnabled: true,
+              indoorViewEnabled: true,
+              onMapCreated: onMapCreated,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              markers: _viewm.markers,
+              // onLongPress: (latlng) {
+              //   _viewm.setupMarker(
+              //       LatLong(lat: latlng.latitude, lng: latlng.longitude));
+              //   // _vm.setupCircle(LatLong(lat:latlng.latitude, lng:latlng.longitude));
+              // },
+            );
+          }),
+        ],
+      ),
     );
-
-
-
   }
 }

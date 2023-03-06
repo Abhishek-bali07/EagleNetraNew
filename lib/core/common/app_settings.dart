@@ -9,6 +9,7 @@ abstract class AppSettings{
   // introComplete(bool value);
   // bool isIntroComplete();
 
+  void setUserId(String userId);
 
 
   void saveSliderDone(bool done);

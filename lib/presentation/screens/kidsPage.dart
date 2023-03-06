@@ -93,7 +93,7 @@ class _KidsPageState extends State<KidsPage> {
                 return Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                      height: 0.10.sh,
+                      height: 0.08.sh,
                       width: 0.10.sh,
                       child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -154,12 +154,12 @@ class _KidsPageState extends State<KidsPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: Observer(
                               builder: (BuildContext context) {
-                                return _viewModel.kidHistory[index].image!.isNotEmpty
+                                return _viewModel.kidHistory[index].image.isNotEmpty
                                     ? CircleAvatar(
                                   radius: 0.08.sw,
                                   backgroundColor: AppColors.lightGray,
                                   foregroundImage:
-                                  NetworkImage(_viewModel.image),
+                                  NetworkImage(_viewModel.kidHistory[index].image),
                                 )
                                     : CircleAvatar(
                                   radius: 0.08.sw,

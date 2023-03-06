@@ -98,9 +98,11 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
         title: Text("Add SafeArea"),
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child:
-                CircleAvatar(child: SvgPicture.asset("assets/images/boy.svg")),
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              radius: 0.07.sw,
+              foregroundImage: NetworkImage(widget.arguments.image),
+            ),
           )
         ],
       ),

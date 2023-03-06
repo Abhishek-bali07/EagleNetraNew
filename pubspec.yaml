@@ -51,7 +51,6 @@ dependencies:
   dio: ^4.0.6
   retrofit: ^3.0.1+1
   built_value: ^8.3.3
-  alice: ^0.2.5
   flutter_dotenv: ^5.0.2
   introduction_slider: ^2.0.1
   carousel_slider: ^4.1.1

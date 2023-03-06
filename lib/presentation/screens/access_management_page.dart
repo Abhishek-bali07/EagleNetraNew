@@ -72,7 +72,9 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
       centerTitle: true,
       backgroundColor: AppColors.appBlack,
       leading: IconButton(
-        onPressed: (){},
+        onPressed: (){
+          _vm.backToPrevious();
+        },
         icon: Icon(Icons.arrow_back),
       ),
       title: Text("Access Management"),
@@ -98,7 +100,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 10),
               child: Container(
                 decoration:
                 BoxDecoration(color: Theme.of(context).colorScheme.surface),
@@ -119,8 +121,8 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                   children: [
 
                                     Container(
-                                      width: 140,
-                                      height: 140,
+                                      width: 0.40.sw,
+                                      height: 0.35.sw,
                                       decoration: const BoxDecoration(
                                           color: Colors.blue, shape: BoxShape.circle),
                                       child: Stack(
@@ -151,7 +153,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                                       ),
                                     ),
 
-                                    SizedBox(height: 0.03.sw),
+                                    SizedBox(height: 0.05.sw),
 
                                     TextField(
                                       keyboardType: TextInputType.name,
@@ -247,7 +249,7 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 5, left: 14, right: 14),
+                          top: 5, left: 20, right: 20),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child:  Container(

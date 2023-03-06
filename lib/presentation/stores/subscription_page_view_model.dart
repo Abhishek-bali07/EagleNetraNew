@@ -29,7 +29,7 @@ abstract class _SubscriptionPageViewModel with Store{
   final msgInformer = MessageInformer();
   final _dateTimeHelper = DateTimeHelper();
 
-   ShortDetail? data;
+  ShortDetail? data;
 
   @observable
   List<ShortDetail> subscrptionHistory = [];

@@ -75,9 +75,14 @@ class AppSettingsImpl extends AppSettings {
     sharedPreferences.setString(Constants.accountStatus, status);
   }
 
+  @override
+  void setUserId(String userId) {
+    sharedPreferences.setString(Constants.userId, userId);
+  }
 
 
-  // @override
+
+// @override
   // String get code =>  sharedPreferences.getString(Constants.countrycode) ?? "";
 
 }

@@ -146,29 +146,26 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Observer(
-                                builder: (BuildContext context) {
-                                  return _viewModel.subscrptionHistory[index].image.isNotEmpty
-                                      ? CircleAvatar(
-                                    radius: 0.08.sw,
-                                    backgroundColor: AppColors.lightGray,
-                                    foregroundImage:
-                                    NetworkImage(_viewModel.image),
-                                  )
-                                      : CircleAvatar(
-                                    radius: 0.08.sw,
-                                    // backgroundColor:
-                                    //     AppColors.drawerPrimary,
-                                    child: SvgPicture.asset("assets/images/boy.svg"),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Observer(
+                              builder: (BuildContext context) {
+                                return _viewModel.subscrptionHistory[index].image.isNotEmpty
+                                    ? CircleAvatar(
+                                  radius: 0.06.sw,
+                                  backgroundColor: AppColors.lightGray,
+                                  foregroundImage:
+                                  NetworkImage(_viewModel.data!.image),
+                                )
+                                    : CircleAvatar(
+                                  radius: 0.06.sw,
+                                  // backgroundColor:
+                                  //     AppColors.drawerPrimary,
+                                  child: SvgPicture.asset("assets/images/boy.svg"),
 
 
-                                  );
-                                },
-                              ),
+                                );
+                              },
                             ),
                           ),
                           Expanded(

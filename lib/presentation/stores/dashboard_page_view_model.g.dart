@@ -313,6 +313,22 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
     });
   }
 
+  late final _$isTapAtom =
+      Atom(name: '_DashBoardPageViewModel.isTap', context: context);
+
+  @override
+  bool get isTap {
+    _$isTapAtom.reportRead();
+    return super.isTap;
+  }
+
+  @override
+  set isTap(bool value) {
+    _$isTapAtom.reportWrite(value, super.isTap, () {
+      super.isTap = value;
+    });
+  }
+
   late final _$setupMarkerAsyncAction =
       AsyncAction('_DashBoardPageViewModel.setupMarker', context: context);
 
@@ -354,6 +370,14 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
     return _$onNextAsyncAction.run(() => super.onNext(posId));
   }
 
+  late final _$onLogoutAsyncAction =
+      AsyncAction('_DashBoardPageViewModel.onLogout', context: context);
+
+  @override
+  Future onLogout() {
+    return _$onLogoutAsyncAction.run(() => super.onLogout());
+  }
+
   late final _$_DashBoardPageViewModelActionController =
       ActionController(name: '_DashBoardPageViewModel', context: context);
 
@@ -389,7 +413,8 @@ battery: ${battery},
 deviceCondition: ${deviceCondition},
 image: ${image},
 selectedImage: ${selectedImage},
-locationAddress: ${locationAddress}
+locationAddress: ${locationAddress},
+isTap: ${isTap}
     ''';
   }
 }

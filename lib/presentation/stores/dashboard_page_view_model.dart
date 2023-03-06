@@ -100,10 +100,14 @@ abstract class _DashBoardPageViewModel with Store {
   @observable
   String locationAddress = "";
 
+  @observable
+  bool isTap = false;
+
   _DashBoardPageViewModel() {
     getDrawerData();
    initialData();
   }
+
 
   @action
   setupMarker(LatLong coordinate, String posId) async {
@@ -223,6 +227,17 @@ abstract class _DashBoardPageViewModel with Store {
   onSubscriptionSection(ShortDetail arg){
     _navigator.navigateTo(Routes.subscription, arguments: arg);
   }
+
+  @action
+  onLogout() async {
+    _appSettings.setUserId("");
+    isTap = true;
+    await _navigator.navigateTo(Routes.mobileinput);
+    isTap = false;
+  }
+
+
+
 
 
   // onLogout() {

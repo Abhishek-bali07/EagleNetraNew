@@ -159,5 +159,8 @@ abstract class _AccessManagementViewModel with Store{
   isNumberValid(){
     return _validator.isValidNumber(mobile);
   }
+  backToPrevious(){
+    _navigator.pop();
+  }
 
 }

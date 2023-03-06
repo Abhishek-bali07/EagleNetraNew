@@ -174,7 +174,7 @@ class _KidsHistoryState extends State<KidsHistory> {
                               padding: const EdgeInsets.all(8.0),
                               child: Observer(
                                 builder: (BuildContext context) {
-                                  return _viewModel.image.isNotEmpty
+                                  return _viewModel.kidHistory[index].image.isNotEmpty
                                       ? CircleAvatar(
                                     radius: 0.08.sw,
                                     backgroundColor: AppColors.lightGray,

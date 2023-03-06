@@ -1,4 +1,3 @@
-import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
 import 'package:eagle_netra/core/common/app_settings.dart';
 import 'package:eagle_netra/core/helpers/navigation_service.dart';
@@ -44,11 +43,11 @@ import '../../repository_impl/userRegister_repository_impl.dart';
 
 final instance = GetIt.instance;
 
-final alice = Alice(
-  showNotification: true,
-  showInspectorOnShake: true,
-  darkTheme: false,
-);
+// final alice = Alice(
+//   showNotification: true,
+//   showInspectorOnShake: true,
+//   darkTheme: false,
+// );
 
 
 Future<void> initAppModule() async{
@@ -66,9 +65,9 @@ Future<void> initAppModule() async{
 
   instance.registerLazySingleton<Environment>(() => env);
 
-  alice.setNavigatorKey(instance<NavigationService>().navigatorKey);
+ // alice.setNavigatorKey(instance<NavigationService>().navigatorKey);
  // alice.setNavigatorKey(NavigationServiceImpl().navigatorKey);
-  dio.interceptors.add(alice.getDioInterceptor());
+  //dio.interceptors.add(alice.getDioInterceptor());
 
   instance.registerLazySingleton<AppSettings>(() => AppSettingsImpl(sharedPrefs));
 

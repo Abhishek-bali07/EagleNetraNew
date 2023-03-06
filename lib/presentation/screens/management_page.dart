@@ -99,7 +99,7 @@ class _ManagementAccessPageState extends State<ManagementAccessPage> {
               } else {
                 return _viewModel.managementHistory.isEmpty
                     ? Center(
-                  child: Text("Does not have anyone"),
+                  child: Text("Empty Records", style: AppTextStyle.introHeadingStyle),
                 )
                     : ListView.separated(
                     itemBuilder: (context, index) => listItem(index),
@@ -153,7 +153,7 @@ class _ManagementAccessPageState extends State<ManagementAccessPage> {
                                     radius: 0.08.sw,
                                     backgroundColor: AppColors.lightGray,
                                     foregroundImage:
-                                    NetworkImage(_viewModel.image),
+                                    NetworkImage(_viewModel.managementHistory[index].image),
                                   )
                                       : CircleAvatar(
                                     radius: 0.07.sw,
