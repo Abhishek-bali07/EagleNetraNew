@@ -27,122 +27,116 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: 0.40.sh,
-        decoration: BoxDecoration(
-          color: AppColors.White,
-          borderRadius: BorderRadius.circular(18.r),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
+    return Container(
+      height: 0.35.sh,
+      decoration: BoxDecoration(
+        color: AppColors.White,
+        borderRadius: BorderRadius.circular(18.r),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(0.04.sw),
+              child: Container(
+                height: 0.02.sw,
+                width: 0.10.sh,
+                decoration: BoxDecoration(
+                    color: AppColors.drawerPrimary,
+                    borderRadius: BorderRadius.circular(20.r)),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(0.04.sw),
-                  child: Container(
-                    height: 0.02.sw,
-                    width: 0.10.sh,
-                    decoration: BoxDecoration(
-                        color: AppColors.drawerPrimary,
-                        borderRadius: BorderRadius.circular(20.r)),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-
-                    Expanded(child: CircleAvatar()),
-                    SizedBox(width: 0.02.sw),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(widget.parentViewModel.kidName,style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                          Text("${(widget.parentViewModel.currentDate)}"),
-                        ],
-                      ),
+                Observer(
+                    builder: (BuildContext context) { 
+                      return widget.parentViewModel.userImage.isNotEmpty
+                          ? CircleAvatar(
+                          backgroundColor: AppColors.lightGray,
+                          foregroundImage: NetworkImage(widget.parentViewModel.userImage),
+                      )
+                          : CircleAvatar(
+                        child: SvgPicture.asset("assets/images/lady.svg"),
+                      );
+                    },
                     ),
-                    SizedBox(width: 0.01.sw),
-                    Expanded(
-                    child:GestureDetector(
-                     onTap: () async{
-                       Uri phoneno = Uri.parse("tel:${widget.parentViewModel.callingNumber}");
-                    if (await launchUrl(phoneno)) {
-                       launchUrl(phoneno);
-                       }
-                     } ,
-                     child: SvgPicture.asset(ImageAssets.telephone)),
-                ),
 
-
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(widget.parentViewModel.kidName,style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                    Text("${widget.parentViewModel.currentTime}(${widget.parentViewModel.currentDate})"),
                   ],
                 ),
+                SizedBox(width: 0.01.sw),
+                GestureDetector(
+                    onTap: () async{
+                      Uri phoneno = Uri.parse("tel:${widget.parentViewModel.callingNumber}");
+                      if (await launchUrl(phoneno)) {
+                        launchUrl(phoneno);
+                      }
+                    } ,
+                    child: SvgPicture.asset(ImageAssets.telephone)),
 
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+              ],
+            ),
+
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 4,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(ImageAssets.battery),
-                            Text("${widget.parentViewModel.battery}Battery")
-                          ],
-                        ),
-                      ),
-
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(widget.parentViewModel.deviceCondition),
-                            SvgPicture.asset(ImageAssets.network),
-                          ],
-                        ),
-                      ),
+                      SvgPicture.asset(ImageAssets.battery),
+                      Text("${widget.parentViewModel.battery}Battery")
                     ],
                   ),
-                ),
-                Divider(),
-                const Center(
-                    child: Text(
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(widget.parentViewModel.deviceCondition),
+                      SvgPicture.asset(ImageAssets.network,height: 30),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
+            const Center(
+                child: Text(
                   "Current Location",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 )),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child:  Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: Text(
-                          widget.parentViewModel.locationAddress,textAlign: TextAlign.center,),
-                      ),
-                    ),
-                    SizedBox(width: 0.02.sw),
-                    Expanded(
-                      flex: 1,
-                      child: IconButton(
-                          iconSize: 60.sp,
-                          onPressed: () {},
-                          icon: SvgPicture.asset(ImageAssets.navigate)),
-                    ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child:  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Text(
+                      widget.parentViewModel.locationAddress,textAlign: TextAlign.center,),
+                  ),
+                ),
+                SizedBox(width: 0.02.sw),
+                IconButton(
+                    iconSize: 60.sp,
+                    onPressed: () {},
+                    icon: SvgPicture.asset(ImageAssets.navigate)),
 
-                  ],
-                )
               ],
-            ),
+            )
+          ],
         ),
-
       ),
+
     );
   }
 }

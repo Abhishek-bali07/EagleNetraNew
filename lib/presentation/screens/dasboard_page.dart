@@ -61,11 +61,12 @@ class _DashboardPageState extends State<DashboardPage> {
       reaction((p0) => _viewm.isShow, (p0) async {
         if (p0 == true) {
           await showModalBottomSheet(
+              isScrollControlled: true,
               context: context,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.r),
-                      topRight: Radius.circular(30.r))),
+              borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.r),
+              topRight: Radius.circular(40.r))),
               builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
           _viewm.openBottomSheet();
         }
@@ -176,7 +177,8 @@ class _DashboardPageState extends State<DashboardPage> {
               leading: SvgPicture.asset(ImageAssets.mykids, height: 25.sp),
               title: const Text("My Kids"),
               onTap: () {
-                Navigator.pushNamed(context, Routes.kidPage);
+                Navigator.popAndPushNamed(context,  Routes.kidPage);
+
               },
             ),
             ListTile(

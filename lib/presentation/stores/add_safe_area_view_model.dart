@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:eagle_netra/core/common/lat_long.dart';
+import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -42,6 +43,10 @@ abstract class _AddSafeAreaPageViewModel with Store {
   final add_safe_area_use_case = instance<SafeAreaDetailsRepository>();
 
   ShortDetail? data;
+ // AreaDetails safeArea;
+
+  @observable
+  bool isLoading = false;
 
   @observable
   bool gettingDataLoader = false;
@@ -96,6 +101,9 @@ abstract class _AddSafeAreaPageViewModel with Store {
   onNameChanged(String value) {
     locationName = value;
   }
+
+
+
 
   // @action
   // onRadioSelected(AlertRadio? selectedValue) {
@@ -189,6 +197,7 @@ abstract class _AddSafeAreaPageViewModel with Store {
     }
   }
 
+
   @action
   addNow() async {
     var latitude = _marker?.position.latitude;
@@ -234,6 +243,31 @@ abstract class _AddSafeAreaPageViewModel with Store {
     }
   }
 
+
+
+  @action
+  getSafeAreaData() async{
+    isLoading = true;
+    var smartCardId = data!.smartCardId;
+    var response =  await add_safe_area_use_case.fetchSafeAreaDetails(smartCardId);
+    if(response is Success){
+      var data = response.data;
+      isLoading = false;
+      switch(data != null && data.status){
+        case true:
+          if(data!.areaDetails?.isEmpty == true){
+
+          }else{
+            if(data.areaDetails != null){
+              // safeArea = data.areaDetails!;
+
+            }
+          }
+
+      }
+    }
+  }
+
   CameraPosition initialCameraPosition() {
     if (mainVM.currentLocation != null) {
       return CameraPosition(
@@ -246,8 +280,10 @@ abstract class _AddSafeAreaPageViewModel with Store {
     }
   }
 
-  backToPrevious(){
+  Future<bool> backToPrevious() async{
     // _navigator.popAndNavigateTo(Routes.safearea);
-    _navigator.pop();
+    //_navigator.pop();
+    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    return false;
   }
 }

@@ -105,41 +105,44 @@ class _KidsTrackPageState extends State<KidsTrackPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.appBlack,
-        leading: IconButton(
-          onPressed: () {
-            _viewm.backToPrevious();
-          },
-          icon: Icon(Icons.arrow_back),
+    return WillPopScope(
+      onWillPop: _viewm.backToPrevious,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppColors.appBlack,
+          leading: IconButton(
+            onPressed: () {
+              _viewm.backToPrevious();
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: const Text("Kid(s) History"),
+          actions: <Widget>[
+            Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: Observer(
+                  builder: (BuildContext context) {
+                    return _viewm.data!.image.isNotEmpty
+                        ? CircleAvatar(
+                            radius: 0.06.sw,
+                            backgroundColor: AppColors.lightGray,
+                            foregroundImage: NetworkImage(_viewm.data!.image),
+                          )
+                        : CircleAvatar(
+                            radius: 0.06.sw,
+                            // backgroundColor:
+                            //     AppColors.drawerPrimary,
+                            child: SvgPicture.asset("assets/images/boy.svg"),
+                          );
+                  },
+                ))
+          ],
         ),
-        title: const Text("Kid(s) History"),
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: Observer(
-                builder: (BuildContext context) {
-                  return _viewm.data!.image.isNotEmpty
-                      ? CircleAvatar(
-                          radius: 0.06.sw,
-                          backgroundColor: AppColors.lightGray,
-                          foregroundImage: NetworkImage(_viewm.data!.image),
-                        )
-                      : CircleAvatar(
-                          radius: 0.06.sw,
-                          // backgroundColor:
-                          //     AppColors.drawerPrimary,
-                          child: SvgPicture.asset("assets/images/boy.svg"),
-                        );
-                },
-              ))
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [Expanded(flex: 10, child: _lowerSideContent())],
+        body: SafeArea(
+          child: Column(
+            children: [Expanded(flex: 10, child: _lowerSideContent())],
+          ),
         ),
       ),
     );

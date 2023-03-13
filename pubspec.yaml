@@ -71,6 +71,7 @@ dependencies:
   simple_time_range_picker: ^0.0.5
   flutter_animated_button: ^2.0.3
   bottom_sheet: ^3.1.2
+  alice: ^0.2.5
 
 
 

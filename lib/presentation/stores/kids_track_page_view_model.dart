@@ -208,10 +208,15 @@ abstract class _KidsTrackPageViewModel with Store {
     }
  }
 
-  backToPrevious(){
-    // _navigator.popAndNavigateTo(Routes.kidsHistory);
-    _navigator.pop();
+
+  Future<bool> backToPrevious() async{
+   _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    return false;
   }
+  // backToPrevious(){
+  //   // _navigator.popAndNavigateTo(Routes.kidsHistory);
+  //   _navigator.pop();
+  // }
 
 
 

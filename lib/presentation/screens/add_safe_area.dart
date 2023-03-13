@@ -83,33 +83,36 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      drawerEnableOpenDragGesture: false,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.appBlack,
-        leading: IconButton(
-          onPressed: () {
-            _vm.backToPrevious();
-          },
-          icon: Icon(Icons.arrow_back),
+    return WillPopScope(
+      onWillPop: _vm.backToPrevious,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        drawerEnableOpenDragGesture: false,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppColors.appBlack,
+          leading: IconButton(
+            onPressed: () {
+              _vm.backToPrevious();
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: Text("Add SafeArea"),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                radius: 0.07.sw,
+                foregroundImage: NetworkImage(widget.arguments.image),
+              ),
+            )
+          ],
         ),
-        title: Text("Add SafeArea"),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              radius: 0.07.sw,
-              foregroundImage: NetworkImage(widget.arguments.image),
-            ),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [Expanded(flex: 10, child: _lowerSideContent())],
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [Expanded(flex: 10, child: _lowerSideContent())],
+          ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/response/add_safe_area_details_reponse.dart';
 
 import 'package:eagle_netra/core/domain/response/fetch_adress_response.dart';
+import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
 import 'package:eagle_netra/utils/api_client_configuration.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 
@@ -58,6 +59,12 @@ class SafeareaDetailsUseCaseImpl extends SafeAreaDetailsRepository{
     //     message: "Success",
     //     isSaved: true
     // ));
+  }
+
+  @override
+  Future<Resource<SafeareaResponse>> fetchSafeAreaDetails(String smartCardId) {
+    // TODO: implement fetchSafeAreaDetails
+    throw UnimplementedError();
   }
 
 }

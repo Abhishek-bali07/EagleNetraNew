@@ -99,24 +99,6 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
               radius: 30.0,
                 foregroundImage: NetworkImage(widget.arguments.image),
             )
-            // Observer(
-            //   builder: (BuildContext context) {
-            //     return _vm.image.isNotEmpty
-            //         ? CircleAvatar(
-            //       radius: 0.06.sw,
-            //       backgroundColor: AppColors.lightGray,
-            //       foregroundImage:
-            //       NetworkImage(widget.arguments.image),
-            //     )
-            //         : CircleAvatar(
-            //       radius: 0.06.sw,
-            //       // backgroundColor:
-            //       //     AppColors.drawerPrimary,
-            //           child: SvgPicture.asset(
-            //           "assets/images/boy.svg"),
-            //     );
-            //   },
-            // ),
           ),
         ),
         Expanded(
@@ -262,11 +244,21 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Alert on:${_vm.safeAreaList[index].alertOn}"),
-                          Text("Radius:${_vm.safeAreaList[index].radius}"),
+                          Row(
+                            children: [
+                              IconButton(
+                                  onPressed:(){
+                                    _vm.onAddSafeareaSection(_vm.data);
+                                  } ,
+                                  icon: Icon(Icons.edit_note_outlined)),
+                              Text("Radius:${_vm.safeAreaList[index].radius}"),
+                            ],
+                          ),
                         ],
                       ),
                     ),
                     Divider(),
+
                   ],
                 );
               },

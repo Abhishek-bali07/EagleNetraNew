@@ -209,7 +209,7 @@ abstract class _DashBoardPageViewModel with Store {
       return CameraPosition(
         target: LatLng(mainVM.currentLocation?.latitude ?? 0,
             mainVM.currentLocation?.longitude ?? 0),
-        zoom: 16,
+        zoom: 14,
       );
     } else {
       return Constants.defaultCameraPosition;
@@ -219,7 +219,7 @@ abstract class _DashBoardPageViewModel with Store {
   @action
   onRetry(AlertAction? action) {}
 
-  onSafeareaSection(ShortDetail arg){
+   onSafeareaSection(ShortDetail arg){
     _navigator.navigateTo(Routes.safearea, arguments: arg);
   }
 

@@ -124,8 +124,24 @@ abstract class _SafeAreaPageViewModel with Store{
     _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
 
-  backToPrevious(){
-    //_navigator.popAndNavigateTo(Routes.kidPage);
-    _navigator.pop();
+  // onEditSafeareaSection(ShortDetail arg){
+  //   _navigator.navigateTo(Routes.addsafearea, arguments: arg);
+  // }
+
+
+  Future<bool> backToPrevious() async{
+    // _navigator.popAndNavigateTo(Routes.safearea);
+    //_navigator.pop();
+    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    return false;
   }
 }
+
+
+
+
+
+// backToPrevious(){
+//   //_navigator.popAndNavigateTo(Routes.kidPage);
+//   _navigator.pop();
+// }
