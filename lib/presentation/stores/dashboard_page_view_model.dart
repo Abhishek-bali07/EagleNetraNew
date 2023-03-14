@@ -104,6 +104,7 @@ abstract class _DashBoardPageViewModel with Store {
   bool isTap = false;
 
   _DashBoardPageViewModel() {
+    mainVM.getCurrentLocation();
     getDrawerData();
    initialData();
   }
@@ -209,7 +210,7 @@ abstract class _DashBoardPageViewModel with Store {
       return CameraPosition(
         target: LatLng(mainVM.currentLocation?.latitude ?? 0,
             mainVM.currentLocation?.longitude ?? 0),
-        zoom: 14,
+        zoom: 18,
       );
     } else {
       return Constants.defaultCameraPosition;

@@ -1,5 +1,6 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:eagle_netra/core/common/lat_long.dart';
+import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
 import 'package:eagle_netra/presentation/screens/safearea_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -11,13 +12,14 @@ import 'package:mobx/mobx.dart';
 import '../../core/common/dialog_state.dart';
 import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
+import '../../core/helpers/details_safearea_response.dart';
 import '../../helpers_impl/error_dialog_impl.dart';
 import '../../utils/dialog_controller.dart';
 import '../stores/add_safe_area_view_model.dart';
 import '../ui/theme.dart';
 
 class AddSafeaAreaPage extends StatefulWidget {
-  ShortDetail arguments;
+  DetailSafeArea arguments;
   AddSafeaAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   @override
   void initState() {
     _dialogController = DialogController(dialog: ErrorDialogImpl(buildContext: context));
-    _vm = AddSafeAreaPageViewModel(widget.arguments);
+    _vm = AddSafeAreaPageViewModel(widget.arguments.data, widget.arguments.safearea as AreaDetails);
     //_vm = AddSafeAreaPageViewModel();
 
     super.initState();
@@ -103,7 +105,7 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 0.07.sw,
-                foregroundImage: NetworkImage(widget.arguments.image),
+                foregroundImage: NetworkImage(widget.arguments.data.image),
               ),
             )
           ],

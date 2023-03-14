@@ -39,7 +39,7 @@ class AreaDetails {
   String safeAreaId;
   String locationName;
   String address;
-  String radius;
+  double radius;
   bool state;
   String alertOn;
 
@@ -47,7 +47,7 @@ class AreaDetails {
     safeAreaId: json["safeAreaId"],
     locationName: json["locationName"],
     address: json["address"],
-    radius: json["radius"],
+    radius: json["radius"].toDouble(),
     state: json["state"],
     alertOn: json["alertOn"],
   );

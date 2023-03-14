@@ -8,6 +8,7 @@ import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
 import 'package:eagle_netra/utils/api_client_configuration.dart';
 import 'package:eagle_netra/utils/extensions.dart';
 
+import '../core/domain/response/fetch_areadetails_response.dart';
 import '../core/repository/safearea_details_repository.dart';
 import '../data/online/safearea_location_api.dart';
 
@@ -62,7 +63,7 @@ class SafeareaDetailsUseCaseImpl extends SafeAreaDetailsRepository{
   }
 
   @override
-  Future<Resource<SafeareaResponse>> fetchSafeAreaDetails(String smartCardId) {
+  Future<Resource<AreaDetailsResponse>> fetchSafeAreaDetails(String smartCardId) {
     // TODO: implement fetchSafeAreaDetails
     throw UnimplementedError();
   }

@@ -1,3 +1,4 @@
+import 'package:eagle_netra/helpers_impl/my_dialog_impl.dart';
 import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/extensions.dart';
@@ -27,7 +28,7 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
   GoogleMapController? _controller;
   late final DashBoardPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
@@ -40,15 +41,24 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     _dialogController =
-        DialogController(dialog: ErrorDialogImpl(buildContext: context));
+        DialogController(dialog: MyDialogImpl(buildContext: context));
     _viewm = DashBoardPageViewModel();
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     _disposers = [
       reaction((p0) => _viewm.dialogManager.currentErrorState, (p0) {
         if (p0 == DialogState.displaying) {
           _dialogController.show(_viewm.dialogManager.errorData!, p0,
               close: _viewm.dialogManager.closeErrorDialog,
               positive: _viewm.onRetry);
+        }
+      }),
+      reaction((p0) => _viewm.mainVM.dialogManager.currentState, (p0) {
+        if(p0 == DialogState.displaying){
+          _dialogController.show(_viewm.mainVM.dialogManager.data!, p0,
+          close: _viewm.dialogManager.closeDialog,
+          positive:  _viewm.mainVM.onAction);
         }
       }),
       reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
@@ -85,11 +95,24 @@ class _DashboardPageState extends State<DashboardPage> {
     ];
   }
 
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    debugPrint("$state");
+    if (state == AppLifecycleState.resumed) {
+      _viewm.mainVM.getCurrentLocation();
+    }
+  }
+
+
   @override
   void dispose() {
     for (var element in _disposers) {
       element();
     }
+    WidgetsBinding.instance.removeObserver(this);
+    _viewm.mainVM.locationStreamDisposer?.cancel();
     super.dispose();
   }
 

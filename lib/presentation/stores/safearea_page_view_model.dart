@@ -8,6 +8,7 @@ import '../../core/common/response.dart';
 import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/domain/response/safe_area_response.dart';
+import '../../core/helpers/details_safearea_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
 import '../../core/repository/safearea_repository.dart';
@@ -27,6 +28,8 @@ abstract class _SafeAreaPageViewModel with Store{
   final msgInformer = MessageInformer();
 
   ShortDetail data;
+
+  AreaDetails? safearea;
 
  // _SafeAreaPageViewModel(this.data);
 
@@ -57,7 +60,7 @@ abstract class _SafeAreaPageViewModel with Store{
   String image = "";
 
 
-  _SafeAreaPageViewModel(this.data){
+  _SafeAreaPageViewModel(this.data, this.safearea){
     initialData();
   }
 
@@ -120,7 +123,7 @@ abstract class _SafeAreaPageViewModel with Store{
   }
 
 
-  onAddSafeareaSection(ShortDetail arg){
+  onAddSafeareaSection(Object arg){
     _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
 

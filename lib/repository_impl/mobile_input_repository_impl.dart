@@ -21,29 +21,29 @@ class MobileInputRepositoryImpl implements MobileInputRepository{
 
   @override
   Future<Resource<SendOtpResponse>> sendOtp(String number) async {
-    return _signInApi
-        .otpSend(number)
-        .handleResponse<SendOtpResponse>();
-    // await Future.delayed(const Duration(seconds: 2));
-    // return Success(
-    //     SendOtpResponse(
-    //         status: true,
-    //         message: "Success",
-    //         isSend: true, otp: ""));
+    // return _signInApi
+    //     .otpSend(number)
+    //     .handleResponse<SendOtpResponse>();
+    await Future.delayed(const Duration(seconds: 2));
+    return Success(
+        SendOtpResponse(
+            status: true,
+            message: "Success",
+            isSend: true, otp: "2222"));
   }
 
   @override
   Future<Resource<OtpVerificationResponse>> verifyOtp(String number, String otp) async{
-    return _signInApi
-        .validateOtp(number, otp)
-        .handleResponse<OtpVerificationResponse>();
-    // await Future.delayed(const Duration(seconds: 2));
-    // return Success(OtpVerificationResponse(
-    //     status: true,
-    //     message: "OTP Not Matched",
-    //     isVerified: true,
-    //     userId: "1",
-    //     userStatus:"REGISTERED"));
+    // return _signInApi
+    //     .validateOtp(number, otp)
+    //     .handleResponse<OtpVerificationResponse>();
+    await Future.delayed(const Duration(seconds: 2));
+    return Success(OtpVerificationResponse(
+        status: true,
+        message: "OTP Matched",
+        isVerified: true,
+        userId: "1",
+        userStatus:"REGISTERED", details: []));
   }
 
 }

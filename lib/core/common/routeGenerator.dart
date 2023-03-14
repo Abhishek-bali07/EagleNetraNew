@@ -22,6 +22,7 @@ import '../../presentation/screens/support.dart';
 
 import '../domain/response/kid_details_response.dart';
 import '../domain/response/kid_short_info_response.dart';
+import '../helpers/details_safearea_response.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
@@ -55,11 +56,14 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(KidsPage());
 
       case Routes.safearea:
-        var arg = routeSettings.arguments as ShortDetail;
-        return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments: arg));
-
+        if(routeSettings.arguments is DetailSafeArea){
+          return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments:DetailSafeArea));
+        } else if(routeSettings.arguments is ShortDetail){
+            return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments:ShortDetail));
+        }
+        return ScreenTransitions.rightToLeftTransition(const SizedBox.shrink());
       case Routes.addsafearea:
-       var arg = routeSettings.arguments as ShortDetail;
+       var arg = routeSettings.arguments as DetailSafeArea;
        return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments: arg));
 
       case Routes.kidsHistory:

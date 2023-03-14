@@ -9,6 +9,22 @@ part of 'add_safe_area_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
+  late final _$isLoadingAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$gettingDataLoaderAtom = Atom(
       name: '_AddSafeAreaPageViewModel.gettingDataLoader', context: context);
 
@@ -267,6 +283,15 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     return _$addNowAsyncAction.run(() => super.addNow());
   }
 
+  late final _$getSafeAreaDataAsyncAction = AsyncAction(
+      '_AddSafeAreaPageViewModel.getSafeAreaData',
+      context: context);
+
+  @override
+  Future getSafeAreaData() {
+    return _$getSafeAreaDataAsyncAction.run(() => super.getSafeAreaData());
+  }
+
   late final _$_AddSafeAreaPageViewModelActionController =
       ActionController(name: '_AddSafeAreaPageViewModel', context: context);
 
@@ -339,6 +364,7 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   @override
   String toString() {
     return '''
+isLoading: ${isLoading},
 gettingDataLoader: ${gettingDataLoader},
 sendingLoader: ${sendingLoader},
 isShow: ${isShow},

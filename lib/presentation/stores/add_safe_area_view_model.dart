@@ -43,7 +43,8 @@ abstract class _AddSafeAreaPageViewModel with Store {
   final add_safe_area_use_case = instance<SafeAreaDetailsRepository>();
 
   ShortDetail? data;
- // AreaDetails safeArea;
+
+  AreaDetails safearea;
 
   @observable
   bool isLoading = false;
@@ -102,21 +103,10 @@ abstract class _AddSafeAreaPageViewModel with Store {
     locationName = value;
   }
 
-
-
-
-  // @action
-  // onRadioSelected(AlertRadio? selectedValue) {
-  //   if (selectedValue != null) {
-  //     debugPrint(selectedValue.toString());
-  //     selected = selectedValue;
-  //   }
-  // }
-
   @action
   onRetry(AlertAction? action) {}
 
-  _AddSafeAreaPageViewModel(this.data) {
+  _AddSafeAreaPageViewModel(this.data, this.safearea) {
     mainVM.getCurrentLocation();
   }
 
@@ -255,7 +245,7 @@ abstract class _AddSafeAreaPageViewModel with Store {
       isLoading = false;
       switch(data != null && data.status){
         case true:
-          if(data!.areaDetails?.isEmpty == true){
+          if(data!.areaDetails == null){
 
           }else{
             if(data.areaDetails != null){

@@ -1,5 +1,6 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:geolocator/geolocator.dart';
-
 import '../core/common/gps_status.dart';
 import '../core/common/location_permission_status.dart';
 import '../core/helpers/location_service.dart';
@@ -45,5 +46,16 @@ class AppLocationService implements LocationService {
   Future<Position> getCurrentLocation() async {
     var position = await Geolocator.getCurrentPosition();
     return position;
+  }
+
+  @override
+  Future openSettings() async {
+    if (Platform.isAndroid) {
+      var isOpened = await Geolocator.openLocationSettings();
+      return isOpened;
+    } else if (Platform.isIOS) {
+      var isOpened = await Geolocator.openAppSettings();
+      return isOpened;
+    }
   }
 }

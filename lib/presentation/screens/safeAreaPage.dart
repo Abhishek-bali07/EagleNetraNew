@@ -1,3 +1,4 @@
+import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
 import 'package:eagle_netra/presentation/ui/theme.dart';
 import 'package:eagle_netra/utils/dialog_controller.dart';
 import 'package:eagle_netra/utils/extensions.dart';
@@ -10,13 +11,15 @@ import 'package:switch_button/switch_button.dart';
 import '../../core/common/dialog_state.dart';
 import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
+import '../../core/helpers/details_safearea_response.dart';
 import '../../core/helpers/image_assets.dart';
 import '../stores/safearea_page_view_model.dart';
 import '../ui/app_text_style.dart';
 
 class SafeAreaPage extends StatefulWidget {
-  ShortDetail arguments;
-  SafeAreaPage({Key? key,required this.arguments}) : super(key: key);
+  Object arguments;
+
+  SafeAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
   State<SafeAreaPage> createState() => _SafeAreaPageState();
@@ -26,11 +29,18 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
   late final SafeAreaPageViewModel _vm;
   late final List<ReactionDisposer> _disposers;
   late final DialogController _dialogController;
- // bool state = false;
+
+  // bool state = false;
 
   @override
   void initState() {
-    _vm = SafeAreaPageViewModel(widget.arguments);
+    if (widget.arguments is DetailSafeArea) {
+      _vm = SafeAreaPageViewModel((widget.arguments as DetailSafeArea).data,
+          (widget.arguments as DetailSafeArea).safearea as AreaDetails);
+    } else if (widget.arguments is ShortDetail) {
+      _vm = SafeAreaPageViewModel(
+          widget.arguments as ShortDetail, null);
+    }
 
     super.initState();
     _disposers = [
@@ -70,7 +80,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.SilverChalice,
         foregroundColor: AppColors.Black,
-        onPressed: (){
+        onPressed: () {
           _vm.onAddSafeareaSection(_vm.data);
         },
         child: Icon(Icons.add),
@@ -79,7 +89,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(flex:1,child: _upperSideContent()),
+            Expanded(flex: 1, child: _upperSideContent()),
             Expanded(flex: 8, child: _lowerSideContent())
           ],
         ),
@@ -87,19 +97,18 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
     );
   }
 
-  Widget _upperSideContent(){
+  Widget _upperSideContent() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-         Expanded(
+        Expanded(
           flex: 2,
           child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child:  CircleAvatar(
-              radius: 30.0,
-                foregroundImage: NetworkImage(widget.arguments.image),
-            )
-          ),
+              padding: EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                radius: 30.0,
+                foregroundImage: NetworkImage(_vm.image),
+              )),
         ),
         Expanded(
           flex: 4,
@@ -108,26 +117,20 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding:
-                const EdgeInsets.only(top: 8.0, left: 8.0),
-                child: widget.arguments.name
-                    .text(AppTextStyle.userNameStyle),
+                padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                child:
+                    widget.arguments.data.name.text(AppTextStyle.userNameStyle),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 5.0, left: 8.0),
-                    child: Text("Class:${widget.arguments.clsName}"),
+                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                    child: Text("Class:${widget.arguments.data.clsName}"),
                   ),
-
-
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 5.0, left: 8.0),
-                    child: Text("(Age:${widget.arguments.age})"),
+                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                    child: Text("(Age:${widget.arguments.data.age})"),
                   ),
                 ],
               ),
@@ -135,7 +138,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
           ),
         ),
         Expanded(
-          flex: 2 ,
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: SvgPicture.asset(ImageAssets.home),
@@ -144,7 +147,6 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
       ],
     );
   }
-
 
   Widget _lowerSideContent() {
     return Column(
@@ -211,7 +213,8 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                     SwitchButton(
                       value: _vm.safeAreaList[index].state,
                       onToggle: (val) {
-                        _vm.switcherData(_vm.safeAreaList[index], changedState: (state){
+                        _vm.switcherData(_vm.safeAreaList[index],
+                            changedState: (state) {
                           setState(() {
                             _vm.safeAreaList[index].state = state;
                           });
@@ -247,9 +250,9 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed:(){
+                                  onPressed: () {
                                     _vm.onAddSafeareaSection(_vm.data);
-                                  } ,
+                                  },
                                   icon: Icon(Icons.edit_note_outlined)),
                               Text("Radius:${_vm.safeAreaList[index].radius}"),
                             ],
@@ -258,7 +261,6 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                       ),
                     ),
                     Divider(),
-
                   ],
                 );
               },

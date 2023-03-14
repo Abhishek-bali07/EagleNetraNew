@@ -83,8 +83,8 @@ abstract class _SplashViewModel with Store, CheckInternet {
     var response = await _splashrepo.getBaseUrl();
     if (response is Success) {
       var data = response.data;
-      switch (data != null && data.status) {
-        case true:
+       switch (data != null && data.status) {
+         case true:
           _appSettings.setBaseUrl(data!.baseUrl);
           var userId = _appSettings.userId;
           if (userId != null && userId != "") {
@@ -99,9 +99,9 @@ abstract class _SplashViewModel with Store, CheckInternet {
           }
           _navigator.navigatorKey.currentState?.pushNamed(Routes.slider);
 
-          break;
+           break;
         default:
-      }
+       }
     }
   }
 

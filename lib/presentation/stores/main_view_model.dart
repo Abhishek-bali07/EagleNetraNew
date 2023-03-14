@@ -108,6 +108,16 @@ abstract class _IMainViewModel with Store {
         });
   }
 
+
+  onAction(AlertAction? action) {
+    if (action == AlertAction.enableGps) {
+      locationService.openSettings();
+    } else if (action == AlertAction.locationServiceDisable) {
+      locationService.openSettings();
+    }
+    dialogManager.closeDialog();
+  }
+
   _sendCurrentLocation() async {
     var kidId = "";
     Timer.periodic(const Duration(seconds: 120), (timer) async {
