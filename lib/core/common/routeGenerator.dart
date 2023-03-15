@@ -56,15 +56,21 @@ class RouteGenerator {
         return ScreenTransitions.rightToLeftTransition(KidsPage());
 
       case Routes.safearea:
-        if(routeSettings.arguments is DetailSafeArea){
-          return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments:DetailSafeArea));
-        } else if(routeSettings.arguments is ShortDetail){
-            return ScreenTransitions.rightToLeftTransitionWithEvent(SafeAreaPage(arguments:ShortDetail));
-        }
-        return ScreenTransitions.rightToLeftTransition(const SizedBox.shrink());
-      case Routes.addsafearea:
-       var arg = routeSettings.arguments as DetailSafeArea;
-       return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments: arg));
+        var arg = routeSettings.arguments as ShortDetail;
+        print("$arg");
+        return ScreenTransitions.rightToLeftTransition(SafeAreaPage(arguments: arg));
+
+        case Routes.addsafearea:
+          if(routeSettings.arguments is DetailSafeArea){
+            return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments:routeSettings.arguments as DetailSafeArea));
+          } else if(routeSettings.arguments is ShortDetail){
+            return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments:routeSettings.arguments as ShortDetail));
+          }
+          return ScreenTransitions.rightToLeftTransition(const SizedBox.shrink());
+
+
+          //var arg = routeSettings.arguments as DetailSafeArea;
+         //return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments: arg));
 
       case Routes.kidsHistory:
         return ScreenTransitions.rightToLeftTransition(const KidsHistory());

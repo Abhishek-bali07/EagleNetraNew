@@ -4,6 +4,7 @@ import 'package:retrofit/http.dart';
 import '../../core/common/api_route.dart';
 import '../../core/domain/response/add_safe_area_details_reponse.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
+import '../../core/domain/response/fetch_areadetails_response.dart';
 part 'safearea_location_api.g.dart';
 
 @RestApi()
@@ -35,7 +36,14 @@ abstract class SafeAreaLocationApi {
       @Field("safe_area_radius") double radius,
       @Field("address") String locationAddress,
       );
-
+  
+  
+  
+  @GET("${ApiRoutes.parent}/eagle/getSafeAreaDetails")
+  Future<AreaDetailsResponse> editSafearea(
+      @Query("smartCardId") String smartCardId,
+      @Query("safeAreaId") String safeAreaId,
+      );
 
 
 

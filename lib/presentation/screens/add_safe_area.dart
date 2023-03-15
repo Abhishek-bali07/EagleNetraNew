@@ -19,7 +19,8 @@ import '../stores/add_safe_area_view_model.dart';
 import '../ui/theme.dart';
 
 class AddSafeaAreaPage extends StatefulWidget {
-  DetailSafeArea arguments;
+  //DetailSafeArea arguments;
+  Object arguments;
   AddSafeaAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -27,7 +28,7 @@ class AddSafeaAreaPage extends StatefulWidget {
 }
 
 class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
-
+  late final TextEditingController textEditingController;
   GoogleMapController? _controller;
   late final AddSafeAreaPageViewModel _vm;
   late final List<ReactionDisposer> _disposers;
@@ -40,9 +41,12 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
   @override
   void initState() {
     _dialogController = DialogController(dialog: ErrorDialogImpl(buildContext: context));
-    _vm = AddSafeAreaPageViewModel(widget.arguments.data, widget.arguments.safearea as AreaDetails);
-    //_vm = AddSafeAreaPageViewModel();
-
+    if (widget.arguments is DetailSafeArea) {
+      _vm = AddSafeAreaPageViewModel((widget.arguments as DetailSafeArea).data,
+          (widget.arguments as DetailSafeArea).safearea);
+    } else if (widget.arguments is ShortDetail) {
+      _vm = AddSafeAreaPageViewModel(widget.arguments as ShortDetail, null);
+    }
     super.initState();
 
     _disposers = [
@@ -102,12 +106,21 @@ class _AddSafeaAreaPageState extends State<AddSafeaAreaPage> {
           title: Text("Add SafeArea"),
           actions: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                radius: 0.07.sw,
-                foregroundImage: NetworkImage(widget.arguments.data.image),
+              padding: const EdgeInsets.all(6.0),
+              child: Observer(
+                builder: (BuildContext context) {
+                  return _vm.data.image.isNotEmpty
+                      ?  CircleAvatar(
+                    radius: 0.07.sw,
+                    foregroundImage: NetworkImage(_vm.data.image),
+                  ): CircleAvatar(
+                    radius: 0.06.sw,
+                    child: SvgPicture.asset("assets/images/boy.svg"),
+                  );
+                },
+
               ),
-            )
+            ),
           ],
         ),
         body: SafeArea(

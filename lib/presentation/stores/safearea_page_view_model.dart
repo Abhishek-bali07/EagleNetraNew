@@ -5,6 +5,7 @@ import '../../core/common/alert_action.dart';
 import '../../core/common/app_settings.dart';
 import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
+
 import '../../core/domain/response/kid_details_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/domain/response/safe_area_response.dart';
@@ -17,10 +18,11 @@ import '../app_navigator/di.dart';
 
 part 'safearea_page_view_model.g.dart';
 
-class SafeAreaPageViewModel = _SafeAreaPageViewModel with _$SafeAreaPageViewModel;
+class SafeAreaPageViewModel = _SafeAreaPageViewModel
+    with _$SafeAreaPageViewModel;
 
 
-abstract class _SafeAreaPageViewModel with Store{
+abstract class _SafeAreaPageViewModel with Store {
   final _navigator = instance<NavigationService>();
   final _safeareaUseCase = instance<SafeAreaRepository>();
   final _appSettings = instance<AppSettings>();
@@ -29,10 +31,9 @@ abstract class _SafeAreaPageViewModel with Store{
 
   ShortDetail data;
 
-  AreaDetails? safearea;
+  //AreaDetails? safearea;
 
- // _SafeAreaPageViewModel(this.data);
-
+  @observable
   @observable
   bool isLoading = false;
 
@@ -60,10 +61,9 @@ abstract class _SafeAreaPageViewModel with Store{
   String image = "";
 
 
-  _SafeAreaPageViewModel(this.data, this.safearea){
+  _SafeAreaPageViewModel(this.data) {
     initialData();
   }
-
 
 
   initialData() async {
@@ -76,16 +76,15 @@ abstract class _SafeAreaPageViewModel with Store{
       isLoading = false;
       switch (data != null && data.status) {
         case true:
-          if (data!.areaDetails?.isEmpty==true) {
-
+          if (data!.areaDetails?.isEmpty == true) {
             safeAreaList = [];
           } else {
-            if(data.areaDetails != null) {
+            if (data.areaDetails != null) {
               safeAreaList = data.areaDetails!;
             }
           }
       }
-    }else if (response is Error) {
+    } else if (response is Error) {
       msgInformer.informUi(response.message ?? "");
     }
   }
@@ -101,47 +100,43 @@ abstract class _SafeAreaPageViewModel with Store{
       dataLoader = false;
       switch (data != null && data.status) {
         case true:
-          if(data != null) {
+          if (data != null) {
             changedState?.call(data.isActivated);
           }
       }
-
     }
-    else if(response is Error){
+    else if (response is Error) {
 
     }
   }
-
-
-
 
 
   onError(AlertAction? action) {
     if (action == AlertAction.kidShortInfo) {
-     initialData();
+      initialData();
     }
   }
 
 
-  onAddSafeareaSection(Object arg){
+  onAddSafeareaSection(ShortDetail arg) {
     _navigator.navigateTo(Routes.addsafearea, arguments: arg);
   }
 
-  // onEditSafeareaSection(ShortDetail arg){
-  //   _navigator.navigateTo(Routes.addsafearea, arguments: arg);
-  // }
+  onEditSafeareaSection(AreaDetails? arg) {
+    if (arg != null) {
+      _navigator.navigateTo(
+          Routes.addsafearea, arguments: DetailSafeArea(data: data, safearea: arg));
+    }
+  }
 
 
-  Future<bool> backToPrevious() async{
+  Future<bool> backToPrevious() async {
     // _navigator.popAndNavigateTo(Routes.safearea);
     //_navigator.pop();
-    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst);
     return false;
   }
 }
-
-
-
 
 
 // backToPrevious(){

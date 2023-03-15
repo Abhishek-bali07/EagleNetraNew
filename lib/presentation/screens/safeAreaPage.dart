@@ -17,8 +17,8 @@ import '../stores/safearea_page_view_model.dart';
 import '../ui/app_text_style.dart';
 
 class SafeAreaPage extends StatefulWidget {
-  Object arguments;
-
+  // Object arguments;
+  ShortDetail arguments;
   SafeAreaPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -34,13 +34,14 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
 
   @override
   void initState() {
-    if (widget.arguments is DetailSafeArea) {
-      _vm = SafeAreaPageViewModel((widget.arguments as DetailSafeArea).data,
-          (widget.arguments as DetailSafeArea).safearea as AreaDetails);
-    } else if (widget.arguments is ShortDetail) {
-      _vm = SafeAreaPageViewModel(
-          widget.arguments as ShortDetail, null);
-    }
+    _vm = SafeAreaPageViewModel(widget.arguments);
+    // if (widget.arguments is DetailSafeArea) {
+    //   _vm = SafeAreaPageViewModel((widget.arguments as DetailSafeArea).data,
+    //       (widget.arguments as DetailSafeArea).safearea as AreaDetails);
+    // } else if (widget.arguments is ShortDetail) {
+    //   _vm = SafeAreaPageViewModel(
+    //       widget.arguments as ShortDetail, null);
+    // }
 
     super.initState();
     _disposers = [
@@ -107,8 +108,28 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
               padding: EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 30.0,
-                foregroundImage: NetworkImage(_vm.image),
-              )),
+                foregroundImage: NetworkImage(widget.arguments.image),
+              )
+
+            // Observer(
+            //   builder: (BuildContext context) {
+            //     return _vm.image.isNotEmpty
+            //         ? CircleAvatar(
+            //       radius: 0.06.sw,
+            //       backgroundColor: AppColors.lightGray,
+            //       foregroundImage:
+            //       NetworkImage(widget.arguments.image),
+            //     )
+            //         : CircleAvatar(
+            //       radius: 0.06.sw,
+            //       // backgroundColor:
+            //       //     AppColors.drawerPrimary,
+            //           child: SvgPicture.asset(
+            //           "assets/images/boy.svg"),
+            //     );
+            //   },
+            // ),
+          ),
         ),
         Expanded(
           flex: 4,
@@ -117,20 +138,26 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0, left: 8.0),
-                child:
-                    widget.arguments.data.name.text(AppTextStyle.userNameStyle),
+                padding:
+                const EdgeInsets.only(top: 8.0, left: 8.0),
+                child: widget.arguments.name
+                    .text(AppTextStyle.userNameStyle),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                    child: Text("Class:${widget.arguments.data.clsName}"),
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 8.0),
+                    child: Text("Class:${widget.arguments.clsName}"),
                   ),
+
+
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                    child: Text("(Age:${widget.arguments.data.age})"),
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 8.0),
+                    child: Text("(Age:${widget.arguments.age})"),
                   ),
                 ],
               ),
@@ -251,7 +278,7 @@ class _SafeAreaPageState extends State<SafeAreaPage> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    _vm.onAddSafeareaSection(_vm.data);
+                                    _vm.onEditSafeareaSection(_vm.safeAreaList[index]);
                                   },
                                   icon: Icon(Icons.edit_note_outlined)),
                               Text("Radius:${_vm.safeAreaList[index].radius}"),

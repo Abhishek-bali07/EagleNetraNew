@@ -65,27 +65,38 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  //autofocus: true,
-                  onChanged: (value) {
-                    widget.parentVM.onNameChanged(value);
+                child: Observer(
+                  builder: (BuildContext context) {
+                    if(widget.parentVM.locationAddress.isNotEmpty) {
+                      textEditingController.text = widget.parentVM.locationAddress;
+                      return TextField(
+                        //autofocus: true,
+                        controller: textEditingController,
+                        onChanged: (value) {
+                          widget.parentVM.onNameChanged(value);
+                        },
+                        decoration: InputDecoration(
+                          hintText: Constants.addcurrentlocation,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.appBlack,
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.appBlack,
+                            ),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.SilverChalice),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   },
-                  decoration: InputDecoration(
-                    hintText: Constants.addcurrentlocation,
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.appBlack,
-                      ),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.appBlack,
-                      ),
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.SilverChalice),
-                    ),
-                  ),
+
                 ),
               ),
               Padding(

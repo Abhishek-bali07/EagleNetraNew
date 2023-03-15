@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/core/common/response.dart';
 
 import 'package:eagle_netra/core/domain/response/add_safe_area_details_reponse.dart';
@@ -63,9 +64,16 @@ class SafeareaDetailsUseCaseImpl extends SafeAreaDetailsRepository{
   }
 
   @override
-  Future<Resource<AreaDetailsResponse>> fetchSafeAreaDetails(String smartCardId) {
-    // TODO: implement fetchSafeAreaDetails
-    throw UnimplementedError();
+  Future<Resource<AreaDetailsResponse>> fetchSafeAreaDetails(String smartCardId, String  safeAreaId) async {
+    return _safeAreaLocationApi
+        .editSafearea(smartCardId, safeAreaId)
+        .handleResponse<AreaDetailsResponse>();
+    // await Future.delayed(const Duration(seconds: 2));
+    // return Success(AreaDetailsResponse(status: true, message: "Success",
+    //     safeAreaDetails: SafeAreaDetails(
+    //          locationName: "locationName", address:" address", radius: 60.352, state: "state", alertOn:" alertOn", latLong: LatLong(lat: 22.5632, lng: 88.235469), safeAreaId: '1')
+    //
+    // ));
   }
 
 }

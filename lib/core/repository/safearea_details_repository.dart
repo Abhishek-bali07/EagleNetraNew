@@ -7,9 +7,10 @@ import '../domain/response/add_safe_area_details_reponse.dart';
 import '../domain/response/fetch_adress_response.dart';
 import '../domain/response/fetch_areadetails_response.dart';
 
+
 abstract class SafeAreaDetailsRepository{
 
-  Future<Resource<AreaDetailsResponse>> fetchSafeAreaDetails(String smartCardId);
+  Future<Resource<AreaDetailsResponse>> fetchSafeAreaDetails(String smartCardId, String safeAreaId);
 
   Future<Resource<FetchAddressResponse>> fetchAddress(double latitude, double longitude);
 

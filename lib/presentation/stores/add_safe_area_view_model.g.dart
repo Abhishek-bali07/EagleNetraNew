@@ -9,6 +9,22 @@ part of 'add_safe_area_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
+  late final _$editSafeAreaAtom =
+      Atom(name: '_AddSafeAreaPageViewModel.editSafeArea', context: context);
+
+  @override
+  SafeAreaDetails? get editSafeArea {
+    _$editSafeAreaAtom.reportRead();
+    return super.editSafeArea;
+  }
+
+  @override
+  set editSafeArea(SafeAreaDetails? value) {
+    _$editSafeAreaAtom.reportWrite(value, super.editSafeArea, () {
+      super.editSafeArea = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_AddSafeAreaPageViewModel.isLoading', context: context);
 
@@ -364,6 +380,7 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
   @override
   String toString() {
     return '''
+editSafeArea: ${editSafeArea},
 isLoading: ${isLoading},
 gettingDataLoader: ${gettingDataLoader},
 sendingLoader: ${sendingLoader},

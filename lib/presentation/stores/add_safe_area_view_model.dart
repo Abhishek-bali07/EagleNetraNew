@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:eagle_netra/core/common/lat_long.dart';
 import 'package:eagle_netra/core/domain/response/safe_area_response.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -17,9 +18,12 @@ import '../../core/common/message_informer.dart';
 import '../../core/common/response.dart';
 import '../../core/common/service.dart';
 import '../../core/common/track_alert_button.dart';
-import '../../core/domain/response/fetch_adress_response.dart';
+
+
+
+import '../../core/domain/response/fetch_areadetails_response.dart';
 import '../../core/domain/response/kid_details_response.dart';
-import '../../core/domain/response/kid_short_info_response.dart';
+
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
 import '../../core/repository/safearea_details_repository.dart';
@@ -42,9 +46,12 @@ abstract class _AddSafeAreaPageViewModel with Store {
   final _navigator = instance<NavigationService>();
   final add_safe_area_use_case = instance<SafeAreaDetailsRepository>();
 
-  ShortDetail? data;
+  ShortDetail data;
 
-  AreaDetails safearea;
+  AreaDetails? safearea;
+
+  @observable
+  SafeAreaDetails? editSafeArea;
 
   @observable
   bool isLoading = false;
@@ -108,6 +115,7 @@ abstract class _AddSafeAreaPageViewModel with Store {
 
   _AddSafeAreaPageViewModel(this.data, this.safearea) {
     mainVM.getCurrentLocation();
+    getSafeAreaData();
   }
 
   @action
@@ -162,6 +170,7 @@ abstract class _AddSafeAreaPageViewModel with Store {
       switch (data != null && data.status) {
         case true:
           if (data != null) {
+
             locationAddress = data.locationDetails;
           }
       }
@@ -238,19 +247,18 @@ abstract class _AddSafeAreaPageViewModel with Store {
   @action
   getSafeAreaData() async{
     isLoading = true;
-    var smartCardId = data!.smartCardId;
-    var response =  await add_safe_area_use_case.fetchSafeAreaDetails(smartCardId);
+    var smartCardId = data.smartCardId;
+    var safeAreaId = safearea!.safeAreaId;
+    var response =  await add_safe_area_use_case.fetchSafeAreaDetails(smartCardId,safeAreaId);
     if(response is Success){
       var data = response.data;
       isLoading = false;
       switch(data != null && data.status){
         case true:
-          if(data!.areaDetails == null){
-
-          }else{
-            if(data.areaDetails != null){
-              // safeArea = data.areaDetails!;
-
+          if(data != null){
+            editSafeArea = data.safeAreaDetails;
+            if (data.safeAreaDetails.latLong != null) {
+              await setupMarker(data.safeAreaDetails.latLong);
             }
           }
 

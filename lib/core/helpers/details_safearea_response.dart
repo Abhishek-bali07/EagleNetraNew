@@ -1,5 +1,6 @@
-import '../domain/response/fetch_areadetails_response.dart';
+
 import '../domain/response/kid_details_response.dart';
+import '../domain/response/safe_area_response.dart';
 
 class DetailSafeArea{
   ShortDetail data;
