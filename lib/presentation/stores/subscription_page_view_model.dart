@@ -103,9 +103,11 @@ abstract class _SubscriptionPageViewModel with Store{
   }
 
 
-  backToPrevious(){
-    //_navigator.popAndNavigateTo(Routes.dashboard);
-    _navigator.pop();
+  Future<bool> backToPrevious() async{
+    // _navigator.popAndNavigateTo(Routes.safearea);
+    //_navigator.pop();
+    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    return false;
   }
 
 

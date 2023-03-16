@@ -35,6 +35,7 @@ abstract class SafeAreaLocationApi {
       @Field("alert_on_exit") bool valuesecond,
       @Field("safe_area_radius") double radius,
       @Field("address") String locationAddress,
+      @Field("safe_area_id") String safeAreaId,
       );
   
   

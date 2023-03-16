@@ -56,25 +56,28 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      drawerEnableOpenDragGesture: false,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.appBlack,
-        leading: IconButton(
-          onPressed: () {
-            _viewModel.backToPrevious();
-          },
-          icon: Icon(Icons.arrow_back),
+    return WillPopScope(
+      onWillPop: _viewModel.backToPrevious,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        drawerEnableOpenDragGesture: false,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppColors.appBlack,
+          leading: IconButton(
+            onPressed: () {
+              _viewModel.backToPrevious();
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: Text("Device Subscription"),
         ),
-        title: Text("Device Subscription"),
-      ),
-      
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [Expanded(flex: 10, child: _lowerSideContent())],
+
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [Expanded(flex: 10, child: _lowerSideContent())],
+          ),
         ),
       ),
     );

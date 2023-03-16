@@ -58,6 +58,7 @@ class _SafeAreaLocationApi implements SafeAreaLocationApi {
     valuesecond,
     radius,
     locationAddress,
+    safeAreaId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -70,6 +71,7 @@ class _SafeAreaLocationApi implements SafeAreaLocationApi {
       'alert_on_exit': valuesecond,
       'safe_area_radius': radius,
       'address': locationAddress,
+      'safe_area_id': safeAreaId,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AddSafeAreaDetailsResponse>(Options(

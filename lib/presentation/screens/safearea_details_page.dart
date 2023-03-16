@@ -27,7 +27,6 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
   late final DialogController dialogController;
   late final TextEditingController textEditingController;
 
-
   // bool shouldCheck = false;
 
   @override
@@ -67,57 +66,53 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Observer(
                   builder: (BuildContext context) {
-                    if(widget.parentVM.locationAddress.isNotEmpty) {
-                      textEditingController.text = widget.parentVM.locationAddress;
-                      return TextField(
-                        //autofocus: true,
-                        controller: textEditingController,
-                        onChanged: (value) {
-                          widget.parentVM.onNameChanged(value);
-                        },
-                        decoration: InputDecoration(
-                          hintText: Constants.addcurrentlocation,
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.appBlack,
-                            ),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.appBlack,
-                            ),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.SilverChalice),
+                    if (widget.parentVM.locationNamePrefilled.isNotEmpty) {
+                      textEditingController.text = widget.parentVM.locationNamePrefilled;
+                    }
+                    return TextField(
+                      //autofocus: true,
+                      controller: textEditingController,
+                      onChanged: (value) {
+                        widget.parentVM.onNameChanged(value);
+                      },
+                      decoration: InputDecoration(
+                        hintText: Constants.addcurrentlocation,
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.appBlack,
                           ),
                         ),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.appBlack,
+                          ),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide:
+                          BorderSide(color: AppColors.SilverChalice),
+                        ),
+                      ),
+                    );
                   },
-
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Observer(
-                  builder: (context) =>
-                  widget.parentVM.locationAddress != null
-                      ?  Center(child: Text(widget.parentVM.locationAddress))
+                  builder: (context) => widget.parentVM.locationAddress != null
+                      ? Center(child: Text(widget.parentVM.locationAddress))
                       : const SizedBox.shrink(),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(left: 15.0, right: 10.0),
                 child: Row(
                   children: [
                     Text(
                       "Alert:",
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.sp),
                     ),
-
                     Observer(builder: (BuildContext context) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -126,9 +121,8 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                             checkColor: Colors.white,
                             activeColor: Colors.green,
                             value: widget.parentVM.valuefirst,
-                            onChanged:widget.parentVM.onCheckFirst,
+                            onChanged: widget.parentVM.onCheckFirst,
                           ),
-
                           const Text(
                             "Entry",
                             style: TextStyle(
@@ -160,7 +154,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                       );
                     }),
                     Padding(
-                      padding:EdgeInsets.only(left: 50.0),
+                      padding: EdgeInsets.only(left: 40.0),
                       child: Observer(
                         builder: (BuildContext context) {
                           return ElevatedButton(
@@ -169,23 +163,25 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                                   minimumSize: const Size(20, 40),
                                   backgroundColor: AppColors.greenPrimary,
                                   textStyle: const TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold)),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                               child: widget.parentVM.uploadingLoader
                                   ? const CircularProgressIndicator(
                                 color: Colors.black,
                               )
-                                  : Text(
-                                  "Add Now", style: TextStyle(fontSize: 14.sp))
-                          );
+                                  : widget.parentVM.safearea == null
+                                  ? Text("Add Now",
+                                  style: TextStyle(fontSize: 14.sp))
+                                  : Text("Update Now",
+                                  style: TextStyle(fontSize: 14.sp)));
                         },
-
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top:8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Slider(
                   //label:'${widget.parentVM.radius.round()}',
                   value: widget.parentVM.radius,
@@ -198,7 +194,7 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                           LatLong(lat: latLng.latitude, lng: latLng.longitude));
                     });
                   },
-                  min: 100,
+                  min: 0,
                   max: 1000,
                 ),
               ),
@@ -207,9 +203,10 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Radius:${widget.parentVM.radius.toInt()}m",style: TextStyle(
-                        fontWeight: FontWeight.bold
-                    ),)
+                    Text(
+                      "Radius:${widget.parentVM.radius.toInt()}m",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               )
@@ -220,8 +217,6 @@ class _SafeAreaDetailsPageState extends State<SafeAreaDetailsPage> {
     );
   }
 }
-
-
 
 // Radio(
 //   value: AlertRadio.entry,

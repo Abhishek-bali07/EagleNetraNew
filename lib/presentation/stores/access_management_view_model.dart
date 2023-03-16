@@ -159,8 +159,10 @@ abstract class _AccessManagementViewModel with Store{
   isNumberValid(){
     return _validator.isValidNumber(mobile);
   }
-  backToPrevious(){
-    _navigator.pop();
+  Future<bool> backToPrevious() async{
+    // _navigator.popAndNavigateTo(Routes.safearea);
+    //_navigator.pop();
+    _navigator.navigatorKey.currentState!.popUntil((route) => route.isFirst );
+    return false;
   }
-
 }

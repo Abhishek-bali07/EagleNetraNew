@@ -26,5 +26,6 @@ abstract class SafeAreaDetailsRepository{
       bool valuefirst,
       bool valuesecond,
       double radius,
+      String safeAreaId,
       );
 }

@@ -50,9 +50,10 @@ class SafeareaDetailsUseCaseImpl extends SafeAreaDetailsRepository{
       String locationAddress,
       bool valuefirst,
       bool valuesecond,
-      double radius) async {
+      double radius,
+      String safeAreaId) async {
     return _safeAreaLocationApi
-        .setSafeAreaDetails(userId, smartCardId, locationName, longitude, latitude, valuefirst, valuesecond, radius, locationAddress)
+        .setSafeAreaDetails(userId, smartCardId, locationName, longitude, latitude, valuefirst, valuesecond, radius, locationAddress,safeAreaId)
         .handleResponse<AddSafeAreaDetailsResponse>();
 
     // await Future.delayed(const Duration(seconds: 2));

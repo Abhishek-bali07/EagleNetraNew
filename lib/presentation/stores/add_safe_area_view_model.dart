@@ -91,6 +91,9 @@ abstract class _AddSafeAreaPageViewModel with Store {
   String locationAddress = "";
 
   @observable
+  String locationNamePrefilled = "";
+
+  @observable
   String locationName = "";
 
   @observable
@@ -170,7 +173,6 @@ abstract class _AddSafeAreaPageViewModel with Store {
       switch (data != null && data.status) {
         case true:
           if (data != null) {
-
             locationAddress = data.locationDetails;
           }
       }
@@ -203,7 +205,9 @@ abstract class _AddSafeAreaPageViewModel with Store {
     var longitude = _marker?.position.longitude;
     uploadingLoader = true;
     var userId = _appSettings.userId;
-    var smartCardId = data!.smartCardId;
+    var smartCardId = data.smartCardId;
+    var safeAreaId = safearea?.safeAreaId;
+    debugPrint("Datasafearea:$safeAreaId");
     var response = await add_safe_area_use_case.uploadLocationDetails(
         userId,
         smartCardId,
@@ -213,7 +217,9 @@ abstract class _AddSafeAreaPageViewModel with Store {
         locationAddress,
         valuefirst,
         valuesecond,
-        radius);
+        radius,
+        safeAreaId??""
+    );
     if (response is Success) {
       var data = response.data;
       uploadingLoader = false;
@@ -221,7 +227,8 @@ abstract class _AddSafeAreaPageViewModel with Store {
         case true:
           if (data!.isSaved) {
             MyUtils.toastMessage(data.message);
-            _navigator.popAndNavigateTo(Routes.dashboard);
+            _navigator.navigatorKey.currentState?.popAndPushNamed(Routes.dashboard);
+           // _navigator.popAndNavigateTo(Routes.dashboard);
           } else {
             dialogManager.initErrorData(AlertData(
                 StringProvider.error,
@@ -257,6 +264,10 @@ abstract class _AddSafeAreaPageViewModel with Store {
         case true:
           if(data != null){
             editSafeArea = data.safeAreaDetails;
+            radius = data.safeAreaDetails.radius;
+            alertSelected = data.safeAreaDetails.alertOn;
+            locationAddress = data.safeAreaDetails.address;
+            locationNamePrefilled = data.safeAreaDetails.locationName;
             if (data.safeAreaDetails.latLong != null) {
               await setupMarker(data.safeAreaDetails.latLong);
             }

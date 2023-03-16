@@ -80,7 +80,7 @@ abstract class _SafeAreaPageViewModel with Store {
             safeAreaList = [];
           } else {
             if (data.areaDetails != null) {
-              safeAreaList = data.areaDetails!;
+              safeAreaList = data.areaDetails;
             }
           }
       }

@@ -1,3 +1,4 @@
+import 'package:eagle_netra/core/common/transition_event_detection.dart';
 import 'package:eagle_netra/presentation/app_navigator/routes.dart';
 import 'package:eagle_netra/presentation/app_navigator/screen_transitions.dart';
 import 'package:eagle_netra/presentation/screens/mobileInput_page.dart';
@@ -62,9 +63,9 @@ class RouteGenerator {
 
         case Routes.addsafearea:
           if(routeSettings.arguments is DetailSafeArea){
-            return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments:routeSettings.arguments as DetailSafeArea));
+            return ScreenTransitions.rightToLeftTransition(AddSafeaAreaPage(arguments:routeSettings.arguments as DetailSafeArea));
           } else if(routeSettings.arguments is ShortDetail){
-            return ScreenTransitions.rightToLeftTransitionWithEvent(AddSafeaAreaPage(arguments:routeSettings.arguments as ShortDetail));
+            return ScreenTransitions.rightToLeftTransition(AddSafeaAreaPage(arguments:routeSettings.arguments as ShortDetail));
           }
           return ScreenTransitions.rightToLeftTransition(const SizedBox.shrink());
 
@@ -104,6 +105,8 @@ class RouteGenerator {
     }
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionDuration: Duration(milliseconds: 1000),
+        reverseTransitionDuration: Duration(milliseconds: 1000),
 
     );
   }

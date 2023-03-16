@@ -185,6 +185,24 @@ mixin _$AddSafeAreaPageViewModel on _AddSafeAreaPageViewModel, Store {
     });
   }
 
+  late final _$locationNamePrefilledAtom = Atom(
+      name: '_AddSafeAreaPageViewModel.locationNamePrefilled',
+      context: context);
+
+  @override
+  String get locationNamePrefilled {
+    _$locationNamePrefilledAtom.reportRead();
+    return super.locationNamePrefilled;
+  }
+
+  @override
+  set locationNamePrefilled(String value) {
+    _$locationNamePrefilledAtom.reportWrite(value, super.locationNamePrefilled,
+        () {
+      super.locationNamePrefilled = value;
+    });
+  }
+
   late final _$locationNameAtom =
       Atom(name: '_AddSafeAreaPageViewModel.locationName', context: context);
 
@@ -391,6 +409,7 @@ alertSelected: ${alertSelected},
 uploadingLoader: ${uploadingLoader},
 isLoader: ${isLoader},
 locationAddress: ${locationAddress},
+locationNamePrefilled: ${locationNamePrefilled},
 locationName: ${locationName},
 image: ${image},
 radius: ${radius},

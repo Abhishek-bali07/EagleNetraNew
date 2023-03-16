@@ -65,27 +65,30 @@ class _AccessManagementPageState extends State<AccessManagementPage> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    resizeToAvoidBottomInset: true,
-    drawerEnableOpenDragGesture: false,
-    appBar: AppBar(
-      centerTitle: true,
-      backgroundColor: AppColors.appBlack,
-      leading: IconButton(
-        onPressed: (){
-          _vm.backToPrevious();
-        },
-        icon: Icon(Icons.arrow_back),
+  return WillPopScope(
+    onWillPop: _vm.backToPrevious,
+    child: Scaffold(
+      resizeToAvoidBottomInset: true,
+      drawerEnableOpenDragGesture: false,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: AppColors.appBlack,
+        leading: IconButton(
+          onPressed: (){
+            _vm.backToPrevious();
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        title: Text("Access Management"),
       ),
-      title: Text("Access Management"),
-    ),
-    body: SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
 
-          Expanded(flex: 8, child: _lowerSideContent())
-        ],
+            Expanded(flex: 8, child: _lowerSideContent())
+          ],
+        ),
       ),
     ),
   );
