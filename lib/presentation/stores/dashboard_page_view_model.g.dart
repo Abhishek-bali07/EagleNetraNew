@@ -9,6 +9,38 @@ part of 'dashboard_page_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
+  late final _$seletedRAtom =
+      Atom(name: '_DashBoardPageViewModel.seletedR', context: context);
+
+  @override
+  KidsDetail? get seletedR {
+    _$seletedRAtom.reportRead();
+    return super.seletedR;
+  }
+
+  @override
+  set seletedR(KidsDetail? value) {
+    _$seletedRAtom.reportWrite(value, super.seletedR, () {
+      super.seletedR = value;
+    });
+  }
+
+  late final _$kCategoriesAtom =
+      Atom(name: '_DashBoardPageViewModel.kCategories', context: context);
+
+  @override
+  List<KidsDetail> get kCategories {
+    _$kCategoriesAtom.reportRead();
+    return super.kCategories;
+  }
+
+  @override
+  set kCategories(List<KidsDetail> value) {
+    _$kCategoriesAtom.reportWrite(value, super.kCategories, () {
+      super.kCategories = value;
+    });
+  }
+
   late final _$detailHistoryAtom =
       Atom(name: '_DashBoardPageViewModel.detailHistory', context: context);
 
@@ -38,6 +70,38 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
   set gettingLoader(bool value) {
     _$gettingLoaderAtom.reportWrite(value, super.gettingLoader, () {
       super.gettingLoader = value;
+    });
+  }
+
+  late final _$isListLoaderAtom =
+      Atom(name: '_DashBoardPageViewModel.isListLoader', context: context);
+
+  @override
+  bool get isListLoader {
+    _$isListLoaderAtom.reportRead();
+    return super.isListLoader;
+  }
+
+  @override
+  set isListLoader(bool value) {
+    _$isListLoaderAtom.reportWrite(value, super.isListLoader, () {
+      super.isListLoader = value;
+    });
+  }
+
+  late final _$selectedKidAtom =
+      Atom(name: '_DashBoardPageViewModel.selectedKid', context: context);
+
+  @override
+  KidsDetail? get selectedKid {
+    _$selectedKidAtom.reportRead();
+    return super.selectedKid;
+  }
+
+  @override
+  set selectedKid(KidsDetail? value) {
+    _$selectedKidAtom.reportWrite(value, super.selectedKid, () {
+      super.selectedKid = value;
     });
   }
 
@@ -346,6 +410,14 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
     return _$getDrawerDataAsyncAction.run(() => super.getDrawerData());
   }
 
+  late final _$getKidDetailsAsyncAction =
+      AsyncAction('_DashBoardPageViewModel.getKidDetails', context: context);
+
+  @override
+  Future getKidDetails(String querytxt) {
+    return _$getKidDetailsAsyncAction.run(() => super.getKidDetails(querytxt));
+  }
+
   late final _$initialDataAsyncAction =
       AsyncAction('_DashBoardPageViewModel.initialData', context: context);
 
@@ -382,6 +454,17 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
       ActionController(name: '_DashBoardPageViewModel', context: context);
 
   @override
+  dynamic onSelectKid(String value) {
+    final _$actionInfo = _$_DashBoardPageViewModelActionController.startAction(
+        name: '_DashBoardPageViewModel.onSelectKid');
+    try {
+      return super.onSelectKid(value);
+    } finally {
+      _$_DashBoardPageViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onRetry(AlertAction? action) {
     final _$actionInfo = _$_DashBoardPageViewModelActionController.startAction(
         name: '_DashBoardPageViewModel.onRetry');
@@ -393,10 +476,25 @@ mixin _$DashBoardPageViewModel on _DashBoardPageViewModel, Store {
   }
 
   @override
+  dynamic onItemClick(KidsDetail type) {
+    final _$actionInfo = _$_DashBoardPageViewModelActionController.startAction(
+        name: '_DashBoardPageViewModel.onItemClick');
+    try {
+      return super.onItemClick(type);
+    } finally {
+      _$_DashBoardPageViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+seletedR: ${seletedR},
+kCategories: ${kCategories},
 detailHistory: ${detailHistory},
 gettingLoader: ${gettingLoader},
+isListLoader: ${isListLoader},
+selectedKid: ${selectedKid},
 userName: ${userName},
 userEmail: ${userEmail},
 userImage: ${userImage},

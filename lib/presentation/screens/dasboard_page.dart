@@ -28,7 +28,9 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
+class _DashboardPageState extends State<DashboardPage>
+    with WidgetsBindingObserver {
+  late final ScrollController _scontroller;
   GoogleMapController? _controller;
   late final DashBoardPageViewModel _viewm;
   late final List<ReactionDisposer> _disposers;
@@ -55,16 +57,16 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         }
       }),
       reaction((p0) => _viewm.mainVM.dialogManager.currentState, (p0) {
-        if(p0 == DialogState.displaying){
+        if (p0 == DialogState.displaying) {
           _dialogController.show(_viewm.mainVM.dialogManager.data!, p0,
-          close: _viewm.dialogManager.closeDialog,
-          positive:  _viewm.mainVM.onAction);
+              close: _viewm.dialogManager.closeDialog,
+              positive: _viewm.mainVM.onAction);
         }
       }),
       reaction((p0) => _viewm.mainVM.currentLocation, (p0) {
         if (p0 != null) {
           _controller?.moveCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: LatLng(p0.latitude, p0.longitude), zoom: 15),
+            CameraPosition(target: LatLng(p0.latitude, p0.longitude), zoom: 8),
           ));
         }
       }),
@@ -74,13 +76,20 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               isScrollControlled: true,
               context: context,
               shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40.r),
-              topRight: Radius.circular(40.r))),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.r),
+                      topRight: Radius.circular(40.r))),
               builder: (context) => DeviceDetailsPage(parentViewModel: _viewm));
           _viewm.openBottomSheet();
         }
       }),
+      reaction((p0) => _viewm.seletedR, (p0) {
+        if (p0 != null) {
+          _controller?.animateCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: LatLng(p0.latLong.lat, p0.latLong.lng), zoom: 16)));
+        }
+      })
       // reaction((p0) => _viewm.dialogManager.currentState, (p0) {
       //   if (p0 == DialogState.displaying) {
       //     _dialogController.show(
@@ -95,16 +104,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     ];
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-
     debugPrint("$state");
     if (state == AppLifecycleState.resumed) {
       _viewm.mainVM.getCurrentLocation();
     }
   }
-
 
   @override
   void dispose() {
@@ -131,7 +137,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                 Scaffold.of(context).openDrawer();
               }
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               size: 40,
               color: AppColors.drawerPrimary,
@@ -145,7 +151,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
               size: 40,
               color: AppColors.drawerPrimary,
@@ -154,7 +160,68 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         ],
       ),
       body: SafeArea(
-        child: _lowerSideContent(),
+        child: Stack(children: [
+          _lowerSideContent(),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  padding: const EdgeInsets.only(top: 10.0, left: 1.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[300],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Material(
+                      color: Colors.grey[300],
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.search,
+                                size: 35.sp,
+                                color: Colors.grey,
+                              )),
+                          Expanded(
+                            child: TextField(
+                              // textAlign: TextAlign.center,
+                              decoration: const InputDecoration.collapsed(
+                                hintText: 'Search by name',
+                              ),
+                              onChanged: _viewm.onSelectKid,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+              Observer(
+                builder: (context) => _viewm.kCategories.isNotEmpty
+                    ? ListView.builder(
+                        //controller: _scontroller,
+                        itemCount: _viewm.kCategories.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => InkWell(
+                          child: Container(
+                              height: 0.05.sw,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.r),
+                              ),
+                              child: Text(_viewm.kCategories[index].name)),
+                          onTap: () {
+                            _viewm.onItemClick(_viewm.kCategories[index]);
+                          },
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              )
+            ],
+          )
+        ]),
       ),
       drawer: Drawer(
         child: ListView(
@@ -200,8 +267,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               leading: SvgPicture.asset(ImageAssets.mykids, height: 25.sp),
               title: const Text("My Kids"),
               onTap: () {
-                Navigator.popAndPushNamed(context,  Routes.kidPage);
-
+                Navigator.popAndPushNamed(context, Routes.kidPage);
               },
             ),
             ListTile(
@@ -245,8 +311,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ListTile(
                 leading: SvgPicture.asset(ImageAssets.logout, height: 25.sp),
                 title: const Text("Logout"),
-                onTap: _viewm.isTap ? null : _viewm.onLogout
-            ),
+                onTap: _viewm.isTap ? null : _viewm.onLogout),
           ],
         ),
       ),
@@ -260,7 +325,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         children: [
           Observer(builder: (BuildContext context) {
             return GoogleMap(
-
               key: ValueKey(_viewm.isVisible),
               initialCameraPosition: _viewm.initialCameraPosition(),
               zoomControlsEnabled: true,

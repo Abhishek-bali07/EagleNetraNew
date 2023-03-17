@@ -75,7 +75,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> {
                 GestureDetector(
                     onTap: () async{
                       Uri phoneno = Uri.parse("tel:${widget.parentViewModel.callingNumber}");
-                      if (await launchUrl(phoneno)) {
+                      if (await canLaunchUrl(phoneno)) {
                         launchUrl(phoneno);
                       }
                     } ,

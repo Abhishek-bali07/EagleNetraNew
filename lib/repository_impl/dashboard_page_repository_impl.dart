@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:eagle_netra/core/common/position.dart';
 import 'package:eagle_netra/core/common/response.dart';
 import 'package:eagle_netra/core/domain/response/device_data_response.dart';
+import 'package:eagle_netra/core/domain/response/kid_lacation_response.dart';
 
 import 'package:eagle_netra/core/domain/response/lat_long_response.dart';
 import 'package:eagle_netra/core/domain/response/short_profile_response.dart';
@@ -81,6 +82,20 @@ class DashboardPageUseCaseImpl extends DashboardPageRepository{
     //     name: "Vikash Singh", email: "vikash@v-xplore.com", mobile: "8885552222", profileImage: "")
     //
     // ));
+  }
+
+  @override
+  Future<Resource<KidLocationResponse>> fetchUserLocation(String userId, String querytxt) async {
+    return _dashBoardPageApi
+        .selectKidsName(userId, querytxt)
+        .handleResponse<KidLocationResponse>();
+    // await Future.delayed(const Duration(seconds: 2));
+    // return Success(
+    //     KidLocationResponse(status: true, message: "Success", kidsDetails:
+    //       List.generate(2, (index) => KidsDetail(
+    //           name: "name", smartCardId: "2", latLong: LatLong(lat: 22.5654, lng: 88.2365)))
+    //     )
+    // );
   }
 
 }

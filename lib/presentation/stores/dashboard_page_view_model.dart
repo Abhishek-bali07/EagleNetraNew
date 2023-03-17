@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:eagle_netra/core/common/lat_long.dart';
@@ -17,6 +18,7 @@ import '../../core/common/response.dart';
 import '../../core/common/user_account_status.dart';
 import '../../core/domain/response/fetch_adress_response.dart';
 import '../../core/domain/response/kid_details_response.dart';
+import '../../core/domain/response/kid_lacation_response.dart';
 import '../../core/domain/response/kid_short_info_response.dart';
 import '../../core/helpers/navigation_service.dart';
 import '../../core/helpers/string_provider.dart';
@@ -42,12 +44,24 @@ abstract class _DashBoardPageViewModel with Store {
   // ShortDetails? data;
 
   @observable
+  KidsDetail? seletedR;
+
+  @observable
+  List<KidsDetail> kCategories = [];
+
+  @observable
   List<ShortDetail> detailHistory = [];
 
   Marker? _marker;
 
   @observable
   bool gettingLoader = false;
+
+  @observable
+  bool isListLoader = false;
+
+  @observable
+  KidsDetail? selectedKid;
 
   @observable
   String userName = "";
@@ -106,9 +120,24 @@ abstract class _DashBoardPageViewModel with Store {
   _DashBoardPageViewModel() {
     mainVM.getCurrentLocation();
     getDrawerData();
-   initialData();
+    initialData();
   }
 
+  Timer? _timer;
+
+  @action
+  onSelectKid(String value) {
+    debugPrint("searching $value");
+    if (value.isNotEmpty) {
+      _timer?.cancel();
+      _timer = Timer(const Duration(milliseconds: 500), () async {
+        await getKidDetails(value);
+      });
+    } else {
+      kCategories = [];
+      _timer?.cancel();
+    }
+  }
 
   @action
   setupMarker(LatLong coordinate, String posId) async {
@@ -141,6 +170,49 @@ abstract class _DashBoardPageViewModel with Store {
         default:
       }
     } else if (response is Error) {}
+  }
+
+  @action
+  getKidDetails(String querytxt) async {
+    var userId = _appSettings.userId;
+    isListLoader = true;
+    var response =
+        await dashboard_page_use_case.fetchUserLocation(userId, querytxt);
+    if (response is Success) {
+      var data = response.data;
+      isListLoader = false;
+      switch (data != null && data.status) {
+        case true:
+          kCategories = data!.kidsDetails;
+          debugPrint("Result:$kCategories");
+          break;
+        default:
+          dialogManager.initErrorData(AlertData(
+              StringProvider.error,
+              null,
+              StringProvider.appId,
+              data?.message ?? "",
+              StringProvider.retry,
+              null,
+              null,
+              AlertBehaviour(
+                  option: AlertOption.invokeOnBarrier,
+                  action: AlertAction.kidDetailInfo)));
+      }
+    } else if (response is Error) {
+      isListLoader = false;
+      dialogManager.initErrorData(AlertData(
+          StringProvider.error,
+          null,
+          StringProvider.appId,
+          response.message ?? "",
+          StringProvider.retry,
+          null,
+          null,
+          AlertBehaviour(
+              option: AlertOption.invokeOnBarrier,
+              action: AlertAction.kidDetailInfo)));
+    }
   }
 
   @action
@@ -220,13 +292,17 @@ abstract class _DashBoardPageViewModel with Store {
   @action
   onRetry(AlertAction? action) {}
 
-   onSafeareaSection(ShortDetail arg){
+  onSafeareaSection(ShortDetail arg) {
     _navigator.navigateTo(Routes.safearea, arguments: arg);
   }
 
-
-  onSubscriptionSection(ShortDetail arg){
+  onSubscriptionSection(ShortDetail arg) {
     _navigator.navigateTo(Routes.subscription, arguments: arg);
+  }
+
+  @action
+  onItemClick(KidsDetail type) {
+    seletedR = type;
   }
 
   @action
@@ -236,36 +312,4 @@ abstract class _DashBoardPageViewModel with Store {
     await _navigator.navigateTo(Routes.mobileinput);
     isTap = false;
   }
-
-
-
-
-
-  // onLogout() {
-  //   dialogManager.initData(AlertData(
-  //       StringProvider.appName,
-  //       null,
-  //       StringProvider.appId,
-  //       StringProvider.areYouReallyWantToLogout,
-  //       StringProvider.Yes,
-  //       null,
-  //       null,
-  //       AlertBehaviour(option: AlertOption.none, action: AlertAction.logout)));
-  // }
-  //
-  // logout(AlertAction? action) {
-  //   if (action == AlertAction.logout) {
-  //     _appSettings.login(false);
-  //     _appSettings.saveUserId("");
-  //     _appSettings.setAccountStatus(UserAccountStatus.accountUnknown.status);
-  //     _navigator.popAndNavigateTo(Routes.splash);
-  //
-  //   }
-  // }
-  //
-  // closeLogoutDialog(AlertAction? action) {
-  //   if (action == AlertAction.logout) {
-  //     dialogManager.closeDialog();
-  //   }
-  // }
 }
