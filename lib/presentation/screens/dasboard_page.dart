@@ -166,13 +166,13 @@ class _DashboardPageState extends State<DashboardPage>
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                  padding: const EdgeInsets.only(top: 10.0, left: 1.0),
+                  padding: const EdgeInsets.only(top: 8.0, left: 1.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey[300],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Material(
                       color: Colors.grey[300],
                       child: Row(
@@ -205,13 +205,19 @@ class _DashboardPageState extends State<DashboardPage>
                         itemCount: _viewm.kCategories.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) => InkWell(
-                          child: Container(
-                              height: 0.05.sw,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                              ),
-                              child: Text(_viewm.kCategories[index].name)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Container(
+                                height: 0.06.sw,
+                                width: 0.03.sw,
+                                color: Colors.white70,
+                                alignment: Alignment.center,
+                                // decoration: const BoxDecoration(
+                                //   color: Colors.grey,
+                                //   borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                                // ),
+                                child: Text(_viewm.kCategories[index].name)),
+                          ),
                           onTap: () {
                             _viewm.onItemClick(_viewm.kCategories[index]);
                           },
